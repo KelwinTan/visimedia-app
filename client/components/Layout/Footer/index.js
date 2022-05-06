@@ -1,7 +1,7 @@
 import { Container, Divider, Grid, Row, Text } from "@nextui-org/react";
 import route from "constants/route";
 import Link from "next/link";
-import { footerItem, styFooterGrid } from "./style";
+import { footerItem, styFooter, styFooterGrid } from "./style";
 import EmailIcon from "components/Icon/EmailIcon";
 import color from "constants/color";
 import PhoneIcon from "components/Icon/PhoneIcon";
@@ -22,7 +22,7 @@ import TwitterIcon from "components/Icon/TwitterIcon";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className={styFooter}>
       <Container md>
         <Grid.Container gap={2} justify="space-between">
           <Grid xs={12} md={3}>

@@ -18,6 +18,7 @@ import HamburgerIcon from "components/Icon/HamburgerIcon";
 import { useUA } from "providers/user-agent";
 import NavBottom from "components/NavBottom";
 import Footer from "./Footer";
+import color from "constants/color";
 
 const Layout = ({ children }) => {
   const { isMobile, isDesktop } = useUA();
@@ -67,12 +68,20 @@ const Layout = ({ children }) => {
               <UserIcon />
               <div className={userContainer}>
                 <Link href={"/login"}>
-                  <Text weight="bold" css={{ marginLeft: 8 }} size={14}>
+                  <Text
+                    weight="bold"
+                    css={{ marginLeft: 8, color: color.gray }}
+                    size={14}
+                  >
                     Masuk
                   </Text>
                 </Link>
                 <Link href={"/register"}>
-                  <Text weight="bold" css={{ marginLeft: 8 }} size={14}>
+                  <Text
+                    weight="bold"
+                    css={{ marginLeft: 8, color: color.gray }}
+                    size={14}
+                  >
                     Daftar
                   </Text>
                 </Link>
