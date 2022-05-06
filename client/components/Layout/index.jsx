@@ -15,8 +15,13 @@ import UserIcon from "components/Icon/UserIcon";
 import Link from "next/link";
 import { hover } from "styles/globals";
 import HamburgerIcon from "components/Icon/HamburgerIcon";
+import { useUA } from "providers/user-agent";
+import NavBottom from "components/NavBottom";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
+  const { isMobile, isDesktop } = useUA();
+
   return (
     <>
       <Head>
@@ -25,22 +30,28 @@ const Layout = ({ children }) => {
 
       <nav className={styNav}>
         <Container
-          fluid
+          md
           display="flex"
           wrap="nowrap"
           alignItems="center"
-          css={{ padding: "5px 10px" }}
+          css={{ padding: 10 }}
         >
-          <HamburgerIcon />
+          {isDesktop && (
+            <div style={{ marginRight: 10 }}>
+              <HamburgerIcon />
+            </div>
+          )}
           <Link href="/">
-            <Image
-              src={LOGO}
-              alt="visimedia-logo"
-              width={130}
-              height={33}
-              className={hover}
-              objectFit="contain"
-            />
+            <a>
+              <Image
+                src={LOGO}
+                alt="visimedia-logo"
+                width={130}
+                height={33}
+                className={hover}
+                objectFit="contain"
+              />
+            </a>
           </Link>
           <Input
             className={inputNav}
@@ -51,27 +62,30 @@ const Layout = ({ children }) => {
             contentRight={<SearchIcon />}
           />
 
-          <div className={actionContainer}>
-            <UserIcon />
-            <div className={userContainer}>
-              <Link href={"/login"}>
-                <Text weight="bold" css={{ marginLeft: 4 }} size={14}>
-                  Masuk
-                </Text>
-              </Link>
-              <Link href={"/register"}>
-                <Text weight="bold" css={{ marginLeft: 4 }} size={14}>
-                  Daftar
-                </Text>
-              </Link>
+          {isDesktop && (
+            <div className={actionContainer}>
+              <UserIcon />
+              <div className={userContainer}>
+                <Link href={"/login"}>
+                  <Text weight="bold" css={{ marginLeft: 8 }} size={14}>
+                    Masuk
+                  </Text>
+                </Link>
+                <Link href={"/register"}>
+                  <Text weight="bold" css={{ marginLeft: 8 }} size={14}>
+                    Daftar
+                  </Text>
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </Container>
       </nav>
 
       <main className={styMain}>{children}</main>
 
-      <footer></footer>
+      <Footer />
+      {isMobile && <NavBottom />}
     </>
   );
 };

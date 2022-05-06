@@ -7,12 +7,12 @@ import globalCss from "styles/globals";
 import App from "next/app";
 import ContextProvider from "providers/ContextProvider";
 
-function MyApp({ Component, pageProps }) {
-  console.log("my app ", { pageProps });
+function MyApp({ Component, pageProps, userAgent }) {
+  const dataProps = { userAgent };
   return (
     <NextUIProvider>
       <Global styles={globalCss} />
-      <ContextProvider {...pageProps}>
+      <ContextProvider {...dataProps}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
@@ -23,7 +23,9 @@ function MyApp({ Component, pageProps }) {
 
 MyApp.getInitialProps = async (ctx) => {
   const initialProps = await App.getInitialProps(ctx);
-  const userAgent = ctx.ctx.req.headers["user-agent"];
+  let userAgent;
+  if (!!ctx.ctx.req) userAgent = ctx.ctx.req.headers["user-agent"];
+  else userAgent = navigator.userAgent;
   return { ...initialProps, userAgent };
 };
 

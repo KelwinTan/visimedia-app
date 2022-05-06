@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 import color from "constants/color";
 import { hover } from "styles/globals";
 import { number, string } from "prop-types";
@@ -9,12 +9,12 @@ const HamburgerIcon = ({ color, width, height }) => {
     <FontAwesomeIcon
       style={{ color, width, height }}
       className={hover}
-      icon={faBars}
+      icon={faHome}
     />
   );
 };
 
-HamburgerIcon.propTyps = {
+HamburgerIcon.propTypes = {
   color: string,
   width: number,
   height: number,

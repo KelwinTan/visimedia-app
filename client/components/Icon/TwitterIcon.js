@@ -1,29 +1,29 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import color from "constants/color";
 import { hover } from "styles/globals";
 import { number, string } from "prop-types";
 
-const HamburgerIcon = ({ color, width, height }) => {
+const TwitterIcon = ({ color, width, height }) => {
   return (
     <FontAwesomeIcon
       style={{ color, width, height }}
       className={hover}
-      icon={faBars}
+      icon={faTwitter}
     />
   );
 };
 
-HamburgerIcon.propTyps = {
+TwitterIcon.propTyps = {
   color: string,
   width: number,
   height: number,
 };
 
-HamburgerIcon.defaultProps = {
+TwitterIcon.defaultProps = {
   color: color.primary,
   width: 24,
   height: 24,
 };
 
-export default HamburgerIcon;
+export default TwitterIcon;

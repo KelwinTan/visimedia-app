@@ -1,13 +1,19 @@
-import { node } from "prop-types";
+import { node, string } from "prop-types";
 import UserAgentProvider from "./user-agent";
 
-const ContextProvider = ({ children, ...props }) => {
-  console.log({ props });
-  return <UserAgentProvider>{children}</UserAgentProvider>;
+const ContextProvider = ({ children, userAgent }) => {
+  return (
+    <UserAgentProvider userAgent={userAgent}>{children}</UserAgentProvider>
+  );
 };
 
 ContextProvider.propTypes = {
   children: node.isRequired,
+  userAgent: string,
+};
+
+ContextProvider.defaultProps = {
+  userAgent: "",
 };
 
 export default ContextProvider;

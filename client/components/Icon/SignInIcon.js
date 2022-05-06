@@ -1,29 +1,29 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faSignIn } from "@fortawesome/free-solid-svg-icons";
 import color from "constants/color";
 import { hover } from "styles/globals";
 import { number, string } from "prop-types";
 
-const HamburgerIcon = ({ color, width, height }) => {
+const SignInIcon = ({ color, width, height }) => {
   return (
     <FontAwesomeIcon
       style={{ color, width, height }}
       className={hover}
-      icon={faBars}
+      icon={faSignIn}
     />
   );
 };
 
-HamburgerIcon.propTyps = {
+SignInIcon.propTypes = {
   color: string,
   width: number,
   height: number,
 };
 
-HamburgerIcon.defaultProps = {
+SignInIcon.defaultProps = {
   color: color.primary,
   width: 24,
   height: 24,
 };
 
-export default HamburgerIcon;
+export default SignInIcon;

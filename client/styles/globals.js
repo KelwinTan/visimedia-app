@@ -32,3 +32,15 @@ export const hover = css`
     cursor: pointer;
   }
 `;
+
+export const dGrid = css`
+  display: grid;
+`;
+
+export const gridCol = (rep, size) => css`
+  grid-template-columns: repeat(${rep}, ${size});
+`;
+
+export const gap = (g) => css`
+  gap: ${g};
+`;
