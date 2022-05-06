@@ -19,16 +19,18 @@ const NavBottom = () => {
     <div className={styNavBottom}>
       <Container display="flex" justify="space-between">
         <Link exact href="/">
-          <div className={styNavBottomItem} onClick={() => setActive(0)}>
-            <HomeIcon
-              width={20}
-              height={20}
-              color={active === 0 ? colorItem.active : colorItem.default}
-            />
-            <Text color={active === 0 ? colorItem.active : colorItem.default}>
-              Home
-            </Text>
-          </div>
+          <a>
+            <div className={styNavBottomItem} onClick={() => setActive(0)}>
+              <HomeIcon
+                width={20}
+                height={20}
+                color={active === 0 ? colorItem.active : colorItem.default}
+              />
+              <Text color={active === 0 ? colorItem.active : colorItem.default}>
+                Home
+              </Text>
+            </div>
+          </a>
         </Link>
         <div className={styNavBottomItem} onClick={() => setActive(1)}>
           <HamburgerIcon
@@ -41,16 +43,18 @@ const NavBottom = () => {
           </Text>
         </div>
         <Link exact href="/login">
-          <div className={styNavBottomItem} onClick={() => setActive(2)}>
-            <SignInIcon
-              width={20}
-              height={20}
-              color={active === 2 ? colorItem.active : colorItem.default}
-            />
-            <Text color={active === 2 ? colorItem.active : colorItem.default}>
-              Masuk
-            </Text>
-          </div>
+          <a>
+            <div className={styNavBottomItem} onClick={() => setActive(2)}>
+              <SignInIcon
+                width={20}
+                height={20}
+                color={active === 2 ? colorItem.active : colorItem.default}
+              />
+              <Text color={active === 2 ? colorItem.active : colorItem.default}>
+                Masuk
+              </Text>
+            </div>
+          </a>
         </Link>
       </Container>
     </div>

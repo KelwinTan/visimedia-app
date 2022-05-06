@@ -32,27 +32,35 @@ const Footer = () => {
               </Text>
 
               <Link href={route.faq["how-to-buy"]}>
-                <Text className={"link"} size={14}>
-                  Cara berbelanja
-                </Text>
+                <a>
+                  <Text className={"link"} size={14}>
+                    Cara berbelanja
+                  </Text>
+                </a>
               </Link>
 
               <Link href={route.faq.payment}>
-                <Text className={"link"} size={14}>
-                  Cara Pembayaran
-                </Text>
+                <a>
+                  <Text className={"link"} size={14}>
+                    Cara Pembayaran
+                  </Text>
+                </a>
               </Link>
 
               <Link href={route.faq.delivery}>
-                <Text className={"link"} size={14}>
-                  Pengiriman
-                </Text>
+                <a>
+                  <Text className={"link"} size={14}>
+                    Pengiriman
+                  </Text>
+                </a>
               </Link>
 
               <Link href={route.faq["call-us"]}>
-                <Text className={"link"} size={14}>
-                  Hubungi Kami
-                </Text>
+                <a>
+                  <Text className={"link"} size={14}>
+                    Hubungi Kami
+                  </Text>
+                </a>
               </Link>
             </div>
           </Grid>

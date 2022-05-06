@@ -1,7 +1,7 @@
 import { Container, Text } from "@nextui-org/react";
 import Head from "next/head";
 
-export default function (props) {
+export default function Login() {
   return (
     <>
       <Head>

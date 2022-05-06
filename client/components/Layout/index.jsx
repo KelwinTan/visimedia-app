@@ -68,24 +68,28 @@ const Layout = ({ children }) => {
               <UserIcon />
               <div className={userContainer}>
                 <Link href={"/login"}>
-                  <Text
-                    weight="bold"
-                    css={{ marginLeft: 8, color: color.gray }}
-                    size={14}
-                    className={hover}
-                  >
-                    Masuk
-                  </Text>
+                  <a>
+                    <Text
+                      weight="bold"
+                      css={{ marginLeft: 8, color: color.gray }}
+                      size={14}
+                      className={hover}
+                    >
+                      Masuk
+                    </Text>
+                  </a>
                 </Link>
                 <Link href={"/register"}>
-                  <Text
-                    weight="bold"
-                    css={{ marginLeft: 8, color: color.gray }}
-                    size={14}
-                    className={hover}
-                  >
-                    Daftar
-                  </Text>
+                  <a>
+                    <Text
+                      weight="bold"
+                      css={{ marginLeft: 8, color: color.gray }}
+                      size={14}
+                      className={hover}
+                    >
+                      Daftar
+                    </Text>
+                  </a>
                 </Link>
               </div>
             </div>

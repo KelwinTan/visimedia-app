@@ -12,7 +12,7 @@ const style = {
     margin-right: 8px;
   `,
 };
-export default function () {
+export default function Delivery() {
   return (
     <Layout>
       <div>

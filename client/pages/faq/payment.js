@@ -1,6 +1,6 @@
 import Layout from "./layout";
 
-export default function () {
+export default function Payment() {
   return (
     <Layout>
       <ol>

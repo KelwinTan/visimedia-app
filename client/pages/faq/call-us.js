@@ -8,7 +8,7 @@ const style = {
   `,
 };
 
-export default function () {
+export default function CallUs() {
   return (
     <Layout>
       <Grid.Container>

@@ -25,6 +25,7 @@ export default function Home() {
           src="https://dummyimage.com/1080x370/058585/fff.png"
           layout={"fill"}
           objectFit="cover"
+          alt="banner"
         />
       </div>
     </div>
