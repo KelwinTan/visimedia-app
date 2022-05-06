@@ -72,6 +72,7 @@ const Layout = ({ children }) => {
                     weight="bold"
                     css={{ marginLeft: 8, color: color.gray }}
                     size={14}
+                    className={hover}
                   >
                     Masuk
                   </Text>
@@ -81,6 +82,7 @@ const Layout = ({ children }) => {
                     weight="bold"
                     css={{ marginLeft: 8, color: color.gray }}
                     size={14}
+                    className={hover}
                   >
                     Daftar
                   </Text>
@@ -91,9 +93,11 @@ const Layout = ({ children }) => {
         </Container>
       </nav>
 
-      <main className={styMain}>{children}</main>
+      <main className={styMain({ isMobile })}>
+        <section>{children}</section>
+        <Footer />
+      </main>
 
-      <Footer />
       {isMobile && <NavBottom />}
     </>
   );

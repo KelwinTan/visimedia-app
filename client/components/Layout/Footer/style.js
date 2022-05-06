@@ -21,4 +21,5 @@ export const styFooterGrid = css`
 export const styFooter = css`
   border-top: 6px solid ${color.primary};
   padding-top: 8px;
+  margin-top: 4rem;
 `;

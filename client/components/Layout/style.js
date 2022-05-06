@@ -31,7 +31,11 @@ export const userContainer = css`
   }
 `;
 
-export const styMain = css`
-  height: calc(100vh - 70px);
-  margin-top: 70px;
+export const styMain = ({ isMobile = false }) => css`
+  min-height: calc(100vh - 70px);
+  margin-top: 66px;
+  ${isMobile &&
+  css`
+    padding-bottom: 65px;
+  `}
 `;

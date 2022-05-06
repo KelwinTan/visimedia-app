@@ -2,6 +2,7 @@
 const nextConfig = {
   swcMinify: true,
 
+  images: { domains: ["dummyimage.com"] },
   compiler: {
     styledComponents: true,
     removeConsole: {

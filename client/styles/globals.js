@@ -44,3 +44,7 @@ export const gridCol = (rep, size) => css`
 export const gap = (g) => css`
   gap: ${g};
 `;
+
+export const mTop = (top) => css`
+  margin-top: ${top};
+`;

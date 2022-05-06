@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 
 export const styNavBottom = css`
-  position: sticky;
+  position: fixed;
   bottom: 0;
   width: 100%;
   padding-top: 8px;

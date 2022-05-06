@@ -1,10 +1,14 @@
-import { Container, Divider, Grid, Text } from "@nextui-org/react";
+import { Container, Divider, Grid, Row, Text } from "@nextui-org/react";
 import route from "constants/route";
+import { useMediaQuery } from "hooks/useMediaQuery";
 import Head from "next/head";
 import Link from "next/link";
+import { node } from "prop-types";
 import { container, styFAQList } from "./style";
 
-export default function (props) {
+export default function Layout({ children }) {
+  const isMd = useMediaQuery(960);
+  console.log({ isMd });
   return (
     <>
       <Head>
@@ -14,12 +18,12 @@ export default function (props) {
           content="FAQ - Visimedia Supplies – Digital Printing Supplies"
         />
       </Head>
-      <Container className={container}>
+      <Container md className={container}>
         <Text h2 css={{ textAlign: "center" }}>
           Frequently Asked Questions
         </Text>
 
-        <Grid.Container>
+        <Grid.Container css={{ marginTop: "3rem" }}>
           <Grid>
             <div className={styFAQList}>
               <Text weight={"bold"} css={{ marginBottom: 8 }}>
@@ -54,8 +58,16 @@ export default function (props) {
               </Link>
             </div>
           </Grid>
+
+          <Grid md={9} css={{ paddingLeft: "2rem" }}>
+            <div>{children}</div>
+          </Grid>
         </Grid.Container>
       </Container>
     </>
   );
 }
+
+Layout.propTypes = {
+  children: node.isRequired,
+};
