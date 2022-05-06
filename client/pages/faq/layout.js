@@ -4,7 +4,7 @@ import { useMediaQuery } from "hooks/useMediaQuery";
 import Head from "next/head";
 import Link from "next/link";
 import { node } from "prop-types";
-import { container, styFAQList } from "./style";
+import { container, styFAQList } from "styles/faq";
 
 export default function Layout({ children }) {
   const isMd = useMediaQuery(960);
