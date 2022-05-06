@@ -15,7 +15,7 @@ const colorItem = {
 
 const NavBottom = () => {
   const [active, setActive] = useState(0);
-  const { toggleVisible } = useDropdown();
+  const { setVisible, toggleVisible } = useDropdown();
 
   return (
     <div className={styNavBottom}>
@@ -26,7 +26,7 @@ const NavBottom = () => {
               className={styNavBottomItem}
               onClick={() => {
                 setActive(0);
-                toggleVisible();
+                setVisible(false);
               }}
             >
               <HomeIcon
@@ -62,7 +62,7 @@ const NavBottom = () => {
               className={styNavBottomItem}
               onClick={() => {
                 setActive(2);
-                toggleVisible();
+                setVisible(false);
               }}
             >
               <SignInIcon
