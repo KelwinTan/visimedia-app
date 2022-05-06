@@ -13,12 +13,16 @@ import { Input, Container, Text } from "@nextui-org/react";
 import SearchIcon from "components/Icon/SearchIcon";
 import UserIcon from "components/Icon/UserIcon";
 import Link from "next/link";
-import { hover } from "styles/globals";
+import { hover, noneSelected } from "styles/globals";
 import HamburgerIcon from "components/Icon/HamburgerIcon";
 import { useUA } from "providers/user-agent";
 import NavBottom from "components/NavBottom";
 import Footer from "./Footer";
 import color from "constants/color";
+import Dropdown from "components/Dropdown";
+import DropdownItem from "components/Dropdown/DropdownItem";
+import { cx } from "@emotion/css";
+import Aside from "components/Aside";
 
 const Layout = ({ children }) => {
   const { isMobile, isDesktop } = useUA();
@@ -39,7 +43,72 @@ const Layout = ({ children }) => {
         >
           {isDesktop && (
             <div style={{ marginRight: 10 }}>
-              <HamburgerIcon />
+              <Dropdown
+                header={<HamburgerIcon />}
+                content={
+                  <>
+                    <DropdownItem>
+                      <Text color={color.primary} h4>
+                        Produk
+                      </Text>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link href="/">
+                        <a>
+                          <Text weight={"semibold"}>Flexi Frontlite</Text>
+                        </a>
+                      </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link href="/">
+                        <a>
+                          <Text weight={"semibold"}>Flexi Backlite</Text>
+                        </a>
+                      </Link>
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      <Link href="/">
+                        <a>
+                          <Text weight={"semibold"}>Media Indoor</Text>
+                        </a>
+                      </Link>
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      <Link href="/">
+                        <a>
+                          <Text weight={"semibold"}>Stickers</Text>
+                        </a>
+                      </Link>
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      <Link href="/">
+                        <a>
+                          <Text weight={"semibold"}>Laminating</Text>
+                        </a>
+                      </Link>
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      <Link href="/">
+                        <a>
+                          <Text weight={"semibold"}>Display</Text>
+                        </a>
+                      </Link>
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      <Link href="/">
+                        <a>
+                          <Text weight={"semibold"}>Ink & Accessories</Text>
+                        </a>
+                      </Link>
+                    </DropdownItem>
+                  </>
+                }
+              />
             </div>
           )}
           <Link href="/">
@@ -49,7 +118,7 @@ const Layout = ({ children }) => {
                 alt="visimedia-logo"
                 width={130}
                 height={33}
-                className={hover}
+                className={cx(hover, noneSelected)}
                 objectFit="contain"
               />
             </a>
@@ -102,6 +171,7 @@ const Layout = ({ children }) => {
         <Footer />
       </main>
 
+      {isMobile && <Aside />}
       {isMobile && <NavBottom />}
     </>
   );

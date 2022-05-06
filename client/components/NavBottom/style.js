@@ -8,6 +8,7 @@ export const styNavBottom = css`
   padding-bottom: 8px;
   border-top: 1px solid #ccc;
   background-color: white;
+  z-index: 20;
 `;
 
 export const styNavBottomItem = css`

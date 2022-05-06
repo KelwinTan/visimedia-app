@@ -19,6 +19,7 @@ import MastercardIcon from "components/Icon/MastercardIcon";
 import FacebookIcon from "components/Icon/FacebookIcon";
 import InstagramIcon from "components/Icon/InstagramIcon";
 import TwitterIcon from "components/Icon/TwitterIcon";
+import AddressIcon from "components/Icon/AddressIcon";
 
 const Footer = () => {
   return (
@@ -31,18 +32,10 @@ const Footer = () => {
                 Bantuan
               </Text>
 
-              <Link href={route.faq["how-to-buy"]}>
-                <a>
-                  <Text className={"link"} size={14}>
-                    Cara berbelanja
-                  </Text>
-                </a>
-              </Link>
-
               <Link href={route.faq.payment}>
                 <a>
                   <Text className={"link"} size={14}>
-                    Cara Pembayaran
+                    Pembayaran
                   </Text>
                 </a>
               </Link>
@@ -51,6 +44,14 @@ const Footer = () => {
                 <a>
                   <Text className={"link"} size={14}>
                     Pengiriman
+                  </Text>
+                </a>
+              </Link>
+
+              <Link href={route.faq.terms}>
+                <a>
+                  <Text className={"link"} size={14}>
+                    Syarat dan Kententuan
                   </Text>
                 </a>
               </Link>
@@ -81,7 +82,7 @@ const Footer = () => {
               <Row align="center">
                 <PhoneIcon width={16} height={16} color={color.black} />
                 <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
-                  visimediasupplier@gmail.com
+                  021-29676248
                 </Text>
               </Row>
             </div>
@@ -93,19 +94,11 @@ const Footer = () => {
                 Tentang Kami
               </Text>
 
-              <Row align="center">
-                <EmailIcon width={16} height={16} color={color.black} />
-                <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
-                  visimediasupplier@gmail.com
-                </Text>
-              </Row>
-
-              <Row align="center">
-                <PhoneIcon width={16} height={16} color={color.black} />
-                <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
-                  visimediasupplier@gmail.com
-                </Text>
-              </Row>
+              <Link href={route.faq["call-us"]}>
+                <a>
+                  <Text>Tentang Kami</Text>
+                </a>
+              </Link>
             </div>
           </Grid>
         </Grid.Container>

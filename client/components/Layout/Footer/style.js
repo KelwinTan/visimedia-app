@@ -9,6 +9,7 @@ export const footerItem = css`
   .link {
     ${hover};
     margin: 0.3rem 0;
+    word-break: break-word;
   }
 `;
 

@@ -48,3 +48,7 @@ export const gap = (g) => css`
 export const mTop = (top) => css`
   margin-top: ${top};
 `;
+
+export const noneSelected = css`
+  use-select: none;
+`;

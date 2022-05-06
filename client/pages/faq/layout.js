@@ -37,16 +37,16 @@ export default function Layout({ children }) {
                 </a>
               </Link>
 
-              <Link href={route.faq["how-to-buy"]}>
+              <Link href={route.faq.delivery}>
                 <a>
-                  <Text className="link">Cara Berbelanja</Text>
+                  <Text className="link">Pengiriman</Text>
                   <Divider />
                 </a>
               </Link>
 
-              <Link href={route.faq.delivery}>
+              <Link href={route.faq.terms}>
                 <a>
-                  <Text className="link">Pengiriman</Text>
+                  <Text className="link">Syarat dan Ketentuan</Text>
                   <Divider />
                 </a>
               </Link>

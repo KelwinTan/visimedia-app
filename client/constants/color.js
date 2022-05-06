@@ -7,6 +7,7 @@ const color = {
   //instagram base color
   ig: "#85232c",
   twitter: "#0c6dfd",
+  white: "#ffff",
 };
 
 export default color;

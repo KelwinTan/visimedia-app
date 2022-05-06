@@ -1,14 +1,12 @@
+const devConfig = require("./next.dev");
+const prodConfig = require("./next.prod");
+
+const config = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
-
+  ...config,
   images: { domains: ["dummyimage.com"] },
-  compiler: {
-    styledComponents: true,
-    removeConsole: {
-      exclude: ["error"],
-    },
-  },
 };
 
 module.exports = nextConfig;
