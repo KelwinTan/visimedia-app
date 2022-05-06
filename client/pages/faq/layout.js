@@ -8,7 +8,7 @@ import { container, styFAQList } from "styles/faq";
 
 export default function Layout({ children }) {
   const isMd = useMediaQuery(960);
-  console.log({ isMd });
+
   return (
     <>
       <Head>
@@ -24,8 +24,11 @@ export default function Layout({ children }) {
         </Text>
 
         <Grid.Container css={{ marginTop: "3rem" }}>
-          <Grid>
-            <div className={styFAQList}>
+          <Grid xs={12} md={2}>
+            <div
+              className={styFAQList}
+              style={isMd ? { width: "100%", marginBottom: 14 } : {}}
+            >
               <Text weight={"bold"} css={{ marginBottom: 8 }}>
                 Frequently Asked Questions
               </Text>
@@ -59,7 +62,7 @@ export default function Layout({ children }) {
             </div>
           </Grid>
 
-          <Grid md={9} css={{ paddingLeft: "2rem" }}>
+          <Grid xs={12} md={9} css={{ paddingLeft: isMd ? 0 : "2rem" }}>
             <div>{children}</div>
           </Grid>
         </Grid.Container>
