@@ -12,7 +12,7 @@ export default forwardRef(function DropdownMenu({ children }, ref) {
   return (
     <Portal>
       <div
-        style={{ top: y + 70, left: x }}
+        style={{ top: y, left: x }}
         className={styDropdownMenu({ visible })}
         ref={ref}
       >

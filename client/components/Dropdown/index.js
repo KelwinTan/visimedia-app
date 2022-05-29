@@ -11,12 +11,7 @@ export default function Dropdown({ header, content }) {
     (event) => {
       const refs = [headerRef.current, contentRef.current];
       const isIn = refs.find((r) => r?.contains?.(event.target));
-      console.log({ headerRef, contentRef, isIn, target: event.target });
-      if (!!isIn) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
+      setVisible(!!isIn);
     },
     [headerRef, contentRef]
   );

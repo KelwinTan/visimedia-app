@@ -2,7 +2,7 @@ import Layout from "components/Layout";
 import { NextUIProvider } from "@nextui-org/react";
 
 import { Global } from "@emotion/react";
-import { globalCss } from "styles/globals";
+import { styGlobal as globalCss } from "styles/globals";
 
 import App from "next/app";
 import ContextProvider from "providers/ContextProvider";

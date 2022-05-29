@@ -12,14 +12,14 @@ export const styDropdownMenu = ({ visible = false }) => css`
 
   position: fixed;
   opacity: ${visible ? 1 : 0};
-  visibility: hidden;
-
-  transition: all 0.3s ease;
-  ${visible &&
-  css`
-    transform: scale3d(1, 1, 0) translateY(-70px);
-  `}
+  visibility: ${visible ? "visible" : "hidden"};
 `;
+
+// transition: all 0.3s ease;
+//   ${visible &&
+//   css`
+//     transform: scale3d(1, 1, 0) translateY(-70px);
+//   `}
 
 export const styDropdownItem = css`
   padding: 0.5rem;
