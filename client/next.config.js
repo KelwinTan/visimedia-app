@@ -7,6 +7,7 @@ const config = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
 const nextConfig = {
   ...config,
   images: { domains: ["dummyimage.com"] },
+  env: {},
 };
 
 module.exports = nextConfig;
