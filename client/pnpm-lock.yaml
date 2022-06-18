@@ -10,10 +10,12 @@ specifiers:
   '@nextui-org/react': ^1.0.0-beta.6
   eslint: 8.13.0
   eslint-config-next: 12.1.5
+  final-form: ^4.20.7
   next: 12.1.5
   prop-types: ^15.8.1
   react: 18.0.0
   react-dom: 18.0.0
+  react-final-form: ^6.5.9
 
 dependencies:
   '@emotion/css': 11.9.0
@@ -23,10 +25,12 @@ dependencies:
   '@fortawesome/free-solid-svg-icons': 6.1.1
   '@fortawesome/react-fontawesome': 0.1.18_02c9bb727bd1fb5f0c396f6c2f700a1d
   '@nextui-org/react': 1.0.0-beta.6_react-dom@18.0.0+react@18.0.0
+  final-form: 4.20.7
   next: 12.1.5_react-dom@18.0.0+react@18.0.0
   prop-types: 15.8.1
   react: 18.0.0
   react-dom: 18.0.0_react@18.0.0
+  react-final-form: 6.5.9_final-form@4.20.7+react@18.0.0
 
 devDependencies:
   eslint: 8.13.0
@@ -1787,6 +1791,12 @@ packages:
       to-regex-range: 5.0.1
     dev: true
 
+  /final-form/4.20.7:
+    resolution: {integrity: sha512-ii3X9wNfyBYFnDPunYN5jh1/HAvtOZ9aJI/TVk0MB86hZuOeYkb+W5L3icgwW9WWNztZR6MDU3En6eoZTUoFPg==}
+    dependencies:
+      '@babel/runtime': 7.17.9
+    dev: false
+
   /find-root/1.1.0:
     resolution: {integrity: sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==}
     dev: false
@@ -2428,6 +2438,17 @@ packages:
       loose-envify: 1.4.0
       react: 18.0.0
       scheduler: 0.21.0
+    dev: false
+
+  /react-final-form/6.5.9_final-form@4.20.7+react@18.0.0:
+    resolution: {integrity: sha512-x3XYvozolECp3nIjly+4QqxdjSSWfcnpGEL5K8OBT6xmGrq5kBqbA6+/tOqoom9NwqIPPbxPNsOViFlbKgowbA==}
+    peerDependencies:
+      final-form: ^4.20.4
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.17.9
+      final-form: 4.20.7
+      react: 18.0.0
     dev: false
 
   /react-is/16.13.1:

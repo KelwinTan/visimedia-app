@@ -19,7 +19,6 @@ import MastercardIcon from "components/Icon/MastercardIcon";
 import FacebookIcon from "components/Icon/FacebookIcon";
 import InstagramIcon from "components/Icon/InstagramIcon";
 import TwitterIcon from "components/Icon/TwitterIcon";
-import AddressIcon from "components/Icon/AddressIcon";
 
 const Footer = () => {
   return (
