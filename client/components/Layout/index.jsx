@@ -119,7 +119,7 @@ const Layout = ({ children }) => {
                 width={130}
                 height={33}
                 className={cx(hover, noneSelected)}
-                objectFit="contain"
+                objectFit="cover"
               />
             </a>
           </Link>

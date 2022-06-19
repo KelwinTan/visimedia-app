@@ -1,4 +1,4 @@
-import LOGO from "./visimedia-logo.webp";
+import LOGO from "./visimedia-logo-dark.webp";
 import SEARCH from "./search.svg";
 import ANTER_AJA from "./anteraja.svg";
 import GOJEK from "./gojek.svg";

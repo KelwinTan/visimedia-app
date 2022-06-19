@@ -34,14 +34,12 @@ export default function CallUs() {
           <div className={style.info}>
             <Text h4>Direct Line</Text>
             <div>
-              <Text>0813-1844-5541 : Lady</Text>
-              <Text>08121-1020-0808 : Injil</Text>
-              <Text>0812-1801-0828: Admin 1</Text>
-              <Text>0812-1801-1828 : Admin 2</Text>
-              <Text>0812-9329-5356 : Irma</Text>
-              <Text>0821-8877-7505 : Paul</Text>
-              <Text>0812-2819-2008 : Vanny</Text>
-              <Text>0813-1999-0076 : Rusli</Text>
+              <Text>0812 1801 1828 Lady</Text>
+              <Text>0821-1020-0808 Injil</Text>
+              <Text>0812 2819 2008 Vanny</Text>
+              <Text>0855 1997 505 Paul</Text>
+              <Text>0813 19990076 Rusli</Text>
+              <Text>0812 93295356 Rika</Text>
             </div>
           </div>
         </Grid>
