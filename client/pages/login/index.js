@@ -1,25 +1,64 @@
-import { Container, Text } from "@nextui-org/react";
+import {
+  Container,
+  Text,
+  Card,
+  Button,
+  Loading,
+  Spacer,
+} from "@nextui-org/react";
 import Head from "next/head";
-import { Card } from "@nextui-org/react";
 
-import { Input } from "@nextui-org/react";
 import { css } from "@emotion/css";
-import { Button } from "@nextui-org/react";
 import color from "constants/color";
-import { Form, Field } from "react-final-form";
+import { Form } from "react-final-form";
+import useAuth from "hooks/useAuth";
+import { FORM_ERROR } from "final-form";
+import authConstant from "constants/auth";
+import { useRouter } from "next/router";
+import Input from "components/Form/Input";
+import { object, string } from "yup";
+import getValidatorFromSchema from "shared/form/getValidator";
+import transformError from "shared/error/transformError";
+import useToaster from "hooks/useToaster";
 
 const styles = {
-  input: css`
-    margin: 16px 0;
-  `,
   submit: css`
     border-radius: 0;
     background-color: ${color.primary};
   `,
 };
 
+const schema = object().shape({
+  email: string()
+    .email("Invalid Email")
+    .required("The email field is required."),
+  password: string().required("The password field is required."),
+});
+
 export default function Login() {
-  const onSubmit = (values) => {};
+  const { login, loading } = useAuth();
+  const { error: errorToaster } = useToaster();
+  const router = useRouter();
+
+  const onSubmit = async (values) => {
+    try {
+      const response = await login(values);
+      const token = response?.access_token;
+      localStorage.setItem(authConstant.TOKEN, token);
+      router.push("/");
+    } catch (error) {
+      const errorFields = error?.response?.data?.errors;
+
+      if (errorFields) {
+        return transformError(errorFields);
+      }
+
+      const _err = error?.response?.data?.error;
+      if (_err) {
+        errorToaster(_err);
+      }
+    }
+  };
 
   return (
     <>
@@ -36,49 +75,22 @@ export default function Login() {
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <Card css={{ mw: 500, margin: "auto" }}>
-                <Card.Body>
+                <Card.Body css={{ padding: "$9" }}>
                   <Text css={{ marginBottom: 24, fontWeight: "bold" }}>
                     Masuk ke akun Visimedia anda
                   </Text>
-                  <Field
+                  <Input
                     name="email"
-                    render={({ input, meta }) => (
-                      <Input
-                        {...input}
-                        className={styles.input}
-                        shadow={false}
-                        clearable
-                        type="email"
-                        placeholder="Email Address"
-                        color={meta.touched && meta.error ? "error" : "default"}
-                        helperColor={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                        status={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                      />
-                    )}
+                    type="email"
+                    placeholder="Email Address"
+                    validate={getValidatorFromSchema("email", schema)}
                   />
-                  <Field
+                  <Spacer y={1} />
+                  <Input
                     name="password"
-                    render={({ input, meta }) => (
-                      <Input.Password
-                        {...input}
-                        shadow={false}
-                        className={styles.input}
-                        clearable
-                        placeholder="Password"
-                        type="password"
-                        color={meta.touched && meta.error ? "error" : "default"}
-                        helperColor={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                        status={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                      />
-                    )}
+                    type="password"
+                    placeholder="Password"
+                    validate={getValidatorFromSchema("password", schema)}
                   />
                 </Card.Body>
                 <Button
@@ -86,6 +98,7 @@ export default function Login() {
                   animated={false}
                   className={styles.submit}
                 >
+                  {loading && <Loading color="currentColor" size="sm" />}
                   Login
                 </Button>
               </Card>

@@ -6,6 +6,7 @@ import { styGlobal as globalCss } from "styles/globals";
 
 import App from "next/app";
 import ContextProvider from "providers/ContextProvider";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps, userAgent }) {
   const dataProps = { userAgent };
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps, userAgent }) {
       <ContextProvider {...dataProps}>
         <Layout>
           <Component {...pageProps} />
+          <Toaster toastOptions={{ duration: 2000 }} position="top-right" />
         </Layout>
       </ContextProvider>
     </NextUIProvider>

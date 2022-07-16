@@ -1,21 +1,56 @@
 import { css } from "@emotion/css";
-import { Button, Card, Container, Input, Text } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  Container,
+  Loading,
+  Spacer,
+  Text,
+} from "@nextui-org/react";
 import color from "constants/color";
+import useAuth from "hooks/useAuth";
 import Head from "next/head";
-import { Form, Field } from "react-final-form";
+import { Form } from "react-final-form";
+import transformError from "shared/error/transformError";
+import Input from "components/Form/Input";
+import { object } from "yup";
+import { string } from "yup";
+import getValidatorFromSchema from "shared/form/getValidator";
+import { useRouter } from "next/router";
 
 const styles = {
-  input: css`
-    margin: 16px 0;
-  `,
   submit: css`
     border-radius: 0;
     background-color: ${color.primary};
   `,
 };
 
+const schema = object().shape({
+  name: string().required("The name field is required."),
+  email: string()
+    .email("Invalid Email")
+    .required("The email field is required."),
+  password: string().required("The password field is required."),
+  password_confirmation: string().required(
+    "The password confirmation field is required."
+  ),
+});
+
 export default function Register() {
-  const onSubmit = () => {};
+  const { register, loading } = useAuth();
+  const router = useRouter();
+
+  const onSubmit = async (values) => {
+    try {
+      await register(values);
+      router.push("/login");
+    } catch (error) {
+      const _err = error?.response?.data?.errors;
+      if (_err) {
+        return transformError(_err);
+      }
+    }
+  };
 
   return (
     <>
@@ -32,91 +67,39 @@ export default function Register() {
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <Card css={{ mw: 500, margin: "auto" }}>
-                <Card.Body>
+                <Card.Body css={{ padding: "$9" }}>
                   <Text css={{ marginBottom: 24, fontWeight: "bold" }}>
                     Buat akun Visimedia
                   </Text>
-                  <Field
+                  <Input
                     name="name"
-                    render={({ input, meta }) => (
-                      <Input
-                        {...input}
-                        className={styles.input}
-                        shadow={false}
-                        clearable
-                        type="text"
-                        placeholder="Name"
-                        color={meta.touched && meta.error ? "error" : "default"}
-                        helperColor={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                        status={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                      />
-                    )}
+                    placeholder="Name"
+                    validate={getValidatorFromSchema("name", schema)}
                   />
+                  <Spacer y={1} />
 
-                  <Field
+                  <Input
                     name="email"
-                    render={({ input, meta }) => (
-                      <Input
-                        {...input}
-                        className={styles.input}
-                        shadow={false}
-                        clearable
-                        type="email"
-                        placeholder="Email Address"
-                        color={meta.touched && meta.error ? "error" : "default"}
-                        helperColor={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                        status={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                      />
-                    )}
+                    placeholder="Email Address"
+                    validate={getValidatorFromSchema("email", schema)}
                   />
+                  <Spacer y={1} />
 
-                  <Field
-                    name="phone"
-                    render={({ input, meta }) => (
-                      <Input
-                        {...input}
-                        className={styles.input}
-                        shadow={false}
-                        clearable
-                        type="tel"
-                        placeholder="Phone"
-                        color={meta.touched && meta.error ? "error" : "default"}
-                        helperColor={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                        status={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                      />
-                    )}
-                  />
-
-                  <Field
+                  <Input
+                    type="password"
                     name="password"
-                    render={({ input, meta }) => (
-                      <Input.Password
-                        {...input}
-                        shadow={false}
-                        className={styles.input}
-                        clearable
-                        placeholder="Password"
-                        type="password"
-                        color={meta.touched && meta.error ? "error" : "default"}
-                        helperColor={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                        status={
-                          meta.touched && meta.error ? "error" : "default"
-                        }
-                      />
+                    placeholder="Password"
+                    validate={getValidatorFromSchema("password", schema)}
+                  />
+                  <Spacer y={1} />
+
+                  <Input
+                    type="password"
+                    name="password_confirmation"
+                    placeholder="Password Confirmation"
+                    validate={getValidatorFromSchema(
+                      "password_confirmation",
+                      schema
                     )}
                   />
                 </Card.Body>
@@ -125,6 +108,7 @@ export default function Register() {
                   animated={false}
                   className={styles.submit}
                 >
+                  {loading && <Loading color="currentColor" size="sm" />}
                   Register
                 </Button>
               </Card>

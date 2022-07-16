@@ -7,7 +7,9 @@ const config = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
 const nextConfig = {
   ...config,
   images: { domains: ["dummyimage.com"] },
-  env: {},
+  env: {
+    API_URL: "http://api.visimediasupplies.id/api",
+  },
 };
 
 module.exports = nextConfig;
