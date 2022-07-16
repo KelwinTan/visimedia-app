@@ -9,7 +9,7 @@ import {
 import { LOGO } from "assets/image";
 import Image from "next/image";
 import Head from "next/head";
-import { Input, Container, Text } from "@nextui-org/react";
+import { Input, Container, Text, Dropdown } from "@nextui-org/react";
 import SearchIcon from "components/Icon/SearchIcon";
 import UserIcon from "components/Icon/UserIcon";
 import Link from "next/link";
@@ -19,8 +19,6 @@ import { useUA } from "providers/user-agent";
 import NavBottom from "components/NavBottom";
 import Footer from "./Footer";
 import color from "constants/color";
-import Dropdown from "components/Dropdown";
-import DropdownItem from "components/Dropdown/DropdownItem";
 import { cx } from "@emotion/css";
 import Aside from "components/Aside";
 
@@ -42,73 +40,68 @@ const Layout = ({ children }) => {
           css={{ padding: 10 }}
         >
           {isDesktop && (
-            <div style={{ marginRight: 10 }}>
-              <Dropdown
-                header={<HamburgerIcon />}
-                content={
-                  <>
-                    <DropdownItem>
-                      <Text color={color.primary} h4>
-                        Produk
-                      </Text>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link href="/">
-                        <a>
-                          <Text weight={"semibold"}>Flexi Frontlite</Text>
-                        </a>
-                      </Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link href="/">
-                        <a>
-                          <Text weight={"semibold"}>Flexi Backlite</Text>
-                        </a>
-                      </Link>
-                    </DropdownItem>
+            <div>
+              <Dropdown>
+                <Dropdown.Button light size="sm">
+                  <HamburgerIcon />
+                </Dropdown.Button>
+                <Dropdown.Menu>
+                  <Dropdown.Item>
+                    <Link href="/">
+                      <a>
+                        <Text weight={"semibold"}>Flexi Frontlite</Text>
+                      </a>
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link href="/">
+                      <a>
+                        <Text weight={"semibold"}>Flexi Backlite</Text>
+                      </a>
+                    </Link>
+                  </Dropdown.Item>
 
-                    <DropdownItem>
-                      <Link href="/">
-                        <a>
-                          <Text weight={"semibold"}>Media Indoor</Text>
-                        </a>
-                      </Link>
-                    </DropdownItem>
+                  <Dropdown.Item>
+                    <Link href="/">
+                      <a>
+                        <Text weight={"semibold"}>Media Indoor</Text>
+                      </a>
+                    </Link>
+                  </Dropdown.Item>
 
-                    <DropdownItem>
-                      <Link href="/">
-                        <a>
-                          <Text weight={"semibold"}>Stickers</Text>
-                        </a>
-                      </Link>
-                    </DropdownItem>
+                  <Dropdown.Item>
+                    <Link href="/">
+                      <a>
+                        <Text weight={"semibold"}>Stickers</Text>
+                      </a>
+                    </Link>
+                  </Dropdown.Item>
 
-                    <DropdownItem>
-                      <Link href="/">
-                        <a>
-                          <Text weight={"semibold"}>Laminating</Text>
-                        </a>
-                      </Link>
-                    </DropdownItem>
+                  <Dropdown.Item>
+                    <Link href="/">
+                      <a>
+                        <Text weight={"semibold"}>Laminating</Text>
+                      </a>
+                    </Link>
+                  </Dropdown.Item>
 
-                    <DropdownItem>
-                      <Link href="/">
-                        <a>
-                          <Text weight={"semibold"}>Display</Text>
-                        </a>
-                      </Link>
-                    </DropdownItem>
+                  <Dropdown.Item>
+                    <Link href="/">
+                      <a>
+                        <Text weight={"semibold"}>Display</Text>
+                      </a>
+                    </Link>
+                  </Dropdown.Item>
 
-                    <DropdownItem>
-                      <Link href="/">
-                        <a>
-                          <Text weight={"semibold"}>Ink & Accessories</Text>
-                        </a>
-                      </Link>
-                    </DropdownItem>
-                  </>
-                }
-              />
+                  <Dropdown.Item>
+                    <Link href="/">
+                      <a>
+                        <Text weight={"semibold"}>Ink & Accessories</Text>
+                      </a>
+                    </Link>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           )}
           <Link href="/">
