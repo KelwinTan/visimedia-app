@@ -1,4 +1,5 @@
 import { css } from "@emotion/css";
+import COLORS from "../../shared/colors";
 
 export const styLogo = css`
   width: 130px;
@@ -18,7 +19,7 @@ export const styLayout = css`
   height: 100%;
 
   .header {
-    background-color: #3b3b3b;
+    background-color: ${COLORS.primary};
     display: flex;
 
     .menu {
