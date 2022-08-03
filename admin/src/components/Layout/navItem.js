@@ -2,7 +2,12 @@ import { UserOutlined } from "@ant-design/icons";
 
 const navItems = [
   {
-    label: "Navigation One",
+    label: "Role",
+    icon: UserOutlined,
+  },
+
+  {
+    label: "Banner",
     icon: UserOutlined,
   },
 ];

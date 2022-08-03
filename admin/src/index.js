@@ -1,14 +1,29 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/auth/login/lazy";
+import ContextProvider from "./context";
+import PrivateRoute from "./components/PrivateRoute";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <App />
+    <ContextProvider>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="*"
+          element={
+            <PrivateRoute>
+              <App />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </ContextProvider>
   </BrowserRouter>
 );
 

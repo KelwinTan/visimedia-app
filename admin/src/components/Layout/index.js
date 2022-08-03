@@ -1,67 +1,89 @@
-import { Layout, Menu, Dropdown } from "antd";
-import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Layout, Menu, Dropdown, Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 import { node } from "prop-types";
 import { VISIMEDIA_LOGO } from "../../assets/image";
-import { styLayout, styLogo } from "./style";
+import {
+  styAuthLabel,
+  styContent,
+  styHeader,
+  styLayout,
+  styLogo,
+  styLogoImage,
+  styMenu,
+  styNavItem,
+  stySider,
+  stySiteLayoutBg,
+} from "./style";
 import navItems from "./navItem";
+import { cx } from "@emotion/css";
+import { useAuth } from "../../context/auth-context";
 
 const { Header, Content, Sider } = Layout;
 
-const Index = ({ children }) => (
-  <Layout className={styLayout}>
-    <Header className="header">
-      <div className={styLogo}>
-        <img className={"image"} src={VISIMEDIA_LOGO} alt="visimedia logo" />
-      </div>
-      <div className={"menu"}>
-        <Dropdown
-          overlay={
-            <Menu>
-              <Menu.Item key="mail" icon={<LogoutOutlined />}>
-                Logout
-              </Menu.Item>
-            </Menu>
-          }
-        >
-          <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-            <UserOutlined />
-            <span style={{ marginLeft: 8 }}>user_name</span>
-          </a>
-        </Dropdown>
-      </div>
-    </Header>
-    <Layout>
-      <Sider width={200} className="site-layout-background">
-        <Menu mode="inline">
-          {navItems.map((item, idx) => (
-            <Menu.Item key={idx} icon={<item.icon />}>
-              {item.label}
-            </Menu.Item>
-          ))}
-        </Menu>
-      </Sider>
-      <Layout
-        style={{
-          padding: 24,
-        }}
-      >
-        <Content
-          className="site-layout-background"
+const _Layout = ({ children }) => {
+  const { logout } = useAuth();
+
+  return (
+    <Layout className={styLayout}>
+      <Header className={styHeader}>
+        <div className={styLogo}>
+          <img
+            className={styLogoImage}
+            src={VISIMEDIA_LOGO}
+            alt="visimedia logo"
+          />
+        </div>
+        <div className={styMenu}>
+          <Dropdown
+            arrow
+            overlay={
+              <Menu style={{ padding: "8px 0" }}>
+                <Menu.Item key="mail" style={{ padding: 10 }} onClick={logout}>
+                  Logout
+                </Menu.Item>
+              </Menu>
+            }
+            placement="bottomRight"
+          >
+            <a onClick={(e) => e.preventDefault()}>
+              <Avatar icon={<UserOutlined />} />
+              <span className={styAuthLabel}>Guest</span>
+            </a>
+          </Dropdown>
+        </div>
+      </Header>
+
+      <Layout>
+        <Sider width={200} className={cx(stySiteLayoutBg, stySider)}>
+          <Menu
+            mode="inline"
+            items={navItems.map((item, idx) => {
+              const Icon = item.icon;
+              return {
+                key: idx,
+                icon: <Icon />,
+                label: item.label,
+                className: styNavItem,
+              };
+            })}
+          />
+        </Sider>
+        <Layout
           style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
+            padding: "32px 56px 56px",
           }}
         >
-          {children}
-        </Content>
+          <Content className={cx(stySiteLayoutBg, styContent)}>
+            {children}
+          </Content>
+        </Layout>
       </Layout>
     </Layout>
-  </Layout>
-);
+  );
+};
 
-Index.defualtProps = {
+_Layout.defualtProps = {
   children: node,
 };
 
-export default Index;
+export default _Layout;
