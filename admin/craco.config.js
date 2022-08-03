@@ -1,4 +1,5 @@
 const CracoLessPlugin = require("craco-less");
+const COLORS = require("./src/shared/colors");
 
 module.exports = {
   plugins: [
@@ -7,10 +8,12 @@ module.exports = {
       options: {
         lessLoaderOptions: {
           lessOptions: {
+            /**
+             * this section to override color in antd design
+             * https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+             */
             modifyVars: {
-              "@primary-color": "#1DA57A",
-              "@link-color": "#1DA57A",
-              "@border-radius-base": "2px",
+              "@menu-item-active-bg": COLORS.primary,
             },
             javascriptEnabled: true,
           },

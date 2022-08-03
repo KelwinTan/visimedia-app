@@ -5,42 +5,63 @@ export const styLogo = css`
   width: 130px;
 
   .image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-
-    &:hover {
-      cursor: pointer;
-    }
   }
+`;
+
+export const styLogoImage = css`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const styHeader = css`
+  background-color: ${COLORS.white};
+  display: flex;
+  padding-left: 10px;
+`;
+
+export const styAuthLabel = css`
+  margin-left: 8px;
+  color: rgba(49, 53, 59, 0.68);
+  font-weight: 800;
+`;
+
+export const styMenu = css`
+  margin-left: auto;
+  background-color: transparent;
+  color: rgba(49, 53, 59, 0.68);
 `;
 
 export const styLayout = css`
   height: 100%;
+`;
 
-  .header {
-    background-color: ${COLORS.primary};
-    display: flex;
+export const stySiteLayoutBg = css`
+  background: #fff;
+`;
 
-    .menu {
-      margin-left: auto;
-      background-color: transparent;
+export const styContent = css({
+  padding: 24,
+  margin: 0,
+  minHeight: 280,
+});
+export const stySider = css`
+  border-top: 1px solid #f2f2f2;
+  padding-top: 15px;
+`;
+
+export const styNavItem = css`
+  font-weight: bold;
+
+  &.ant-menu-item-selected {
+    color: ${COLORS.light};
+
+    &.ant-menu-item::after {
+      border-right-color: ${COLORS.secondary};
     }
-  }
-  #components-layout-demo-top-side-2 .logo {
-    float: left;
-    width: 120px;
-    height: 31px;
-    margin: 16px 24px 16px 0;
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .ant-row-rtl #components-layout-demo-top-side-2 .logo {
-    float: right;
-    margin: 16px 0 16px 24px;
-  }
-
-  .site-layout-background {
-    background: #fff;
   }
 `;

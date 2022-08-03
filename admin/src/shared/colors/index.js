@@ -1,8 +1,9 @@
 const COLORS = {
-  primary: "#2C3333",
-  secondary: "#395B64",
+  primary: "#9EB23B",
+  secondary: "#C7D36F",
   secondary_2: "#A5C9CA",
-  light: "#E7F6F2",
+  light: "#FCF9C6",
+  white: "#FFFF",
 };
 
-export default COLORS;
+module.exports = COLORS;
