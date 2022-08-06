@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
-import { useAuth } from "../context/auth-context";
-import _axios from "../_axios";
+import { useAuth } from "../../context/auth-context";
+import _axios from "../../_axios";
 
 export default function useBanner() {
   const { token } = useAuth();
@@ -57,10 +57,25 @@ export default function useBanner() {
     }
   }, []);
 
+  const update = useCallback(async ({ id, name, image }) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("image", image);
+    try {
+      const { data } = await _axios.post("/banners/" + id, formData, {
+        headers: baseHeader,
+      });
+      return data;
+    } catch (error) {
+      return {};
+    }
+  }, []);
+
   return {
     getAll,
     create,
     getDetail,
     remove,
+    update,
   };
 }

@@ -12,10 +12,7 @@ function Login() {
     login(values)
       .then(() => {
         const u = new URLSearchParams(location.search);
-        let redirectURL = "/";
-        if (u.get("ld")) {
-          redirectURL = u.get("ld");
-        }
+        const redirectURL = u.get("ld") || "/";
         navigate({ pathname: redirectURL });
       })
       .catch((err) => {
