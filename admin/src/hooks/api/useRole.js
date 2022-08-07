@@ -19,7 +19,6 @@ export default function useRole() {
     try {
       const { data } = await _axios.get("/roles", { headers: baseHeader });
       setRoles(data.roles || []);
-      return data.roles || [];
     } catch (error) {
       return [];
     } finally {
@@ -37,7 +36,6 @@ export default function useRole() {
           { headers: baseHeader }
         );
         setRoles((r) => [...r, data.role]);
-        return data.role;
       } catch (error) {
         throw error;
       } finally {
