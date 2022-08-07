@@ -17,13 +17,15 @@ import {
 import navItems, { navItemsPath } from "./navItem";
 import { cx } from "@emotion/css";
 import { useAuth } from "../../context/auth-context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const { Header, Content, Sider } = Layout;
 
 const _Layout = ({ children }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const activeIndex = navItemsPath.findIndex((d) => d === location.pathname);
 
   return (
     <Layout className={styLayout}>
@@ -39,11 +41,17 @@ const _Layout = ({ children }) => {
           <Dropdown
             arrow
             overlay={
-              <Menu style={{ padding: "8px 0" }}>
-                <Menu.Item key="mail" style={{ padding: 10 }} onClick={logout}>
-                  Logout
-                </Menu.Item>
-              </Menu>
+              <Menu
+                style={{ padding: "8px 0" }}
+                items={[
+                  {
+                    label: "Logout",
+                    onClick: logout,
+                    style: { padding: 10 },
+                    key: "email",
+                  },
+                ]}
+              />
             }
             placement="bottomRight"
           >
@@ -59,6 +67,7 @@ const _Layout = ({ children }) => {
         <Sider width={200} className={cx(stySiteLayoutBg, stySider)}>
           <Menu
             mode="inline"
+            defaultSelectedKeys={[String(activeIndex)]}
             onClick={({ key }) => navigate(navItemsPath[key])}
             items={navItems.map((item, idx) => {
               const Icon = item.icon;
