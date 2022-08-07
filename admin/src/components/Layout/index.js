@@ -73,7 +73,7 @@ const _Layout = ({ children }) => {
         </Sider>
         <Layout
           style={{
-            padding: "32px 56px 56px",
+            padding: 32,
           }}
         >
           <Content className={cx(stySiteLayoutBg, styContent)}>

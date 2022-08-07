@@ -31,7 +31,7 @@ export default function BannerForm({ id }) {
         console.log({ data });
       });
     }
-  }, [id]);
+  }, [getDetail, id]);
 
   return (
     <Form
@@ -56,8 +56,8 @@ export default function BannerForm({ id }) {
         <Input type={"file"} onChange={(e) => setImage(e.target.files[0])} />
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+      <Form.Item>
+        <Button style={{ width: "100%" }} type="primary" htmlType="submit">
           Submit
         </Button>
       </Form.Item>
