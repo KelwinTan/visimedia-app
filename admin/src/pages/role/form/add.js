@@ -2,7 +2,7 @@ import { Button, Form, Input } from "antd";
 import { useEffect, useState } from "react";
 import useBanner from "../../../hooks/api/useBanner";
 
-export default function BannerForm({ id }) {
+export default function RoleForm({ id }) {
   const { create, update, getDetail } = useBanner();
   const [detail, setDetail] = useState({});
   const [image, setImage] = useState(null);

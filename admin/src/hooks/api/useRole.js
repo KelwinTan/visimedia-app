@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
-import { useAuth } from "../context/auth-context";
-import _axios from "../_axios";
+import { useAuth } from "../../context/auth-context";
+import _axios from "../../_axios";
 
 export default function useRole() {
   const { token } = useAuth();
@@ -12,7 +12,7 @@ export default function useRole() {
     [token]
   );
 
-  const get = useCallback(async () => {
+  const getAll = useCallback(async () => {
     try {
       const { data } = await _axios.get("/roles", { headers: baseHeader });
       return data;
@@ -22,6 +22,6 @@ export default function useRole() {
   }, []);
 
   return {
-    get,
+    getAll: getAll,
   };
 }

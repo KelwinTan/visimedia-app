@@ -14,14 +14,16 @@ import {
   stySider,
   stySiteLayoutBg,
 } from "./style";
-import navItems from "./navItem";
+import navItems, { navItemsPath } from "./navItem";
 import { cx } from "@emotion/css";
 import { useAuth } from "../../context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 const { Header, Content, Sider } = Layout;
 
 const _Layout = ({ children }) => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <Layout className={styLayout}>
@@ -57,6 +59,7 @@ const _Layout = ({ children }) => {
         <Sider width={200} className={cx(stySiteLayoutBg, stySider)}>
           <Menu
             mode="inline"
+            onClick={({ key }) => navigate(navItemsPath[key])}
             items={navItems.map((item, idx) => {
               const Icon = item.icon;
               return {
