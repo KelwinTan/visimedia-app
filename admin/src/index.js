@@ -17,9 +17,9 @@ root.render(
         <Route
           path="*"
           element={
-            <PrivateRoute>
-              <App />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <App />
+            // </PrivateRoute>
           }
         />
       </Routes>

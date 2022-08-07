@@ -13,3 +13,5 @@ const navItems = [
 ];
 
 export default navItems;
+
+export const navItemsPath = ["/role", "/banner"];

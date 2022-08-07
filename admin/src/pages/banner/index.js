@@ -1,5 +1,6 @@
 import { Modal } from "antd";
 import { useCallback, useState } from "react";
+import LayoutContent from "../../components/Layout/Content";
 import BannerForm from "./form/add";
 import BannerTable from "./table";
 
@@ -22,7 +23,21 @@ function Banner() {
       >
         <BannerForm id={selectedId} />
       </Modal>
-      <BannerTable onUpdate={onUpdate} />
+
+      <LayoutContent
+        title="Banner"
+        actions={[
+          {
+            text: "Add Banner",
+            type: "primary",
+            onClick: () => {
+              console.log("aslkdas");
+            },
+          },
+        ]}
+      >
+        <BannerTable onUpdate={onUpdate} />
+      </LayoutContent>
     </>
   );
 }

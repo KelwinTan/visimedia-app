@@ -34,7 +34,7 @@ export default function BannerTable({ onUpdate }) {
         title: "Action",
         key: "action",
         render: (_, record) => (
-          <Space size="middle">
+          <Space size="middle" direction="vertical">
             <Button onClick={() => onUpdate(record.id)}>Update</Button>
             <Popconfirm
               title="Are you sure to delete this data?"
@@ -42,7 +42,9 @@ export default function BannerTable({ onUpdate }) {
               okText="Yes"
               cancelText="No"
             >
-              <a href="#">Delete</a>
+              <a href="#">
+                <Button>Delete</Button>
+              </a>
             </Popconfirm>
           </Space>
         ),

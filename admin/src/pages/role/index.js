@@ -1,36 +1,9 @@
-import { Button, Modal, Space, Table } from "antd";
+import { Modal } from "antd";
 import { useEffect, useState } from "react";
+import LayoutContent from "../../components/Layout/Content";
 import useRole from "../../hooks/api/useRole";
 import BannerForm from "./form/add";
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <Button>Detail</Button>
-        <Button>Delete</Button>
-        <Button>Update</Button>
-      </Space>
-    ),
-  },
-];
+import RoleTable from "./table";
 
 function Role() {
   const [showModal, setShowModal] = useState(false);
@@ -45,31 +18,27 @@ function Role() {
   return (
     <>
       <Modal
-        title="Banner Detail"
+        title="Role Detail"
         visible={showModal}
         onCancel={() => setShowModal(false)}
         footer={null}
       >
         <BannerForm id={selectedId} />
       </Modal>
-      <Table
-        dataSource={[
+      <LayoutContent
+        title="Role"
+        actions={[
           {
-            key: "1",
-            name: "Mike",
-            age: 32,
-            address: "10 Downing Street",
-          },
-          {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
+            text: "Add Role",
+            type: "primary",
+            onClick: () => {
+              console.log("aslkdas");
+            },
           },
         ]}
-        columns={columns}
-      />
-      ;
+      >
+        <RoleTable />
+      </LayoutContent>
     </>
   );
 }
