@@ -54,7 +54,7 @@ export default function AuthProvider({ children }) {
     });
     removeCookie(COOKIES.TOKEN);
     removeCookie(COOKIES.AUTH);
-  }, [token]);
+  }, [removeCookie, token]);
 
   return (
     <AuthContext.Provider
