@@ -9,12 +9,11 @@ import {
 import { LOGO } from "assets/image";
 import Image from "next/image";
 import Head from "next/head";
-import { Input, Container, Text, Dropdown, User } from "@nextui-org/react";
+import { Input, Container, Text, User } from "@nextui-org/react";
 import SearchIcon from "components/Icon/SearchIcon";
 import UserIcon from "components/Icon/UserIcon";
 import Link from "next/link";
 import { hover, noneSelected } from "styles/globals";
-import HamburgerIcon from "components/Icon/HamburgerIcon";
 import { useUA } from "providers/user-agent";
 import NavBottom from "components/NavBottom";
 import Footer from "./Footer";
@@ -22,6 +21,7 @@ import color from "constants/color";
 import { cx } from "@emotion/css";
 import Aside from "components/Aside";
 import { useAuth } from "providers/auth";
+import MenuDesktop from "./Menu/MenuDesktop";
 
 const Layout = ({ children }) => {
   const { isMobile, isDesktop } = useUA();
@@ -41,71 +41,7 @@ const Layout = ({ children }) => {
           alignItems="center"
           css={{ padding: 10 }}
         >
-          {isDesktop && (
-            <div>
-              <Dropdown>
-                <Dropdown.Button light size="sm">
-                  <HamburgerIcon />
-                </Dropdown.Button>
-                <Dropdown.Menu>
-                  <Dropdown.Item>
-                    <Link href="/">
-                      <a>
-                        <Text weight={"semibold"}>Flexi Frontlite</Text>
-                      </a>
-                    </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
-                    <Link href="/">
-                      <a>
-                        <Text weight={"semibold"}>Flexi Backlite</Text>
-                      </a>
-                    </Link>
-                  </Dropdown.Item>
-
-                  <Dropdown.Item>
-                    <Link href="/">
-                      <a>
-                        <Text weight={"semibold"}>Media Indoor</Text>
-                      </a>
-                    </Link>
-                  </Dropdown.Item>
-
-                  <Dropdown.Item>
-                    <Link href="/">
-                      <a>
-                        <Text weight={"semibold"}>Stickers</Text>
-                      </a>
-                    </Link>
-                  </Dropdown.Item>
-
-                  <Dropdown.Item>
-                    <Link href="/">
-                      <a>
-                        <Text weight={"semibold"}>Laminating</Text>
-                      </a>
-                    </Link>
-                  </Dropdown.Item>
-
-                  <Dropdown.Item>
-                    <Link href="/">
-                      <a>
-                        <Text weight={"semibold"}>Display</Text>
-                      </a>
-                    </Link>
-                  </Dropdown.Item>
-
-                  <Dropdown.Item>
-                    <Link href="/">
-                      <a>
-                        <Text weight={"semibold"}>Ink & Accessories</Text>
-                      </a>
-                    </Link>
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          )}
+          {isDesktop && <MenuDesktop />}
           <Link href="/">
             <a>
               <Image
