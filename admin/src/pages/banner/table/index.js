@@ -1,12 +1,12 @@
-import { Button, Popconfirm, Space, Table } from "antd";
-import { useEffect, useMemo } from "react";
-import useBanner from "../../../hooks/api/useBanner";
+import { Button, Image, Popconfirm, Space, Table } from "antd";
+import { useEffect, useMemo, useState } from "react";
+import { useBanner } from "../../../context/banner-context";
 
 export default function BannerTable({ onUpdate }) {
-  const { getAll, remove } = useBanner();
+  const { getAll, remove, banners } = useBanner();
 
   useEffect(() => {
-    getAll().then((data) => console.log({ data }));
+    getAll();
   }, [getAll]);
 
   const onDelete = async (id) => {
@@ -21,14 +21,14 @@ export default function BannerTable({ onUpdate }) {
         key: "name",
       },
       {
-        title: "Age",
-        dataIndex: "age",
-        key: "age",
-      },
-      {
-        title: "Address",
-        dataIndex: "address",
-        key: "address",
+        title: "Image",
+        dataIndex: "public_image_path",
+        key: "public_image_path",
+        render: (value) => {
+          return (
+            <Image width={200} src={process.env.REACT_APP_IMAGE_URL + value} />
+          );
+        },
       },
       {
         title: "Action",
@@ -56,20 +56,7 @@ export default function BannerTable({ onUpdate }) {
   return (
     <>
       <Table
-        dataSource={[
-          {
-            key: "1",
-            name: "Mike",
-            age: 32,
-            address: "10 Downing Street",
-          },
-          {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-          },
-        ]}
+        dataSource={banners.map((data, idx) => ({ ...data, key: idx }))}
         columns={columns}
       />
     </>

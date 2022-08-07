@@ -1,28 +1,25 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import useRole from "../../../hooks/api/useRole";
 
-export default function RoleForm({ id }) {
-  const { loading } = useRole();
+export default function RoleForm({ onClose }) {
+  const { loading, create } = useRole();
 
-  const onAdd = async ({ name }) => {};
-
-  const onUpdate = async ({ name }) => {};
-
-  const onFinish = ({ name }) => {
-    if (id) {
-      onUpdate({ name });
-    } else {
-      onAdd({ name });
+  const onAdd = async ({ name }) => {
+    try {
+      await create({ name });
+      message.success("Success create a new role");
+      onClose();
+    } catch (error) {
+      message.error("Error: " + error);
     }
   };
 
+  const onFinish = ({ name }) => {
+    onAdd({ name });
+  };
+
   return (
-    <Form
-      name="basic"
-      initialValues={{}}
-      onFinish={onFinish}
-      autoComplete="off"
-    >
+    <Form name="basic" onFinish={onFinish} autoComplete="off">
       <Form.Item
         label="Name"
         name="name"

@@ -11,21 +11,31 @@ function Banner() {
   const onUpdate = useCallback(
     (id) => {
       setSelectedId(id);
-      showModal(true);
+      setShowModal(true);
     },
     [showModal]
   );
 
+  const onClose = useCallback(() => {
+    setSelectedId(null);
+    setShowModal(false);
+  }, []);
+
   return (
     <>
-      <Modal
-        title="Banner Detail"
-        visible={showModal}
-        onCancel={() => setShowModal(false)}
-        footer={null}
-      >
-        <BannerForm id={selectedId} />
-      </Modal>
+      {showModal && (
+        <Modal
+          title={selectedId ? "Banner Detail" : "Add Banner"}
+          visible={true}
+          onCancel={() => {
+            setSelectedId(null);
+            setShowModal(false);
+          }}
+          footer={null}
+        >
+          <BannerForm id={selectedId} onClose={onClose} />
+        </Modal>
+      )}
 
       <LayoutContent
         title="Banner"
