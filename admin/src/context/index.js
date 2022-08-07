@@ -1,11 +1,14 @@
 import { node } from "prop-types";
 import { CookiesProvider } from "react-cookie";
 import AuthProvider from "./auth-context";
+import BannerProvider from "./banner-context";
 
 export default function ContextProvider({ children }) {
   return (
     <CookiesProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <BannerProvider>{children}</BannerProvider>
+      </AuthProvider>
     </CookiesProvider>
   );
 }

@@ -1,10 +1,20 @@
-import { useCallback, useMemo, useState } from "react";
-import { useAuth } from "../../context/auth-context";
-import _axios from "../../_axios";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import { useAuth } from "../context/auth-context";
+import _axios from "../_axios";
+import { node } from "prop-types";
 
-export default function useBanner() {
+const BannerContext = createContext(undefined);
+
+export default function BannerProvider({ children }) {
   const { token } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [banners, setBanners] = useState([]);
 
   const baseHeader = useMemo(
     () => ({
@@ -17,7 +27,7 @@ export default function useBanner() {
     setLoading(true);
     try {
       const { data } = await _axios.get("/banners", { headers: baseHeader });
-      return data.banners;
+      setBanners(data.banners);
     } catch (error) {
       return [];
     } finally {
@@ -51,9 +61,13 @@ export default function useBanner() {
         const { data } = await _axios.delete("/banners/" + id, {
           headers: baseHeader,
         });
-        return data.message === "Banner successfully deleted";
+        setBanners((b) => {
+          const delIdx = b.findIndex((d) => d.id === id);
+          return [...b.slice(0, delIdx), ...b.slice(delIdx + 1)];
+        });
+        return data;
       } catch (error) {
-        return [];
+        throw error;
       } finally {
         setLoading(false);
       }
@@ -72,9 +86,10 @@ export default function useBanner() {
         const { data } = await _axios.post("/banners", formData, {
           headers: baseHeader,
         });
+        setBanners((b) => [...b, data.banner]);
         return data;
       } catch (error) {
-        return {};
+        throw error;
       } finally {
         setLoading(false);
       }
@@ -90,12 +105,22 @@ export default function useBanner() {
       formData.append("name", name);
       formData.append("image", image);
       try {
-        const { data } = await _axios.post("/banners/" + id, formData, {
-          headers: baseHeader,
+        const { data } = await _axios.post(
+          "/banners/" + id + "/update",
+          formData,
+          {
+            headers: baseHeader,
+          }
+        );
+        setBanners((b) => {
+          const newData = [...b];
+          const updateIdx = newData.findIndex((d) => d.id === id);
+          newData[updateIdx] = data.banner;
+          return newData;
         });
         return data;
       } catch (error) {
-        return {};
+        throw error;
       } finally {
         setLoading(false);
       }
@@ -103,12 +128,31 @@ export default function useBanner() {
     [baseHeader]
   );
 
-  return {
-    loading,
-    getAll,
-    create,
-    getDetail,
-    remove,
-    update,
-  };
+  return (
+    <BannerContext.Provider
+      value={{
+        loading,
+        create,
+        getAll,
+        getDetail,
+        remove,
+        update,
+        banners,
+      }}
+    >
+      {children}
+    </BannerContext.Provider>
+  );
+}
+
+BannerProvider.defaultProps = {
+  children: node.isRequired,
+};
+
+export function useBanner() {
+  const context = useContext(BannerContext);
+  if (context === undefined) {
+    throw new Error("useBanner must be under BannerProvider");
+  }
+  return context;
 }

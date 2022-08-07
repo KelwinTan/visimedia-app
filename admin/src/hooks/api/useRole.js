@@ -4,6 +4,7 @@ import _axios from "../../_axios";
 
 export default function useRole() {
   const { token } = useAuth();
+  const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const baseHeader = useMemo(
@@ -17,7 +18,8 @@ export default function useRole() {
     setLoading(true);
     try {
       const { data } = await _axios.get("/roles", { headers: baseHeader });
-      return data;
+      setRoles(data.roles || []);
+      return data.roles || [];
     } catch (error) {
       return [];
     } finally {
@@ -25,8 +27,49 @@ export default function useRole() {
     }
   }, [baseHeader]);
 
+  const create = useCallback(
+    async ({ name }) => {
+      setLoading(true);
+      try {
+        const { data } = await _axios.post(
+          "/roles",
+          { name },
+          { headers: baseHeader }
+        );
+        setRoles((r) => [...r, data.role]);
+        return data.role;
+      } catch (error) {
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
+  const remove = useCallback(
+    async ({ id }) => {
+      setLoading(true);
+      try {
+        const { data } = await _axios.delete("/roles/" + id, {
+          headers: baseHeader,
+        });
+        console.log({ data });
+        return true;
+      } catch (error) {
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
   return {
     loading,
-    getAll: getAll,
+    getAll,
+    create,
+    roles,
+    remove,
   };
 }
