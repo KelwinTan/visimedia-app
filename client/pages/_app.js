@@ -1,15 +1,17 @@
-import Layout from "components/Layout";
-import { NextUIProvider } from "@nextui-org/react";
-
-import { Global } from "@emotion/react";
-import { styGlobal as globalCss } from "styles/globals";
-
 import App from "next/app";
-import ContextProvider from "providers/ContextProvider";
 import { Toaster } from "react-hot-toast";
+import { Global } from "@emotion/react";
+import { NextUIProvider } from "@nextui-org/react";
+import { getCookie } from "cookies-next";
 
-function MyApp({ Component, pageProps, userAgent }) {
-  const dataProps = { userAgent };
+import Layout from "components/Layout";
+import { styGlobal as globalCss } from "styles/globals";
+import ContextProvider from "providers/ContextProvider";
+import authConstant from "constants/auth";
+
+function MyApp({ Component, pageProps, userAgent, isAuth }) {
+  const dataProps = { userAgent, isAuth };
+
   return (
     <NextUIProvider>
       <Global styles={globalCss} />
@@ -25,10 +27,19 @@ function MyApp({ Component, pageProps, userAgent }) {
 
 MyApp.getInitialProps = async (ctx) => {
   const initialProps = await App.getInitialProps(ctx);
+  const req = ctx.ctx.req;
+  const res = ctx.ctx.res;
+
   let userAgent;
-  if (!!ctx.ctx.req) userAgent = ctx.ctx.req.headers["user-agent"];
-  else userAgent = navigator.userAgent;
-  return { ...initialProps, userAgent };
+  if (!!req) {
+    userAgent = req.headers["user-agent"];
+  } else {
+    userAgent = navigator.userAgent;
+  }
+
+  const isAuth = !!getCookie(authConstant.TOKEN, { req, res });
+
+  return { ...initialProps, userAgent, isAuth };
 };
 
 export default MyApp;

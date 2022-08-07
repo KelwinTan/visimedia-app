@@ -1,13 +1,19 @@
+import { createContext, useContext } from "react";
+import { bool, node } from "prop-types";
+
 import { useCallback, useState } from "react";
 import ClientError from "shared/error/transformError";
 import axios from "shared/axios";
-import authConstant from "constants/auth";
-import { canUseDOM } from "utils/dom";
 
-export default function useAuth() {
-  const [isAuth, setIsAuth] = useState(() =>
-    canUseDOM() ? !!localStorage.getItem(authConstant.TOKEN) : false
-  );
+const AuthContext = createContext({
+  isAuth: false,
+  login: async () => {},
+  register: async () => {},
+  loading: false,
+});
+
+const AuthProvider = ({ children, isAuth: _isAuth }) => {
+  const [isAuth, setIsAuth] = useState(_isAuth);
 
   const [loading, setLoading] = useState(false);
 
@@ -43,10 +49,24 @@ export default function useAuth() {
     []
   );
 
-  return {
-    isAuth,
-    loading,
-    login,
-    register,
-  };
-}
+  return (
+    <AuthContext.Provider value={{ isAuth, login, register, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+AuthProvider.propTypes = {
+  children: node,
+  isAuth: bool,
+};
+
+export default AuthProvider;
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be using under AuthProvider");
+  }
+  return context;
+};

@@ -9,7 +9,7 @@ import {
 import { LOGO } from "assets/image";
 import Image from "next/image";
 import Head from "next/head";
-import { Input, Container, Text, Dropdown } from "@nextui-org/react";
+import { Input, Container, Text, Dropdown, User } from "@nextui-org/react";
 import SearchIcon from "components/Icon/SearchIcon";
 import UserIcon from "components/Icon/UserIcon";
 import Link from "next/link";
@@ -21,9 +21,11 @@ import Footer from "./Footer";
 import color from "constants/color";
 import { cx } from "@emotion/css";
 import Aside from "components/Aside";
+import { useAuth } from "providers/auth";
 
 const Layout = ({ children }) => {
   const { isMobile, isDesktop } = useUA();
+  const { isAuth } = useAuth();
 
   return (
     <>
@@ -127,33 +129,43 @@ const Layout = ({ children }) => {
 
           {isDesktop && (
             <div className={actionContainer}>
-              <UserIcon />
-              <div className={userContainer}>
-                <Link href={"/login"}>
-                  <a>
-                    <Text
-                      weight="bold"
-                      css={{ marginLeft: 8, color: color.gray }}
-                      size={14}
-                      className={hover}
-                    >
-                      Masuk
-                    </Text>
-                  </a>
-                </Link>
-                <Link href={"/register"}>
-                  <a>
-                    <Text
-                      weight="bold"
-                      css={{ marginLeft: 8, color: color.gray }}
-                      size={14}
-                      className={hover}
-                    >
-                      Daftar
-                    </Text>
-                  </a>
-                </Link>
-              </div>
+              {isAuth ? (
+                <User
+                  size="sm"
+                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  name="asldkams"
+                />
+              ) : (
+                <>
+                  <UserIcon />
+                  <div className={userContainer}>
+                    <Link href={"/login"}>
+                      <a>
+                        <Text
+                          weight="bold"
+                          css={{ marginLeft: 8, color: color.gray }}
+                          size={14}
+                          className={hover}
+                        >
+                          Masuk
+                        </Text>
+                      </a>
+                    </Link>
+                    <Link href={"/register"}>
+                      <a>
+                        <Text
+                          weight="bold"
+                          css={{ marginLeft: 8, color: color.gray }}
+                          size={14}
+                          className={hover}
+                        >
+                          Daftar
+                        </Text>
+                      </a>
+                    </Link>
+                  </div>
+                </>
+              )}
             </div>
           )}
         </Container>

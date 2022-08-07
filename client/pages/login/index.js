@@ -11,8 +11,7 @@ import Head from "next/head";
 import { css } from "@emotion/css";
 import color from "constants/color";
 import { Form } from "react-final-form";
-import useAuth from "hooks/useAuth";
-import { FORM_ERROR } from "final-form";
+import { useAuth } from "providers/auth";
 import authConstant from "constants/auth";
 import { useRouter } from "next/router";
 import Input from "components/Form/Input";
@@ -20,6 +19,7 @@ import { object, string } from "yup";
 import getValidatorFromSchema from "shared/form/getValidator";
 import transformError from "shared/error/transformError";
 import useToaster from "hooks/useToaster";
+import { setCookie } from "cookies-next";
 
 const styles = {
   submit: css`
@@ -36,15 +36,21 @@ const schema = object().shape({
 });
 
 export default function Login() {
-  const { login, loading } = useAuth();
-  const { error: errorToaster } = useToaster();
   const router = useRouter();
+  const { error: errorToaster } = useToaster();
+  const { login, loading } = useAuth();
 
   const onSubmit = async (values) => {
     try {
       const response = await login(values);
       const token = response?.access_token;
-      localStorage.setItem(authConstant.TOKEN, token);
+      const expires_in = response?.expires_in;
+
+      setCookie(authConstant.TOKEN, token, {
+        maxAge: expires_in,
+        sameSite: true,
+      });
+
       router.push("/");
     } catch (error) {
       const errorFields = error?.response?.data?.errors;

@@ -17,7 +17,7 @@ const DropdownContext = createContext({
   toggleVisible: () => {},
 });
 
-export const DropdownProvider = ({ children }) => {
+const DropdownProvider = ({ children }) => {
   const [position, setPosition] = useState({});
   const [visible, setVisible] = useState(false);
   const headerRef = useRef(null);
@@ -51,5 +51,7 @@ export const DropdownProvider = ({ children }) => {
 DropdownProvider.propTypes = {
   children: node.isRequired,
 };
+
+export default DropdownProvider;
 
 export const useDropdown = () => useContext(DropdownContext);

@@ -8,7 +8,7 @@ import {
   Text,
 } from "@nextui-org/react";
 import color from "constants/color";
-import useAuth from "hooks/useAuth";
+import { useAuth } from "providers/auth";
 import Head from "next/head";
 import { Form } from "react-final-form";
 import transformError from "shared/error/transformError";
@@ -37,8 +37,8 @@ const schema = object().shape({
 });
 
 export default function Register() {
-  const { register, loading } = useAuth();
   const router = useRouter();
+  const { register, loading, isAuth } = useAuth();
 
   const onSubmit = async (values) => {
     try {
