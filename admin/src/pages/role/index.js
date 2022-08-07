@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import LayoutContent from "../../components/Layout/Content";
 import useRole from "../../hooks/api/useRole";
-import BannerForm from "./form/add";
+import RoleForm from "./form/add";
 import RoleTable from "./table";
 
 function Role() {
@@ -18,12 +18,12 @@ function Role() {
   return (
     <>
       <Modal
-        title="Role Detail"
+        title={!selectedId ? "Add Role" : "Role Detail"}
         visible={showModal}
         onCancel={() => setShowModal(false)}
         footer={null}
       >
-        <BannerForm id={selectedId} />
+        <RoleForm id={selectedId} />
       </Modal>
       <LayoutContent
         title="Role"
@@ -32,7 +32,7 @@ function Role() {
             text: "Add Role",
             type: "primary",
             onClick: () => {
-              console.log("aslkdas");
+              setShowModal(true);
             },
           },
         ]}

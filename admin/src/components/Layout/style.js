@@ -45,10 +45,10 @@ export const stySiteLayoutBg = css`
 `;
 
 export const styContent = css({
-  padding: 24,
   margin: 0,
   minHeight: 280,
 });
+
 export const stySider = css`
   border-top: 1px solid #f2f2f2;
   padding-top: 15px;

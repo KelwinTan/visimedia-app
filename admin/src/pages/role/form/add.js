@@ -1,21 +1,12 @@
 import { Button, Form, Input } from "antd";
-import { useEffect, useState } from "react";
-import useBanner from "../../../hooks/api/useBanner";
+import useRole from "../../../hooks/api/useRole";
 
 export default function RoleForm({ id }) {
-  const { create, update, getDetail } = useBanner();
-  const [detail, setDetail] = useState({});
-  const [image, setImage] = useState(null);
+  const { loading } = useRole();
 
-  const onAdd = async ({ name }) => {
-    await create({ name, image });
-    setImage(null);
-  };
+  const onAdd = async ({ name }) => {};
 
-  const onUpdate = async ({ name }) => {
-    await update({ name, image });
-    setImage(null);
-  };
+  const onUpdate = async ({ name }) => {};
 
   const onFinish = ({ name }) => {
     if (id) {
@@ -25,18 +16,10 @@ export default function RoleForm({ id }) {
     }
   };
 
-  useEffect(() => {
-    if (id) {
-      getDetail(id).then((data) => {
-        console.log({ data });
-      });
-    }
-  }, [id]);
-
   return (
     <Form
       name="basic"
-      initialValues={detail}
+      initialValues={{}}
       onFinish={onFinish}
       autoComplete="off"
     >
@@ -48,16 +31,13 @@ export default function RoleForm({ id }) {
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="Image"
-        name="image"
-        rules={[{ required: true, message: "Please input image" }]}
-      >
-        <Input type={"file"} onChange={(e) => setImage(e.target.files[0])} />
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+      <Form.Item>
+        <Button
+          style={{ width: "100%" }}
+          loading={loading}
+          type="primary"
+          htmlType="submit"
+        >
           Submit
         </Button>
       </Form.Item>

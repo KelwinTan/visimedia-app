@@ -19,7 +19,7 @@ export default function useRole() {
     } catch (error) {
       return [];
     }
-  }, []);
+  }, [baseHeader]);
 
   return {
     getAll: getAll,
