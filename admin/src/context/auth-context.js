@@ -18,7 +18,7 @@ export default function AuthProvider({ children }) {
 
   const user = useMemo(() => {
     if (!cookie[COOKIES.AUTH]) return null;
-    return JSON.parse(cookie[COOKIES.AUTH]);
+    return cookie[COOKIES.AUTH];
   }, [cookie]);
 
   const token = useMemo(() => {

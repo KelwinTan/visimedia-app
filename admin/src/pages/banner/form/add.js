@@ -1,20 +1,31 @@
-import { Button, Form, Input } from "antd";
-import { useEffect, useState } from "react";
-import useBanner from "../../../hooks/api/useBanner";
+import { Button, Form, Image, Input, message } from "antd";
+import { useEffect, useRef, useState } from "react";
+import { useBanner } from "../../../context/banner-context";
 
-export default function BannerForm({ id }) {
-  const { create, update, getDetail } = useBanner();
+export default function BannerForm({ id, onClose }) {
+  const { loading, create, update, getDetail } = useBanner();
   const [detail, setDetail] = useState({});
-  const [image, setImage] = useState(null);
+  const imageRef = useRef(null);
+  const [form] = Form.useForm();
 
   const onAdd = async ({ name }) => {
-    await create({ name, image });
-    setImage(null);
+    try {
+      await create({ name, image: imageRef.current });
+      message.success("Success add a new banner");
+      onClose();
+    } catch (error) {
+      message.error("Error: " + error);
+    }
   };
 
   const onUpdate = async ({ name }) => {
-    await update({ name, image });
-    setImage(null);
+    try {
+      await update({ id: detail.id, name, image: imageRef.current });
+      message.success("Success update banner");
+      onClose();
+    } catch (error) {
+      message.error("Error: " + error);
+    }
   };
 
   const onFinish = ({ name }) => {
@@ -25,18 +36,35 @@ export default function BannerForm({ id }) {
     }
   };
 
+  const onChangeImage = (file) => {
+    imageRef.current = file;
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setDetail((d) => ({ ...d, public_image_path: fileReader.result }));
+    };
+    fileReader.readAsDataURL(file);
+  };
+
   useEffect(() => {
     if (id) {
       getDetail(id).then((data) => {
-        console.log({ data });
+        form.setFieldsValue({ name: data.name });
+        setDetail({
+          ...data,
+          public_image_path:
+            process.env.REACT_APP_IMAGE_URL + data.public_image_path,
+        });
       });
+    } else {
+      setDetail({});
     }
   }, [getDetail, id]);
 
   return (
     <Form
+      form={form}
+      defaultValue={detail}
       name="basic"
-      initialValues={detail}
       onFinish={onFinish}
       autoComplete="off"
     >
@@ -53,11 +81,23 @@ export default function BannerForm({ id }) {
         name="image"
         rules={[{ required: true, message: "Please input image" }]}
       >
-        <Input type={"file"} onChange={(e) => setImage(e.target.files[0])} />
+        <Input
+          type={"file"}
+          accept="image/*"
+          onChange={(e) => onChangeImage(e.target.files[0])}
+        />
       </Form.Item>
 
+      {Boolean(detail.public_image_path) && (
+        <Image width={200} src={detail.public_image_path} />
+      )}
       <Form.Item>
-        <Button style={{ width: "100%" }} type="primary" htmlType="submit">
+        <Button
+          loading={loading}
+          style={{ width: "100%" }}
+          type="primary"
+          htmlType="submit"
+        >
           Submit
         </Button>
       </Form.Item>

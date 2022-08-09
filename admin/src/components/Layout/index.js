@@ -22,7 +22,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const { Header, Content, Sider } = Layout;
 
 const _Layout = ({ children }) => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const activeIndex = navItemsPath.findIndex((d) => d === location.pathname);
@@ -57,7 +57,7 @@ const _Layout = ({ children }) => {
           >
             <a onClick={(e) => e.preventDefault()}>
               <Avatar icon={<UserOutlined />} />
-              <span className={styAuthLabel}>Guest</span>
+              <span className={styAuthLabel}>{user?.name || "Guest"}</span>
             </a>
           </Dropdown>
         </div>

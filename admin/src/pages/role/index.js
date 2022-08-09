@@ -1,7 +1,6 @@
 import { Modal } from "antd";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import LayoutContent from "../../components/Layout/Content";
-import useRole from "../../hooks/api/useRole";
 import RoleForm from "./form/add";
 import RoleTable from "./table";
 
@@ -9,11 +8,10 @@ function Role() {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
-  const { getAll } = useRole();
-
-  useEffect(() => {
-    getAll().then((data) => console.log({ data }));
-  }, [getAll]);
+  const onClose = useCallback(() => {
+    setSelectedId(null);
+    setShowModal(false);
+  }, []);
 
   return (
     <>
@@ -23,7 +21,7 @@ function Role() {
         onCancel={() => setShowModal(false)}
         footer={null}
       >
-        <RoleForm id={selectedId} />
+        <RoleForm id={selectedId} onClose={onClose} />
       </Modal>
       <LayoutContent
         title="Role"
