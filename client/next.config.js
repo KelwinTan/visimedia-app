@@ -8,7 +8,7 @@ const nextConfig = {
   ...config,
   images: { domains: ["dummyimage.com"] },
   env: {
-    API_URL: "http://api.visimediasupplies.id/api",
+    API_URL: "https://api.visimediasupplies.id/api",
   },
 };
 
