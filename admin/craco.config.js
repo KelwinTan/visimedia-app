@@ -14,6 +14,7 @@ module.exports = {
              */
             modifyVars: {
               "@menu-item-active-bg": COLORS.primary,
+              "@font-family": "'Open Sans', sans-serif;",
             },
             javascriptEnabled: true,
           },
