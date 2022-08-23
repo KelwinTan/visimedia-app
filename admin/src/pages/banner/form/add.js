@@ -14,13 +14,25 @@ export default function BannerForm({ id, onClose }) {
       message.success("Success add a new banner");
       onClose();
     } catch (error) {
-      message.error("Error: " + error);
+      const errorResponse = error.response?.data?.errors || undefined;
+      if (errorResponse) {
+        const [_error] = Object.entries(errorResponse);
+        message.error("Error: " + _error[1]);
+      }
     }
   };
 
   const onUpdate = async ({ name }) => {
     try {
-      await update({ id: detail.id, name, image: imageRef.current });
+      const payload = {
+        id: detail.id,
+        name,
+      };
+      console.log("imageref current", imageRef.current);
+      if (imageRef.current) {
+        payload.image = imageRef.current;
+      }
+      await update(payload);
       message.success("Success update banner");
       onClose();
     } catch (error) {
@@ -79,7 +91,7 @@ export default function BannerForm({ id, onClose }) {
       <Form.Item
         label="Image"
         name="image"
-        rules={[{ required: true, message: "Please input image" }]}
+        rules={[{ required: !id, message: "Please input image" }]}
       >
         <Input
           type={"file"}

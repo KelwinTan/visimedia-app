@@ -20,35 +20,6 @@ export default function RoleTable() {
         dataIndex: "name",
         key: "name",
       },
-      {
-        title: "Action",
-        key: "action",
-        render: (_, record, idx) => {
-          /**
-           * record.id
-           * 1. super admin
-           * 2. admin
-           * 3. user
-           *
-           * cant delete
-           */
-          if (record.id < 4) return null;
-          return (
-            <Space size="middle" direction="vertical">
-              <Popconfirm
-                title="Are you sure to delete this data?"
-                onConfirm={() => onDelete(record.id)}
-                okText="Yes"
-                cancelText="No"
-              >
-                <a href="#">
-                  <Button>Delete</Button>
-                </a>
-              </Popconfirm>
-            </Space>
-          );
-        },
-      },
     ],
     []
   );

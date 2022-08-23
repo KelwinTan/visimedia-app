@@ -1,4 +1,4 @@
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, AppstoreOutlined } from "@ant-design/icons";
 
 const navItems = [
   {
@@ -10,8 +10,18 @@ const navItems = [
     label: "Banner",
     icon: UserOutlined,
   },
+
+  {
+    label: "Category",
+    icon: AppstoreOutlined,
+  },
+
+  {
+    label: "Product",
+    icon: AppstoreOutlined,
+  },
 ];
 
 export default navItems;
 
-export const navItemsPath = ["/role", "/banner"];
+export const navItemsPath = ["/role", "/banner", "/category", "/product"];
