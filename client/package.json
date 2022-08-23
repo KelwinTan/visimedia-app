@@ -26,6 +26,8 @@
     "react-dom": "18.0.0",
     "react-final-form": "^6.5.9",
     "react-hot-toast": "^2.3.0",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
