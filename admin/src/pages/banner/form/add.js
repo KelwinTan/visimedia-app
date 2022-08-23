@@ -79,6 +79,7 @@ export default function BannerForm({ id, onClose }) {
       name="basic"
       onFinish={onFinish}
       autoComplete="off"
+      layout="vertical"
     >
       <Form.Item
         label="Name"

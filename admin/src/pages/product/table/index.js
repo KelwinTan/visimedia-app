@@ -34,6 +34,21 @@ export default function ProductTable() {
         dataIndex: "price",
         key: "price",
       },
+      {
+        title: "Image",
+        dataIndex: "public_image_path",
+        key: "public_image_path",
+        render: (value) => {
+          return (
+            value && (
+              <Image
+                width={200}
+                src={process.env.REACT_APP_IMAGE_URL + value}
+              />
+            )
+          );
+        },
+      },
     ],
     []
   );

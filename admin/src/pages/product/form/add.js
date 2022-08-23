@@ -9,11 +9,29 @@ export default function ProductForm({ id, onClose }) {
   const { categories } = useCategory();
 
   const [detail, setDetail] = useState({});
+  const imageRef = useRef(null);
   const [form] = Form.useForm();
 
-  const onAdd = async ({ name, category_id, quantity, price }) => {
+  const onAdd = async ({
+    name,
+    description,
+    sku,
+    price,
+    image,
+    category_id,
+    quantity,
+  }) => {
     try {
-      await create({ name, category_id, quantity, price });
+      await create({
+        name,
+        description,
+        sku,
+        price,
+        image,
+        category_id,
+        quantity,
+        image: imageRef.current,
+      });
       message.success("Success add a new banner");
       onClose();
     } catch (error) {
@@ -25,8 +43,25 @@ export default function ProductForm({ id, onClose }) {
     }
   };
 
-  const onFinish = ({ name }) => {
-    onAdd({ name });
+  const onChangeImage = (file) => {
+    imageRef.current = file;
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setDetail((d) => ({ ...d, public_image_path: fileReader.result }));
+    };
+    fileReader.readAsDataURL(file);
+  };
+
+  const onFinish = ({
+    name,
+    description,
+    sku,
+    price,
+    image,
+    category_id,
+    quantity,
+  }) => {
+    onAdd({ name, description, sku, price, image, category_id, quantity });
   };
 
   return (
@@ -36,11 +71,20 @@ export default function ProductForm({ id, onClose }) {
       name="basic"
       onFinish={onFinish}
       autoComplete="off"
+      layout="vertical"
     >
       <Form.Item
         label="Name"
         name="name"
         rules={[{ required: true, message: "Please input name" }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Description"
+        name="description"
+        rules={[{ required: true, message: "Please input description" }]}
       >
         <Input />
       </Form.Item>
@@ -57,6 +101,26 @@ export default function ProductForm({ id, onClose }) {
             </Select.Option>
           ))}
         </Select>
+      </Form.Item>
+
+      <Form.Item
+        label="Image"
+        name="image"
+        rules={[{ required: !id, message: "Please input image" }]}
+      >
+        <Input
+          type={"file"}
+          accept="image/*"
+          onChange={(e) => onChangeImage(e.target.files[0])}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sku"
+        name="sku"
+        rules={[{ required: true, message: "Please input sku" }]}
+      >
+        <Input />
       </Form.Item>
 
       <Form.Item
