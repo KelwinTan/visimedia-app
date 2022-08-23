@@ -5,16 +5,16 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useAuth } from "../context/auth-context";
+import { useAuth } from "./auth-context";
 import _axios from "../_axios";
 import { node } from "prop-types";
 
-const BannerContext = createContext(undefined);
+const CategoryContext = createContext(undefined);
 
-export default function BannerProvider({ children }) {
+export default function CategoryProvider({ children }) {
   const { token } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [banners, setBanners] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const baseHeader = useMemo(
     () => ({
@@ -26,8 +26,8 @@ export default function BannerProvider({ children }) {
   const getAll = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await _axios.get("/banners", { headers: baseHeader });
-      setBanners(data.banners);
+      const { data } = await _axios.get("/categories", { headers: baseHeader });
+      setCategories(data.categories);
     } catch (error) {
       return [];
     } finally {
@@ -40,12 +40,12 @@ export default function BannerProvider({ children }) {
       setLoading(true);
 
       try {
-        const { data } = await _axios.get("/banners/" + id, {
+        const { data } = await _axios.get("/categories/" + id, {
           headers: baseHeader,
         });
-        return data.banner;
+        return data.category;
       } catch (error) {
-        return [];
+        return {};
       } finally {
         setLoading(false);
       }
@@ -58,10 +58,10 @@ export default function BannerProvider({ children }) {
       setLoading(true);
 
       try {
-        const { data } = await _axios.delete("/banners/" + id, {
+        const { data } = await _axios.delete("/categories/" + id, {
           headers: baseHeader,
         });
-        setBanners((b) => {
+        setCategories((b) => {
           const delIdx = b.findIndex((d) => d.id === id);
           return [...b.slice(0, delIdx), ...b.slice(delIdx + 1)];
         });
@@ -76,48 +76,18 @@ export default function BannerProvider({ children }) {
   );
 
   const create = useCallback(
-    async ({ name, image }) => {
+    async ({ name, description }) => {
       setLoading(true);
 
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("image", image);
-      try {
-        const { data } = await _axios.post("/banners", formData, {
-          headers: baseHeader,
-        });
-        setBanners((b) => [...b, data.banner]);
-        return data;
-      } catch (error) {
-        throw error;
-      } finally {
-        setLoading(false);
-      }
-    },
-    [baseHeader]
-  );
-
-  const update = useCallback(
-    async ({ id, name, image }) => {
-      setLoading(true);
-
-      const formData = new FormData();
-      formData.append("name", name);
-      if (image) formData.append("image", image);
       try {
         const { data } = await _axios.post(
-          "/banners/" + id + "/update",
-          formData,
+          "/categories",
+          { name, description },
           {
             headers: baseHeader,
           }
         );
-        setBanners((b) => {
-          const newData = [...b];
-          const updateIdx = newData.findIndex((d) => d.id === id);
-          newData[updateIdx] = data.banner;
-          return newData;
-        });
+        setCategories((b) => [...b, data.category]);
         return data;
       } catch (error) {
         throw error;
@@ -129,30 +99,29 @@ export default function BannerProvider({ children }) {
   );
 
   return (
-    <BannerContext.Provider
+    <CategoryContext.Provider
       value={{
         loading,
         create,
         getAll,
         getDetail,
         remove,
-        update,
-        banners,
+        categories,
       }}
     >
       {children}
-    </BannerContext.Provider>
+    </CategoryContext.Provider>
   );
 }
 
-BannerProvider.defaultProps = {
+CategoryProvider.defaultProps = {
   children: node.isRequired,
 };
 
-export function useBanner() {
-  const context = useContext(BannerContext);
+export function useCategory() {
+  const context = useContext(CategoryContext);
   if (context === undefined) {
-    throw new Error("useBanner must be under BannerProvider");
+    throw new Error("useCategory must be under CategoryProvider");
   }
   return context;
 }
