@@ -19,7 +19,7 @@ export default function RoleForm({ onClose }) {
   };
 
   return (
-    <Form name="basic" onFinish={onFinish} autoComplete="off">
+    <Form name="basic" layout="vertical" onFinish={onFinish} autoComplete="off">
       <Form.Item
         label="Name"
         name="name"

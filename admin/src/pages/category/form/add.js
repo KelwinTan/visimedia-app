@@ -43,6 +43,7 @@ export default function CategoryForm({ id, onClose }) {
       name="basic"
       onFinish={onFinish}
       autoComplete="off"
+      layout="vertical"
     >
       <Form.Item
         label="Name"

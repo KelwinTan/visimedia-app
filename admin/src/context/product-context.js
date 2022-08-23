@@ -36,17 +36,26 @@ export default function ProductProvider({ children }) {
   }, [baseHeader]);
 
   const create = useCallback(
-    async ({ name, category_id, quantity, price }) => {
+    async ({ name, description, sku, price, image, category_id, quantity }) => {
       setLoading(true);
 
+      const formData = new FormData();
+      Object.entries({
+        name,
+        description,
+        sku,
+        price,
+        image,
+        category_id,
+        quantity,
+      }).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
       try {
-        const { data } = await _axios.post(
-          "/categories",
-          { name, category_id, quantity, price },
-          {
-            headers: baseHeader,
-          }
-        );
+        const { data } = await _axios.post("/products", formData, {
+          headers: baseHeader,
+        });
         setProducts((b) => [...b, data.product]);
         return data;
       } catch (error) {

@@ -35,6 +35,7 @@ function Login() {
         onFinish={onFinish}
         autoComplete="off"
         style={{ width: "100%" }}
+        layout="vertical"
       >
         <Form.Item
           name="email"
