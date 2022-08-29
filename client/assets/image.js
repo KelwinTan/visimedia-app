@@ -13,6 +13,8 @@ import MASTERCARD from "./mastercard.svg";
 import PERMATA from "./permata.svg";
 import VISA from "./visa.svg";
 
+import IMG_FALLBACK from "./img-fallback.webp";
+
 export {
   LOGO,
   SEARCH,
@@ -27,4 +29,5 @@ export {
   MASTERCARD,
   PERMATA,
   VISA,
+  IMG_FALLBACK,
 };

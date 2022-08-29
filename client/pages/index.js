@@ -1,5 +1,7 @@
 import { css } from "@emotion/css";
+import { Grid } from "@nextui-org/react";
 import Carousel from "components/Carousel";
+import ProductCard from "components/ProductCard";
 import Head from "next/head";
 import Image from "next/image";
 import _axios from "shared/axios";
@@ -11,6 +13,27 @@ const style = {
     position: relative;
   `,
 };
+
+const list = [
+  {
+    title: "Orange",
+    img: "/images/fruit-1.jpeg",
+    final_price: "Rp1.599.000",
+    price: "Rp1.699.000",
+    discount: 0.6,
+    sold: 100,
+  },
+
+  {
+    title: "Orange",
+    img: "/images/fruit-1.jpeg",
+    final_price: "Rp1.599.000",
+    price: "Rp1.699.000",
+    discount: 0,
+    sold: 100,
+  },
+];
+
 export default function Home({ banners }) {
   return (
     <div>
@@ -34,6 +57,14 @@ export default function Home({ banners }) {
           </div>
         ))}
       />
+
+      <Grid.Container gap={2} justify="flex-start">
+        {list.map((item, index) => (
+          <Grid xs={12} sm={2} key={index}>
+            <ProductCard item={item} />
+          </Grid>
+        ))}
+      </Grid.Container>
     </div>
   );
 }
