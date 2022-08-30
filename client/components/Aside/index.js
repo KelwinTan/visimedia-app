@@ -15,7 +15,7 @@ export default function Aside() {
 
   useEffect(() => {
     getAll().then((data) => setCategories(data));
-  }, []);
+  }, [getAll]);
 
   return (
     <Portal>

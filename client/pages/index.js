@@ -49,7 +49,7 @@ export default function Home({ banners, products }) {
           <Text h4 css={{ mb: 0 }}>
             Produk pilihan untukmu
           </Text>
-          <Link href="/12312">
+          <Link passHref href="/12312">
             <Text css={{ ml: "$8", color: color.primary }} b className={hover}>
               Lihat semua
             </Text>

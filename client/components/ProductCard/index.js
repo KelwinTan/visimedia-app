@@ -36,4 +36,5 @@ const ProductCard = forwardRef((props, ref) => {
   );
 });
 
+ProductCard.displayName = "ProductCard";
 export default ProductCard;

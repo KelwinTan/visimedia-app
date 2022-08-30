@@ -10,7 +10,7 @@ export default function MenuDesktop() {
 
   useEffect(() => {
     getAll().then((data) => setCategories(data));
-  }, []);
+  }, [getAll]);
 
   return (
     <>

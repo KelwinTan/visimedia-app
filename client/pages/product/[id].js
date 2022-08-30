@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   Card,
   Col,
@@ -11,9 +10,7 @@ import {
   Text,
 } from "@nextui-org/react";
 import Breadcrumb from "components/Breadcrumb";
-import color from "constants/color";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import _axios from "shared/axios";
@@ -21,9 +18,10 @@ import toIDR from "shared/currency/toIDR";
 
 export default function ProductDetail({ product }) {
   const router = useRouter();
+
   const goCheckout = useCallback(() => {
     router.push("/checkout");
-  }, []);
+  }, [router]);
 
   return (
     <>
