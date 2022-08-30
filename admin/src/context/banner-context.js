@@ -26,7 +26,9 @@ export default function BannerProvider({ children }) {
   const getAll = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await _axios.get("/banners", { headers: baseHeader });
+      const { data } = await _axios.get("/banners/admin", {
+        headers: baseHeader,
+      });
       setBanners(data.banners);
     } catch (error) {
       return [];

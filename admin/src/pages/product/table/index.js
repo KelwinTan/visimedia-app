@@ -23,22 +23,24 @@ export default function ProductTable() {
         key: "description",
       },
 
-      {
-        title: "SKU",
-        dataIndex: "sku",
-        key: "sku",
-      },
+      // {
+      //   title: "SKU",
+      //   dataIndex: "sku",
+      //   key: "sku",
+      // },
 
       {
         title: "Price",
         dataIndex: "price",
         key: "price",
+        render: (val) => "Rp." + Number(val).toLocaleString("id-ID"),
       },
       {
         title: "Image",
-        dataIndex: "public_image_path",
-        key: "public_image_path",
+        dataIndex: "public_image_url",
+        key: "public_image_url",
         render: (value) => {
+          console.log({ value });
           return (
             value && (
               <Image

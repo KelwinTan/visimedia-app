@@ -6,16 +6,20 @@ import { useProduct } from "../../../context/product-context";
 
 export default function ProductForm({ id, onClose }) {
   const { loading, create } = useProduct();
-  const { categories } = useCategory();
+  const { categories, getAll } = useCategory();
 
   const [detail, setDetail] = useState({});
   const imageRef = useRef(null);
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    getAll();
+  }, [getAll]);
+
   const onAdd = async ({
     name,
     description,
-    sku,
+    sku = "",
     price,
     image,
     category_id,
@@ -115,13 +119,13 @@ export default function ProductForm({ id, onClose }) {
         />
       </Form.Item>
 
-      <Form.Item
+      {/* <Form.Item
         label="Sku"
         name="sku"
         rules={[{ required: true, message: "Please input sku" }]}
       >
         <Input />
-      </Form.Item>
+      </Form.Item> */}
 
       <Form.Item
         label="Quantity"
