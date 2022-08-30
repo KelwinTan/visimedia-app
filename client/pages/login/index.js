@@ -38,7 +38,7 @@ const schema = object().shape({
 export default function Login() {
   const router = useRouter();
   const { error: errorToaster } = useToaster();
-  const { login, loading } = useAuth();
+  const { login, loading, getProfile, setUser } = useAuth();
 
   const onSubmit = async (values) => {
     try {
@@ -51,14 +51,19 @@ export default function Login() {
         sameSite: true,
       });
 
+      const profile = await getProfile(token);
+      setCookie(authConstant.USER, JSON.stringify(profile), {
+        maxAge: expires_in,
+        sameSite: true,
+      });
+
+      setUser(profile);
       router.push("/");
     } catch (error) {
       const errorFields = error?.response?.data?.errors;
-
       if (errorFields) {
         return transformError(errorFields);
       }
-
       const _err = error?.response?.data?.error;
       if (_err) {
         errorToaster(_err);

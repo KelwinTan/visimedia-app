@@ -33,9 +33,9 @@ export default function Layout({ children }) {
                 Frequently Asked Questions
               </Text>
 
-              <Link href={route.faq.payment}>
+              <Link href={route.faq["how-to-buy"]}>
                 <a>
-                  <Text className="link">Pembayaran</Text>
+                  <Text className="link">Cara berbelanja</Text>
                   <Divider />
                 </a>
               </Link>
@@ -57,6 +57,20 @@ export default function Layout({ children }) {
               <Link href={route.faq["call-us"]}>
                 <a>
                   <Text className="link">Hubungi Kami</Text>
+                  <Divider />
+                </a>
+              </Link>
+
+              <Link href={route.faq["about-us"]}>
+                <a>
+                  <Text className="link">Tentang Kami</Text>
+                  <Divider />
+                </a>
+              </Link>
+
+              <Link href={route.faq.marketplace}>
+                <a>
+                  <Text className="link">Marketplace Kami</Text>
                 </a>
               </Link>
             </div>

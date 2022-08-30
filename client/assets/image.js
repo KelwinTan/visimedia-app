@@ -6,6 +6,9 @@ import GRAB from "./grab.svg";
 import JNE from "./jne.svg";
 import MEX from "./mex.svg";
 import SHOPEE from "./shopee.svg";
+import SHOPEE_MARKETPLACE from "./shopee-marketplace.png";
+import BUKALAPAK from "./bukalapak.png";
+import TOKOPEDIA from "./tokopedia.png";
 
 import BCA from "./bca.svg";
 import MANDIRI from "./mandiri.svg";
@@ -30,4 +33,7 @@ export {
   PERMATA,
   VISA,
   IMG_FALLBACK,
+  BUKALAPAK,
+  TOKOPEDIA,
+  SHOPEE_MARKETPLACE,
 };

@@ -1,85 +1,44 @@
-import { css } from "@emotion/css";
-import { Divider, Grid, Text } from "@nextui-org/react";
+import { Row, Text } from "@nextui-org/react";
+import CalenderIcon from "components/Icon/CalenderIcon";
+import EmailIcon from "components/Icon/EmailIcon";
+import PhoneIcon from "components/Icon/PhoneIcon";
+import color from "constants/color";
 import Layout from "./layout";
-
-const style = {
-  info: css`
-    margin: 1rem 0;
-  `,
-};
 
 export default function CallUs() {
   return (
     <Layout>
-      <Grid.Container>
-        <Grid>
-          <div className={style.info}>
-            <Text h4>Jakarta</Text>
-            <Text>
-              Pergudangan Elang Laut Sentra Industri Terpadu Tahap 3, Blok B
-              No.1E Pantai Indah Kapuk, Jakarta Utara – 14470
-            </Text>
-          </div>
+      <Text css={{ marginBlock: 8 }} weight={"bold"}>
+        Hubungi Kami
+      </Text>
 
-          <div className={style.info}>
-            <Text h4>Email</Text>
-            <Text>visimediasupplier@gmail.com</Text>
-          </div>
+      <Row align="center">
+        <CalenderIcon width={16} height={16} color={color.black} />
+        <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
+          Buka Senin-Jumat (08.00 - 17.00), Sabtu (08.00 - 14.00)
+        </Text>
+      </Row>
 
-          <div className={style.info}>
-            <Text h4>Telepon</Text>
-            <Text>021-29676248, 021-29676249, 021-26978100</Text>
-          </div>
+      <Row align="center">
+        <EmailIcon width={16} height={16} color={color.black} />
+        <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
+          visimediasupplier@gmail.com
+        </Text>
+      </Row>
 
-          <div className={style.info}>
-            <Text h4>Direct Line</Text>
-            <div>
-              <Text>0812 1801 1828 Lady</Text>
-              <Text>0821-1020-0808 Injil</Text>
-              <Text>0812 2819 2008 Vanny</Text>
-              <Text>0855 1997 505 Paul</Text>
-              <Text>0813 19990076 Rusli</Text>
-              <Text>0812 93295356 Rika</Text>
-            </div>
-          </div>
-        </Grid>
+      <Row align="center">
+        <PhoneIcon width={16} height={16} color={color.black} />
+        <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
+          021 2967 6248/49
+        </Text>
+      </Row>
 
-        <Grid>Google map will be provide</Grid>
-      </Grid.Container>
-
-      <Divider css={{ margin: "2rem 0", borderStyle: "dashed" }} />
-
-      <Grid.Container>
-        <Grid>
-          <div className={style.info}>
-            <Text h4>BANDUNG</Text>
-            <Text>
-              Jl. Ciampel No.38 RT.05 RW.03 Desa Laksana Mekar Padalarang,
-              Bandung Barat – 40553
-            </Text>
-          </div>
-
-          <div className={style.info}>
-            <Text h4>Email</Text>
-            <Text>visimediasupplier@gmail.com</Text>
-          </div>
-
-          <div className={style.info}>
-            <Text h4>Telepon</Text>
-            <Text>022-86672877</Text>
-          </div>
-
-          <div className={style.info}>
-            <Text h4>Direct Line</Text>
-            <div>
-              <Text>0819-3224-5500 : Rosiana</Text>
-              <Text>0878-7849-1965 : Mario</Text>
-            </div>
-          </div>
-        </Grid>
-
-        <Grid>Google map will be provide</Grid>
-      </Grid.Container>
+      <Row align="center">
+        <PhoneIcon width={16} height={16} color={color.black} />
+        <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
+          0821 1020 0808
+        </Text>
+      </Row>
     </Layout>
   );
 }

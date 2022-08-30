@@ -12,10 +12,11 @@ const AuthContext = createContext({
   loading: false,
 });
 
-const AuthProvider = ({ children, isAuth: _isAuth }) => {
-  const [isAuth, setIsAuth] = useState(_isAuth);
+const AuthProvider = ({ children, user: _user, token: _token }) => {
+  const [isAuth, setIsAuth] = useState(!!_user);
 
   const [loading, setLoading] = useState(false);
+  const [user, _setUser] = useState(_user ? JSON.parse(_user) : {});
 
   const login = useCallback(async ({ email, password }) => {
     setLoading(true);
@@ -24,6 +25,16 @@ const AuthProvider = ({ children, isAuth: _isAuth }) => {
       return data;
     } finally {
       setLoading(false);
+    }
+  }, []);
+
+  const getProfile = useCallback(async (token) => {
+    try {
+      const { data } = await axios.post("/profile", null, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return data;
+    } finally {
     }
   }, []);
 
@@ -49,8 +60,15 @@ const AuthProvider = ({ children, isAuth: _isAuth }) => {
     []
   );
 
+  const setUser = useCallback((_user) => {
+    _setUser(_user);
+    setIsAuth(true);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ isAuth, login, register, loading }}>
+    <AuthContext.Provider
+      value={{ isAuth, login, getProfile, register, loading, user, setUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -3,11 +3,19 @@ import CloseIcon from "components/Icon/CloseIcon";
 import Portal from "components/Portal";
 import color from "constants/color";
 import Link from "next/link";
+import { useCategory } from "providers/categories";
 import { useDropdown } from "providers/dropdown";
+import { useEffect, useState } from "react";
 import { styAside, styAsideItem, styHeader } from "./style";
 
 export default function Aside() {
   const { setVisible, visible } = useDropdown();
+  const { getAll } = useCategory();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getAll().then((data) => setCategories(data));
+  }, []);
 
   return (
     <Portal>
@@ -28,74 +36,19 @@ export default function Aside() {
           </Container>
         </div>
 
-        <div className={styAsideItem}>
-          <Container fluid>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Flexi Frontlite</Text>
-              </a>
-            </Link>
-          </Container>
-        </div>
-        <div className={styAsideItem}>
-          <Container fluid>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Flexi Backlite</Text>
-              </a>
-            </Link>
-          </Container>
-        </div>
-
-        <div className={styAsideItem}>
-          <Container fluid>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Media Indoor</Text>
-              </a>
-            </Link>
-          </Container>
-        </div>
-
-        <div className={styAsideItem}>
-          <Container fluid>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Stickers</Text>
-              </a>
-            </Link>
-          </Container>
-        </div>
-
-        <div className={styAsideItem}>
-          <Container fluid>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Laminating</Text>
-              </a>
-            </Link>
-          </Container>
-        </div>
-
-        <div className={styAsideItem}>
-          <Container fluid>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Display</Text>
-              </a>
-            </Link>
-          </Container>
-        </div>
-
-        <div className={styAsideItem}>
-          <Container fluid>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Ink & Accessories</Text>
-              </a>
-            </Link>
-          </Container>
-        </div>
+        {categories.map((data, idx) => (
+          <div key={idx} className={styAsideItem}>
+            <Container fluid>
+              <Link
+                href={{ pathname: "/category/[id]", query: { id: data.id } }}
+              >
+                <a>
+                  <Text weight={"semibold"}>{data.name}</Text>
+                </a>
+              </Link>
+            </Container>
+          </div>
+        ))}
       </aside>
     </Portal>
   );

@@ -52,3 +52,19 @@ export const mTop = (top) => css`
 export const noneSelected = css`
   use-select: none;
 `;
+
+export const radius = (_radius) => css`
+  border-radius: ${_radius}px;
+`;
+
+export const w100 = css`
+  width: 100%;
+`;
+
+export const height = (h) => css`
+  height: ${h}px;
+`;
+
+export const dBlock = css`
+  display: block;
+`;

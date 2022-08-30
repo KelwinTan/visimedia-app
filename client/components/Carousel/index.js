@@ -11,6 +11,7 @@ export default function Carousel({ items }) {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    lazyLoad: "ondemand",
   };
   return (
     <Slider {...settings}>

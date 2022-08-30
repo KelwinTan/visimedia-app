@@ -25,7 +25,7 @@ import MenuDesktop from "./Menu/MenuDesktop";
 
 const Layout = ({ children }) => {
   const { isMobile, isDesktop } = useUA();
-  const { isAuth } = useAuth();
+  const { isAuth, user } = useAuth();
 
   return (
     <>
@@ -69,7 +69,7 @@ const Layout = ({ children }) => {
                 <User
                   size="sm"
                   src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                  name="asldkams"
+                  name={user.name}
                 />
               ) : (
                 <>
@@ -112,8 +112,12 @@ const Layout = ({ children }) => {
         <Footer />
       </main>
 
-      {isMobile && <Aside />}
-      {isMobile && <NavBottom />}
+      {isMobile && (
+        <>
+          <Aside />
+          <NavBottom />
+        </>
+      )}
     </>
   );
 };

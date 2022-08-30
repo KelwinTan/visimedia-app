@@ -1,14 +1,17 @@
+import { cx } from "@emotion/css";
 import { Card, Container, Badge, Text } from "@nextui-org/react";
+import { forwardRef } from "react";
+import toIDR from "shared/currency/toIDR";
+import { height, hover, w100 } from "styles/globals";
 
-export default function ProductCard(props) {
-  const { item } = props;
-
+const ProductCard = forwardRef((props, ref) => {
+  const { item, ...rest } = props;
   return (
-    <>
-      <Card isPressable>
+    <a {...rest} className={cx(w100, height(255))}>
+      <Card isHoverable className={hover} ref={ref}>
         <Card.Body css={{ p: 0 }}>
           <Card.Image
-            src={"https://nextui.org" + item.img}
+            src={process.env.IMAGE_URL + item.public_image_url}
             objectFit="cover"
             width="100%"
             height={147}
@@ -17,29 +20,20 @@ export default function ProductCard(props) {
         </Card.Body>
         <Card.Footer>
           <Container css={{ p: 0 }} direction="column" alignItems="flex-start">
-            <Text css={{ fontWeight: "$medium" }}>{item.title}</Text>
+            <Text css={{ fontWeight: "$medium" }}>{item.name}</Text>
             <Text
               css={{
                 fontWeight: "$bold",
               }}
             >
-              {item.final_price}
+              Rp{toIDR(item.price)}
             </Text>
-            {!!item.discount && (
-              <>
-                <Badge color={"error"} css={{ mr: 2 }} size="xs">
-                  {item.discount * 100}%
-                </Badge>
-                <Text del css={{ fontSize: "$xs" }}>
-                  {item.price}
-                </Text>
-              </>
-            )}
-
-            <Text size={12}>Terjual {item.sold}+</Text>
+            {/* <Text size={12}>Terjual {item.sold}+</Text> */}
           </Container>
         </Card.Footer>
       </Card>
-    </>
+    </a>
   );
-}
+});
+
+export default ProductCard;

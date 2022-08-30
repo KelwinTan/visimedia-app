@@ -1,10 +1,13 @@
 import { css } from "@emotion/css";
-import { Grid } from "@nextui-org/react";
+import { Button, Container, Grid, Row, Text } from "@nextui-org/react";
 import Carousel from "components/Carousel";
 import ProductCard from "components/ProductCard";
+import color from "constants/color";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import _axios from "shared/axios";
+import { hover, radius } from "styles/globals";
 
 const style = {
   banner: css`
@@ -14,29 +17,9 @@ const style = {
   `,
 };
 
-const list = [
-  {
-    title: "Orange",
-    img: "/images/fruit-1.jpeg",
-    final_price: "Rp1.599.000",
-    price: "Rp1.699.000",
-    discount: 0.6,
-    sold: 100,
-  },
-
-  {
-    title: "Orange",
-    img: "/images/fruit-1.jpeg",
-    final_price: "Rp1.599.000",
-    price: "Rp1.699.000",
-    discount: 0,
-    sold: 100,
-  },
-];
-
-export default function Home({ banners }) {
+export default function Home({ banners, products }) {
   return (
-    <div>
+    <>
       <Head>
         <title>Visimedia Supplies – Digital Printing Supplies</title>
         <meta
@@ -45,36 +28,58 @@ export default function Home({ banners }) {
         />
       </Head>
 
-      <Carousel
-        items={banners.map((banner, idx) => (
-          <div key={idx} className={style.banner}>
-            <Image
-              src={`${process.env.IMAGE_URL}${banner.public_image_path}`}
-              layout={"fill"}
-              objectFit="cover"
-              alt="banner"
-            />
-          </div>
-        ))}
-      />
+      <Container fluid md css={{ mt: "$10" }}>
+        <Carousel
+          items={banners.map((banner, idx) => (
+            <div key={idx} className={style.banner}>
+              <Image
+                src={`${process.env.IMAGE_URL}${banner.public_image_path}`}
+                layout={"fill"}
+                objectFit="cover"
+                alt="banner"
+                className={radius(10)}
+              />
+            </div>
+          ))}
+        />
+      </Container>
 
-      <Grid.Container gap={2} justify="flex-start">
-        {list.map((item, index) => (
-          <Grid xs={12} sm={2} key={index}>
-            <ProductCard item={item} />
-          </Grid>
-        ))}
-      </Grid.Container>
-    </div>
+      <Container fluid md>
+        <Row css={{ mt: "$18" }} align="center">
+          <Text h4 css={{ mb: 0 }}>
+            Produk pilihan untukmu
+          </Text>
+          <Link href="/12312">
+            <Text css={{ ml: "$8", color: color.primary }} b className={hover}>
+              Lihat semua
+            </Text>
+          </Link>
+        </Row>
+        <Grid.Container gap={2} css={{ px: 0 }} justify="flex-start">
+          {products.map((item, index) => (
+            <Grid xs={12} sm={2} key={index}>
+              <Link
+                passHref
+                href={{ pathname: "/product/[id]", query: { id: item.id } }}
+              >
+                <ProductCard item={item} />
+              </Link>
+            </Grid>
+          ))}
+        </Grid.Container>
+      </Container>
+    </>
   );
 }
 
 export async function getServerSideProps(context) {
-  const {
-    data: { banners = [] },
-  } = await _axios.get("/banners");
+  const [banners, products] = await Promise.all([
+    _axios.get("/banners").then((res) => res.data?.banners || []),
+    _axios.get("/products").then((res) => res.data?.products || []),
+  ]);
 
+  console.log({ banners, products });
   return {
-    props: { banners }, // will be passed to the page component as props
+    props: { banners, products }, // will be passed to the page component as props
   };
 }

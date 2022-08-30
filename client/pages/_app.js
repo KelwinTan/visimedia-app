@@ -8,9 +8,10 @@ import Layout from "components/Layout";
 import { styGlobal as globalCss } from "styles/globals";
 import ContextProvider from "providers/ContextProvider";
 import authConstant from "constants/auth";
+import color from "constants/color";
 
-function MyApp({ Component, pageProps, userAgent, isAuth }) {
-  const dataProps = { userAgent, isAuth };
+function MyApp({ Component, pageProps, userAgent, auth }) {
+  const dataProps = { userAgent, auth };
 
   return (
     <NextUIProvider>
@@ -37,9 +38,10 @@ MyApp.getInitialProps = async (ctx) => {
     userAgent = navigator.userAgent;
   }
 
-  const isAuth = !!getCookie(authConstant.TOKEN, { req, res });
+  const token = getCookie(authConstant.TOKEN, { req, res });
+  const user = getCookie(authConstant.USER, { req, res });
 
-  return { ...initialProps, userAgent, isAuth };
+  return { ...initialProps, userAgent, auth: { user, token } };
 };
 
 export default MyApp;

@@ -19,6 +19,7 @@ import MastercardIcon from "components/Icon/MastercardIcon";
 import FacebookIcon from "components/Icon/FacebookIcon";
 import InstagramIcon from "components/Icon/InstagramIcon";
 import TwitterIcon from "components/Icon/TwitterIcon";
+import CalenderIcon from "components/Icon/CalenderIcon";
 
 const Footer = () => {
   return (
@@ -31,10 +32,10 @@ const Footer = () => {
                 Bantuan
               </Text>
 
-              <Link href={route.faq.payment}>
+              <Link href={route.faq["how-to-buy"]}>
                 <a>
                   <Text className={"link"} size={14}>
-                    Pembayaran
+                    Cara berbelanja
                   </Text>
                 </a>
               </Link>
@@ -72,6 +73,13 @@ const Footer = () => {
               </Text>
 
               <Row align="center">
+                <CalenderIcon width={16} height={16} color={color.black} />
+                <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
+                  Buka Senin-Jumat (08.00 - 17.00), Sabtu (08.00 - 14.00)
+                </Text>
+              </Row>
+
+              <Row align="center">
                 <EmailIcon width={16} height={16} color={color.black} />
                 <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
                   visimediasupplier@gmail.com
@@ -81,7 +89,14 @@ const Footer = () => {
               <Row align="center">
                 <PhoneIcon width={16} height={16} color={color.black} />
                 <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
-                  021-29676248
+                  021 2967 6248/49
+                </Text>
+              </Row>
+
+              <Row align="center">
+                <PhoneIcon width={16} height={16} color={color.black} />
+                <Text className={"link"} size={14} style={{ marginLeft: 8 }}>
+                  0821 1020 0808
                 </Text>
               </Row>
             </div>
@@ -96,6 +111,11 @@ const Footer = () => {
               <Link href={route.faq["call-us"]}>
                 <a>
                   <Text>Tentang Kami</Text>
+                </a>
+              </Link>
+              <Link href={route.faq.marketplace}>
+                <a>
+                  <Text>Marketplace Kami</Text>
                 </a>
               </Link>
             </div>

@@ -1,14 +1,17 @@
 import { node, string } from "prop-types";
 
 import AuthProvider from "./auth";
+import CategoryProvider from "./categories";
 import DropdownProvider from "./dropdown";
 import UserAgentProvider from "./user-agent";
 
-const ContextProvider = ({ children, userAgent, isAuth }) => {
+const ContextProvider = ({ children, userAgent, auth }) => {
   return (
     <UserAgentProvider userAgent={userAgent}>
-      <AuthProvider isAuth={isAuth}>
-        <DropdownProvider>{children}</DropdownProvider>
+      <AuthProvider {...auth}>
+        <DropdownProvider>
+          <CategoryProvider>{children}</CategoryProvider>
+        </DropdownProvider>
       </AuthProvider>
     </UserAgentProvider>
   );

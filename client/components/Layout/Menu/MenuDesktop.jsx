@@ -1,8 +1,17 @@
 import { Text, Dropdown } from "@nextui-org/react";
 import Link from "next/link";
 import HamburgerIcon from "components/Icon/HamburgerIcon";
+import { useCategory } from "providers/categories";
+import { useEffect, useState } from "react";
 
 export default function MenuDesktop() {
+  const { getAll } = useCategory();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getAll().then((data) => setCategories(data));
+  }, []);
+
   return (
     <>
       <Dropdown>
@@ -10,60 +19,17 @@ export default function MenuDesktop() {
           <HamburgerIcon />
         </Dropdown.Button>
         <Dropdown.Menu>
-          <Dropdown.Item>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Flexi Frontlite</Text>
-              </a>
-            </Link>
-          </Dropdown.Item>
-          <Dropdown.Item>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Flexi Backlite</Text>
-              </a>
-            </Link>
-          </Dropdown.Item>
-
-          <Dropdown.Item>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Media Indoor</Text>
-              </a>
-            </Link>
-          </Dropdown.Item>
-
-          <Dropdown.Item>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Stickers</Text>
-              </a>
-            </Link>
-          </Dropdown.Item>
-
-          <Dropdown.Item>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Laminating</Text>
-              </a>
-            </Link>
-          </Dropdown.Item>
-
-          <Dropdown.Item>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Display</Text>
-              </a>
-            </Link>
-          </Dropdown.Item>
-
-          <Dropdown.Item>
-            <Link href="/">
-              <a>
-                <Text weight={"semibold"}>Ink & Accessories</Text>
-              </a>
-            </Link>
-          </Dropdown.Item>
+          {categories.map((data, idx) => (
+            <Dropdown.Item key={idx}>
+              <Link
+                href={{ pathname: "/category/[id]", query: { id: data.id } }}
+              >
+                <a>
+                  <Text weight={"semibold"}>{data.name}</Text>
+                </a>
+              </Link>
+            </Dropdown.Item>
+          ))}
         </Dropdown.Menu>
       </Dropdown>
     </>
