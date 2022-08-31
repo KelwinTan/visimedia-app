@@ -16,6 +16,7 @@ const ProductCard = forwardRef((props, ref) => {
             width="100%"
             height={147}
             alt={item.title}
+            loading="lazy"
           />
         </Card.Body>
         <Card.Footer>

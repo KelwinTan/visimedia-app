@@ -1,31 +1,37 @@
 import { node } from "prop-types";
-import {
-  actionContainer,
-  inputNav,
-  styMain,
-  styNav,
-  userContainer,
-} from "./style";
+import { inputNav, styMain, styNav } from "./style";
 import { LOGO } from "assets/image";
 import Image from "next/image";
 import Head from "next/head";
-import { Input, Container, Text, User } from "@nextui-org/react";
+import { Input, Container } from "@nextui-org/react";
 import SearchIcon from "components/Icon/SearchIcon";
-import UserIcon from "components/Icon/UserIcon";
 import Link from "next/link";
 import { hover, noneSelected } from "styles/globals";
 import { useUA } from "providers/user-agent";
-import NavBottom from "components/NavBottom";
 import Footer from "./Footer";
-import color from "constants/color";
 import { cx } from "@emotion/css";
-import Aside from "components/Aside";
-import { useAuth } from "providers/auth";
-import MenuDesktop from "./Menu/MenuDesktop";
+import MenuDesktop from "./Menu/Desktop";
+import dynamic from "next/dynamic";
+
+const Aside = dynamic(
+  () => import(/* webpackChunkName: "aside" */ "components/Aside"),
+  { ssr: false }
+);
+const NavBottom = dynamic(
+  () => import(/* webpackChunkName: "nav-bottom" */ "components/NavBottom"),
+  { ssr: false }
+);
+
+const MenuActionDesktop = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "menu-action-desktop" */ "./Menu/Desktop/MenuAction"
+    ),
+  { ssr: true }
+);
 
 const Layout = ({ children }) => {
   const { isMobile, isDesktop } = useUA();
-  const { isAuth, user } = useAuth();
 
   return (
     <>
@@ -63,47 +69,7 @@ const Layout = ({ children }) => {
             contentRight={<SearchIcon />}
           />
 
-          {isDesktop && (
-            <div className={actionContainer}>
-              {isAuth ? (
-                <User
-                  size="sm"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                  name={user.name}
-                />
-              ) : (
-                <>
-                  <UserIcon />
-                  <div className={userContainer}>
-                    <Link href={"/login"}>
-                      <a>
-                        <Text
-                          weight="bold"
-                          css={{ marginLeft: 8, color: color.gray }}
-                          size={14}
-                          className={hover}
-                        >
-                          Masuk
-                        </Text>
-                      </a>
-                    </Link>
-                    <Link href={"/register"}>
-                      <a>
-                        <Text
-                          weight="bold"
-                          css={{ marginLeft: 8, color: color.gray }}
-                          size={14}
-                          className={hover}
-                        >
-                          Daftar
-                        </Text>
-                      </a>
-                    </Link>
-                  </div>
-                </>
-              )}
-            </div>
-          )}
+          {isDesktop && <MenuActionDesktop />}
         </Container>
       </nav>
 
