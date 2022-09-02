@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@emotion/css": "^11.9.0",
@@ -15,6 +16,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
+    "@next/bundle-analyzer": "^12.2.5",
     "@nextui-org/react": "^1.0.0-beta.10",
     "axios": "^0.27.2",
     "cookies-next": "^2.1.1",
@@ -32,6 +34,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.5"
   }

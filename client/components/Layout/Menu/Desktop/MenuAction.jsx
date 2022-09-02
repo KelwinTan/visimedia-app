@@ -1,8 +1,10 @@
 import { Text, User } from "@nextui-org/react";
 import UserIcon from "components/Icon/UserIcon";
+import color from "constants/color";
 import Link from "next/link";
 import { useAuth } from "providers/auth";
-import { actionContainer } from "../../style";
+import { hover } from "styles/globals";
+import { actionContainer, userContainer } from "../../style";
 
 export default function MenuAction() {
   const { isAuth, user } = useAuth();

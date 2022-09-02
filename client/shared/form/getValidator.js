@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import get from "lodash/get";
 import { reach } from "yup";
 
 const getValidatorFromSchema = (name, schema) => (value, allValues, meta) => {

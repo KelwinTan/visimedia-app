@@ -38,6 +38,7 @@ export default function Home({ banners, products }) {
                 objectFit="cover"
                 alt="banner"
                 className={radius(10)}
+                priority={idx === 0}
               />
             </div>
           ))}
