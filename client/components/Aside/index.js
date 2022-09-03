@@ -28,7 +28,7 @@ export default function Aside() {
             css={{ margin: "unset" }}
           >
             <Text weight="bold" h5 color={color.white}>
-              PRODUK
+              KATEGORI BELANJA
             </Text>
             <div onClick={() => setVisible(!visible)}>
               <CloseIcon color={color.white} />

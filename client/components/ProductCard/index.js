@@ -1,5 +1,6 @@
 import { cx } from "@emotion/css";
 import { Card, Container, Badge, Text } from "@nextui-org/react";
+import Image from "next/image";
 import { forwardRef } from "react";
 import toIDR from "shared/currency/toIDR";
 import { height, hover, w100 } from "styles/globals";
@@ -10,7 +11,7 @@ const ProductCard = forwardRef((props, ref) => {
     <a {...rest} className={cx(w100, height(255))}>
       <Card isHoverable className={hover} ref={ref}>
         <Card.Body css={{ p: 0 }}>
-          <Card.Image
+          <Image
             src={process.env.IMAGE_URL + item.public_image_url}
             objectFit="cover"
             width="100%"

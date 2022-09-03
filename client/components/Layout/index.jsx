@@ -13,13 +13,13 @@ import { cx } from "@emotion/css";
 import MenuDesktop from "./Menu/Desktop";
 import dynamic from "next/dynamic";
 
-const Aside = dynamic(
-  () => import(/* webpackChunkName: "aside" */ "components/Aside"),
+const AsideMobile = dynamic(
+  () => import(/* webpackChunkName: "aside-mobile" */ "components/Aside"),
   { ssr: false }
 );
 const NavBottom = dynamic(
   () => import(/* webpackChunkName: "nav-bottom" */ "components/NavBottom"),
-  { ssr: false }
+  { ssr: true }
 );
 
 const MenuActionDesktop = dynamic(
@@ -80,7 +80,7 @@ const Layout = ({ children }) => {
 
       {isMobile && (
         <>
-          <Aside />
+          <AsideMobile />
           <NavBottom />
         </>
       )}
