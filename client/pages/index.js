@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { Button, Container, Grid, Row, Text } from "@nextui-org/react";
+import { Container, Grid, Row, Text } from "@nextui-org/react";
 import Carousel from "components/Carousel";
 import ProductCard from "components/ProductCard";
 import color from "constants/color";

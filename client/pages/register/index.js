@@ -38,7 +38,7 @@ const schema = object().shape({
 
 export default function Register() {
   const router = useRouter();
-  const { register, loading, isAuth } = useAuth();
+  const { register, loading } = useAuth();
 
   const onSubmit = async (values) => {
     try {

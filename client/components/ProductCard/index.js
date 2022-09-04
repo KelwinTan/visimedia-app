@@ -1,5 +1,5 @@
 import { cx } from "@emotion/css";
-import { Card, Container, Badge, Text } from "@nextui-org/react";
+import { Card, Container, Text } from "@nextui-org/react";
 import Image from "next/image";
 import { forwardRef } from "react";
 import toIDR from "shared/currency/toIDR";

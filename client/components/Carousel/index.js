@@ -3,7 +3,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import Slider from "react-slick";
 import { arrayOf, node } from "prop-types";
-import color from "constants/color";
 import { cx } from "@emotion/css";
 import { styArrow } from "./style";
 

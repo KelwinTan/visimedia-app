@@ -1,4 +1,4 @@
-import { Container, Divider, Grid, Row, Text } from "@nextui-org/react";
+import { Container, Divider, Grid, Text } from "@nextui-org/react";
 import route from "constants/route";
 import { useMediaQuery } from "hooks/useMediaQuery";
 import Head from "next/head";

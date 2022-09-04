@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { Col, Divider, Grid, Row, Text } from "@nextui-org/react";
+import { Col, Grid, Row, Text } from "@nextui-org/react";
 import Link from "next/link";
 import Layout from "./layout";
 

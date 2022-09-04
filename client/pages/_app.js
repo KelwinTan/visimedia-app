@@ -8,7 +8,7 @@ import Layout from "components/Layout";
 import { styGlobal as globalCss } from "styles/globals";
 import ContextProvider from "providers/ContextProvider";
 import authConstant from "constants/auth";
-import color from "constants/color";
+import { node, object } from "prop-types";
 
 function MyApp({ Component, pageProps, userAgent, auth }) {
   const dataProps = { userAgent, auth };
@@ -25,18 +25,19 @@ function MyApp({ Component, pageProps, userAgent, auth }) {
     </NextUIProvider>
   );
 }
+MyApp.propTypes = {
+  Component: node.isRequired,
+  pageProps: object.isRequired,
+  userAgent: object.isRequired,
+  auth: object.isRequired,
+};
 
 MyApp.getInitialProps = async (ctx) => {
   const initialProps = await App.getInitialProps(ctx);
   const req = ctx.ctx.req;
   const res = ctx.ctx.res;
 
-  let userAgent;
-  if (!!req) {
-    userAgent = req.headers["user-agent"];
-  } else {
-    userAgent = navigator.userAgent;
-  }
+  const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
 
   const token = getCookie(authConstant.TOKEN, { req, res });
   const user = getCookie(authConstant.USER, { req, res });
