@@ -1,13 +1,21 @@
 import { css } from "@emotion/css";
-import { Container, Grid, Row, Text } from "@nextui-org/react";
+import { Card, Col, Container, Grid, Row, Text } from "@nextui-org/react";
+import Marketplace from "components/Cards/Marketplace";
 import Carousel from "components/Carousel";
 import ProductCard from "components/ProductCard";
 import color from "constants/color";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import _axios from "shared/axios";
-import { hover, radius } from "styles/globals";
+import { height, hover, radius } from "styles/globals";
+import Link from "next/link";
+import FacebookIcon from "components/Icon/FacebookIcon";
+import InstagramIcon from "components/Icon/InstagramIcon";
+import TwitterIcon from "components/Icon/TwitterIcon";
+import ShopeeIcon from "components/Icon/ShopeeIcon";
+import TokopediaIcon from "components/Icon/TokopediaIcon";
+import LazadaIcon from "components/Icon/LazadaIcon";
+import JDIDIcon from "components/Icon/JDIDIcon";
 
 const style = {
   banner: css`
@@ -43,6 +51,58 @@ export default function Home({ banners, products }) {
             </div>
           ))}
         />
+      </Container>
+
+      <Container fluid md>
+        <Row css={{ mt: "$18", mx: 0 }} align="flex-start" gap={1}>
+          <Col>
+            <Marketplace classnames={height(300)} title={"Social Media"}>
+              <Grid.Container gap={2} justify="flex-start">
+                <Link href="https://www.facebook.com/people/Visimedia-SupplierPrinting/100013772404133/">
+                  <a target="_blank">
+                    <FacebookIcon color={color.blue} width={75} height={75} />
+                  </a>
+                </Link>
+                <Link href="https://www.instagram.com/visimediaindonesia/">
+                  <a target="_blank">
+                    <InstagramIcon color={color.ig} width={75} height={75} />
+                  </a>
+                </Link>
+                <Link href="https://twitter.com/visimediasupply">
+                  <a target="_blank">
+                    <TwitterIcon color={color.twitter} width={75} height={75} />
+                  </a>
+                </Link>
+              </Grid.Container>
+            </Marketplace>
+          </Col>
+          <Col>
+            <Marketplace classnames={height(300)} title={"Marketplace"}>
+              <Grid.Container gap={3} justify="flex-start">
+                <Link href="https://www.facebook.com/people/Visimedia-SupplierPrinting/100013772404133/">
+                  <a target="_blank">
+                    <TokopediaIcon ecommerce width={150} height={75} />
+                  </a>
+                </Link>
+                <Link href="https://www.instagram.com/visimediaindonesia/">
+                  <a target="_blank">
+                    <ShopeeIcon ecommerce width={150} height={75} />
+                  </a>
+                </Link>
+                <Link href="https://twitter.com/visimediasupply">
+                  <a target="_blank">
+                    <LazadaIcon width={150} height={75} />
+                  </a>
+                </Link>
+                <Link href="https://twitter.com/visimediasupply">
+                  <a target="_blank">
+                    <JDIDIcon height={75} width={150} />
+                  </a>
+                </Link>
+              </Grid.Container>
+            </Marketplace>
+          </Col>
+        </Row>
       </Container>
 
       <Container fluid md>

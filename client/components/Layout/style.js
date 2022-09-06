@@ -15,6 +15,7 @@ export const styNav = css`
 export const inputNav = css`
   margin-left: 1rem;
   padding-right: 2rem;
+  width: 100%;
 `;
 
 export const actionContainer = css`

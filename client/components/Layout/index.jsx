@@ -12,6 +12,7 @@ import Footer from "./Footer";
 import { cx } from "@emotion/css";
 import MenuDesktop from "./Menu/Desktop";
 import dynamic from "next/dynamic";
+import SearchInput from "components/Search";
 
 const AsideMobile = dynamic(
   () => import(/* webpackChunkName: "aside-mobile" */ "components/Aside"),
@@ -60,15 +61,9 @@ const Layout = ({ children }) => {
               />
             </a>
           </Link>
-          <Input
-            className={inputNav}
-            placeholder="Cari Produk"
-            animated={false}
-            shadow={false}
-            fullWidth
-            contentRight={<SearchIcon />}
-          />
-
+          <div className={inputNav}>
+            <SearchInput />
+          </div>
           {isDesktop && <MenuActionDesktop />}
         </Container>
       </nav>

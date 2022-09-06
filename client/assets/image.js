@@ -18,6 +18,11 @@ import VISA from "./visa.svg";
 
 import IMG_FALLBACK from "./img-fallback.webp";
 
+import SHOPEE_ECOM from "./shopee-ecom.svg";
+import TOKOPEDIA_ECOM from "./tokopedia-ecom.svg";
+import JDID_ECOM from "./jdid-ecom.svg";
+import LAZADA_ECOM from "./lazada-ecom.svg";
+
 export {
   LOGO,
   SEARCH,
@@ -36,4 +41,8 @@ export {
   BUKALAPAK,
   TOKOPEDIA,
   SHOPEE_MARKETPLACE,
+  SHOPEE_ECOM,
+  TOKOPEDIA_ECOM,
+  JDID_ECOM,
+  LAZADA_ECOM,
 };

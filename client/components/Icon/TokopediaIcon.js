@@ -1,12 +1,27 @@
-import { TOKOPEDIA } from "assets/image";
+import { TOKOPEDIA, TOKOPEDIA_ECOM } from "assets/image";
 import Image from "next/image";
+import { bool, number } from "prop-types";
 
-const TokopediaIcon = () => {
+const TokopediaIcon = ({ ecommerce, width, height }) => {
+  if (ecommerce) {
+    return (
+      <div style={{ position: "relative", width, height }}>
+        <Image
+          src={TOKOPEDIA_ECOM}
+          width={width}
+          height={height}
+          layout="fill"
+          alt="tokopedia"
+          objectFit="contain"
+        />
+      </div>
+    );
+  }
   return (
     <Image
       src={TOKOPEDIA}
-      width={75}
-      height={30}
+      width={width}
+      height={height}
       layout="fixed"
       alt="tokopedia"
       objectFit="contain"
@@ -14,4 +29,15 @@ const TokopediaIcon = () => {
   );
 };
 
+TokopediaIcon.propTypes = {
+  ecommerce: bool,
+  width: number,
+  height: number,
+};
+
+TokopediaIcon.defaultProps = {
+  ecommerce: false,
+  width: 75,
+  height: 30,
+};
 export default TokopediaIcon;
