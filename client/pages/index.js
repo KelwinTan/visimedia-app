@@ -19,10 +19,12 @@ import YoutubeIcon from "components/Icon/YoutubeIcon";
 import TiktokIcon from "components/Icon/TiktokIcon";
 import useCategories from "hooks/useCategories";
 import { useUA } from "providers/user-agent";
+import useBestProduct from "hooks/useBestProduct";
 
 export default function Home({ banners, products }) {
   const { data: _categories } = useCategories();
   const { isMobile } = useUA();
+  const { data: best_products } = useBestProduct();
   return (
     <>
       <Head>
@@ -61,8 +63,10 @@ export default function Home({ banners, products }) {
           <Grid.Container gap={2}>
             {_categories?.map((data, idx) => (
               <Grid justify="center" key={idx} xs={12} md={2}>
-                <Link href="https://www.facebook.com/people/Visimedia-SupplierPrinting/100013772404133/">
-                  <a target="_blank" className={styTextCenter}>
+                <Link
+                  href={{ pathname: "/category/[id]", query: { id: data.id } }}
+                >
+                  <a className={styTextCenter}>
                     <Image
                       src={
                         "https://enterkomputer.com/web-assets/frontend/icon/svg/category/printer.svg"
@@ -179,9 +183,31 @@ export default function Home({ banners, products }) {
       <Container fluid md>
         <Row align="center">
           <Text h4 css={{ mb: 0 }}>
+            Produk Terbaik
+          </Text>
+          <Link passHref href="/category/3">
+            <Text css={{ ml: "$8", color: color.primary }} b className={hover}>
+              Lihat semua
+            </Text>
+          </Link>
+        </Row>
+        <Grid.Container gap={2} css={{ px: 0 }} justify="flex-start">
+          {best_products.map((item, index) => (
+            <Grid xs={12} sm={2} key={index}>
+              <ProductCard item={item} />
+            </Grid>
+          ))}
+        </Grid.Container>
+      </Container>
+
+      <Spacer y={2} />
+
+      <Container fluid md>
+        <Row align="center">
+          <Text h4 css={{ mb: 0 }}>
             Produk pilihan untukmu
           </Text>
-          <Link passHref href="/12312">
+          <Link passHref href="/category/3">
             <Text css={{ ml: "$8", color: color.primary }} b className={hover}>
               Lihat semua
             </Text>
@@ -190,12 +216,7 @@ export default function Home({ banners, products }) {
         <Grid.Container gap={2} css={{ px: 0 }} justify="flex-start">
           {products.map((item, index) => (
             <Grid xs={12} sm={2} key={index}>
-              <Link
-                passHref
-                href={{ pathname: "/product/[id]", query: { id: item.id } }}
-              >
-                <ProductCard item={item} />
-              </Link>
+              <ProductCard item={item} />
             </Grid>
           ))}
         </Grid.Container>

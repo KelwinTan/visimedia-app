@@ -10,6 +10,7 @@ const color = {
   white: "#ffff",
   youtube: "#ff0000",
   tiktok: "black",
+  wa: "#3ac34e",
 };
 
 export default color;
