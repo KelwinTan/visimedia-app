@@ -1,14 +1,17 @@
 import { Button, Image, Popconfirm, Space, Table } from "antd";
 import { useEffect, useMemo, useState } from "react";
-import { useCategory } from "../../../context/category-context";
 import { useProduct } from "../../../context/product-context";
 
-export default function ProductTable() {
-  const { getAll, products } = useProduct();
+export default function ProductTable({ onUpdate }) {
+  const { getAll, products, remove } = useProduct();
 
   useEffect(() => {
     getAll();
   }, [getAll]);
+
+  const onDelete = async (id) => {
+    await remove(id);
+  };
 
   const columns = useMemo(
     () => [
@@ -50,6 +53,26 @@ export default function ProductTable() {
             )
           );
         },
+      },
+
+      {
+        title: "Action",
+        key: "action",
+        render: (_, record) => (
+          <Space size="middle" direction="vertical">
+            <Button onClick={() => onUpdate(record.id)}>Update</Button>
+            <Popconfirm
+              title="Are you sure to delete this data?"
+              onConfirm={() => onDelete(record.id)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <a href="#">
+                <Button>Delete</Button>
+              </a>
+            </Popconfirm>
+          </Space>
+        ),
       },
     ],
     []

@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import Banner from "./pages/banner/lazy";
 import Category from "./pages/category/lazy";
 import Product from "./pages/product/lazy";
+import Variant from "./pages/variant/lazy";
 import NotFound from "./pages/not-found/lazy";
 import Role from "./pages/role/lazy";
 
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/banner" element={<Banner />} />
         <Route exact path="/category" element={<Category />} />
         <Route exact path="/product" element={<Product />} />
+        <Route exact path="/variant" element={<Variant />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>

@@ -20,8 +20,19 @@ const navItems = [
     label: "Product",
     icon: AppstoreOutlined,
   },
+
+  {
+    label: "Variant",
+    icon: AppstoreOutlined,
+  },
 ];
 
 export default navItems;
 
-export const navItemsPath = ["/role", "/banner", "/category", "/product"];
+export const navItemsPath = [
+  "/role",
+  "/banner",
+  "/category",
+  "/product",
+  "/variant",
+];

@@ -67,6 +67,96 @@ export default function ProductProvider({ children }) {
     [baseHeader]
   );
 
+  const update = useCallback(
+    async ({
+      name,
+      description,
+      sku,
+      price,
+      image,
+      category_id,
+      quantity,
+      tokopedia_link,
+      shopee_link,
+      id,
+    }) => {
+      setLoading(true);
+
+      const formData = new FormData();
+      Object.entries({
+        name,
+        description,
+        sku,
+        price,
+        image,
+        category_id,
+        quantity,
+        tokopedia_link,
+        shopee_link,
+      }).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      try {
+        const { data } = await _axios.post(`/products/${id}/update`, formData, {
+          headers: baseHeader,
+        });
+        setProducts((b) => {
+          const newData = [...b];
+          const updateIdx = newData.findIndex((d) => d.id === id);
+          newData[updateIdx] = data.product;
+          return newData;
+        });
+        return data;
+      } catch (error) {
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
+  const remove = useCallback(
+    async (id) => {
+      setLoading(true);
+
+      try {
+        const { data } = await _axios.delete("/products/" + id, {
+          headers: baseHeader,
+        });
+        setProducts((b) => {
+          const delIdx = b.findIndex((d) => d.id === id);
+          return [...b.slice(0, delIdx), ...b.slice(delIdx + 1)];
+        });
+        return data;
+      } catch (error) {
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
+  const getDetail = useCallback(
+    async (id) => {
+      setLoading(true);
+
+      try {
+        const { data } = await _axios.get("/products/" + id, {
+          headers: baseHeader,
+        });
+        return data.product;
+      } catch (error) {
+        return {};
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
   return (
     <ProductContext.Provider
       value={{
@@ -74,6 +164,9 @@ export default function ProductProvider({ children }) {
         create,
         getAll,
         products,
+        remove,
+        getDetail,
+        update,
       }}
     >
       {children}

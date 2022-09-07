@@ -1,11 +1,12 @@
-import { Button, Form, Image, Input, message, Select } from "antd";
+import { Button, Form, Image, Input, message, Select, Space } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useBanner } from "../../../context/banner-context";
 import { useCategory } from "../../../context/category-context";
 import { useProduct } from "../../../context/product-context";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 export default function ProductForm({ id, onClose }) {
-  const { loading, create } = useProduct();
+  const { loading, create, getDetail, update } = useProduct();
   const { categories, getAll } = useCategory();
 
   const [detail, setDetail] = useState({});
@@ -16,6 +17,22 @@ export default function ProductForm({ id, onClose }) {
     getAll();
   }, [getAll]);
 
+  useEffect(() => {
+    if (id) {
+      getDetail(id).then((data) => {
+        const { image, ...payloadWithoutImage } = data;
+        form.setFieldsValue(payloadWithoutImage);
+        setDetail({
+          ...data,
+          public_image_url:
+            process.env.REACT_APP_IMAGE_URL + data.public_image_path,
+        });
+      });
+    } else {
+      setDetail({});
+    }
+  }, [getDetail, id]);
+
   const onAdd = async ({
     name,
     description,
@@ -24,6 +41,8 @@ export default function ProductForm({ id, onClose }) {
     image,
     category_id,
     quantity,
+    tokopedia_link,
+    shopee_link,
   }) => {
     try {
       await create({
@@ -34,6 +53,8 @@ export default function ProductForm({ id, onClose }) {
         image,
         category_id,
         quantity,
+        tokopedia_link,
+        shopee_link,
         image: imageRef.current,
       });
       message.success("Success add a new banner");
@@ -56,6 +77,42 @@ export default function ProductForm({ id, onClose }) {
     fileReader.readAsDataURL(file);
   };
 
+  const onUpdate = async ({
+    name,
+    description,
+    sku = "",
+    price,
+    image,
+    category_id,
+    quantity,
+    tokopedia_link,
+    shopee_link,
+  }) => {
+    try {
+      await update({
+        name,
+        description,
+        sku,
+        price,
+        image,
+        category_id,
+        quantity,
+        image: imageRef.current,
+        id,
+        tokopedia_link,
+        shopee_link,
+      });
+      message.success("Success add a new banner");
+      onClose();
+    } catch (error) {
+      const errorResponse = error.response?.data?.errors || undefined;
+      if (errorResponse) {
+        const [_error] = Object.entries(errorResponse);
+        message.error("Error: " + _error[1]);
+      }
+    }
+  };
+
   const onFinish = ({
     name,
     description,
@@ -64,8 +121,34 @@ export default function ProductForm({ id, onClose }) {
     image,
     category_id,
     quantity,
+    tokopedia_link,
+    shopee_link,
   }) => {
-    onAdd({ name, description, sku, price, image, category_id, quantity });
+    if (id) {
+      onUpdate({
+        name,
+        description,
+        sku,
+        price,
+        image,
+        category_id,
+        quantity,
+        tokopedia_link,
+        shopee_link,
+      });
+    } else {
+      onAdd({
+        name,
+        description,
+        sku,
+        price,
+        image,
+        category_id,
+        quantity,
+        tokopedia_link,
+        shopee_link,
+      });
+    }
   };
 
   return (
@@ -141,6 +224,14 @@ export default function ProductForm({ id, onClose }) {
         rules={[{ required: true, message: "Please input price" }]}
       >
         <Input type="number" />
+      </Form.Item>
+
+      <Form.Item label="Shopee Link" name="shopee_link">
+        <Input />
+      </Form.Item>
+
+      <Form.Item label="Tokopdia Link" name="tokopedia_link">
+        <Input />
       </Form.Item>
 
       <Form.Item>

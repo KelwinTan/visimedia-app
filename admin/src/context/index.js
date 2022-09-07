@@ -4,6 +4,7 @@ import AuthProvider from "./auth-context";
 import BannerProvider from "./banner-context";
 import CategoryProvider from "./category-context";
 import ProductProvider from "./product-context";
+import VariantProvider from "./variant-context";
 
 export default function ContextProvider({ children }) {
   return (
@@ -11,7 +12,9 @@ export default function ContextProvider({ children }) {
       <AuthProvider>
         <BannerProvider>
           <CategoryProvider>
-            <ProductProvider>{children}</ProductProvider>
+            <ProductProvider>
+              <VariantProvider>{children}</VariantProvider>
+            </ProductProvider>
           </CategoryProvider>
         </BannerProvider>
       </AuthProvider>

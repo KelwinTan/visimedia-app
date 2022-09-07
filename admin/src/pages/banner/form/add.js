@@ -8,9 +8,9 @@ export default function BannerForm({ id, onClose }) {
   const imageRef = useRef(null);
   const [form] = Form.useForm();
 
-  const onAdd = async ({ name }) => {
+  const onAdd = async ({ name, url_redirect }) => {
     try {
-      await create({ name, image: imageRef.current });
+      await create({ name, url_redirect, image: imageRef.current });
       message.success("Success add a new banner");
       onClose();
     } catch (error) {
@@ -22,11 +22,12 @@ export default function BannerForm({ id, onClose }) {
     }
   };
 
-  const onUpdate = async ({ name }) => {
+  const onUpdate = async ({ name, url_redirect }) => {
     try {
       const payload = {
         id: detail.id,
         name,
+        url_redirect,
       };
       console.log("imageref current", imageRef.current);
       if (imageRef.current) {
@@ -40,11 +41,11 @@ export default function BannerForm({ id, onClose }) {
     }
   };
 
-  const onFinish = ({ name }) => {
+  const onFinish = ({ name, url_redirect }) => {
     if (id) {
-      onUpdate({ name });
+      onUpdate({ name, url_redirect });
     } else {
-      onAdd({ name });
+      onAdd({ name, url_redirect });
     }
   };
 
@@ -60,7 +61,10 @@ export default function BannerForm({ id, onClose }) {
   useEffect(() => {
     if (id) {
       getDetail(id).then((data) => {
-        form.setFieldsValue({ name: data.name });
+        form.setFieldsValue({
+          name: data.name,
+          url_redirect: data.url_redirect,
+        });
         setDetail({
           ...data,
           public_image_path:
@@ -99,6 +103,10 @@ export default function BannerForm({ id, onClose }) {
           accept="image/*"
           onChange={(e) => onChangeImage(e.target.files[0])}
         />
+      </Form.Item>
+
+      <Form.Item label="Redirect URL" name="url_redirect">
+        <Input />
       </Form.Item>
 
       {Boolean(detail.public_image_path) && (
