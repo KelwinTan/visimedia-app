@@ -28,7 +28,7 @@ export default function ProductDetail({ product }) {
       <Head>
         <title>produk detail</title>
       </Head>
-      <Breadcrumb />
+      <Breadcrumb links={["home", "detail", product.name]} />
       <Container md css={{ mt: "$10" }} fluid>
         <Container fluid>
           <Row>
