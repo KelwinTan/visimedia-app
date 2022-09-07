@@ -1,9 +1,10 @@
 import { Text, User } from "@nextui-org/react";
 import UserIcon from "components/Icon/UserIcon";
+import WhatsappGIF from "components/Icon/WhatsappGIF";
 import color from "constants/color";
 import Link from "next/link";
 import { useAuth } from "providers/auth";
-import { hover } from "styles/globals";
+import { hover, styMargin } from "styles/globals";
 import { actionContainer, userContainer } from "../../style";
 
 export default function MenuAction() {
@@ -11,6 +12,14 @@ export default function MenuAction() {
 
   return (
     <div className={actionContainer}>
+      <div className={styMargin(0, 8, 0, 0)}>
+        <a
+          href="https://api.whatsapp.com/send/?phone=6282110200808&text=Hallo+Visimedia...&type=phone_number&app_absent=0"
+          target={"_blank"}
+        >
+          <WhatsappGIF width={48} height={48} classnames={hover} />
+        </a>
+      </div>
       {isAuth ? (
         <User
           size="sm"

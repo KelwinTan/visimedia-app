@@ -4,21 +4,30 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { arrayOf, node } from "prop-types";
 import { cx } from "@emotion/css";
-import { styArrow } from "./style";
+import { styArrow, styArrowLeft, styArrowRight } from "./style";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div className={cx(className, styArrow)} style={style} onClick={onClick} />
+    <div
+      className={cx(className, styArrow, styArrowRight)}
+      style={style}
+      onClick={onClick}
+    />
   );
 }
 
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div className={cx(className, styArrow)} style={style} onClick={onClick} />
+    <div
+      className={cx(className, styArrow, styArrowLeft)}
+      style={style}
+      onClick={onClick}
+    />
   );
 }
+
 export default function Carousel({ items }) {
   const settings = {
     dots: true,

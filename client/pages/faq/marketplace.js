@@ -3,7 +3,7 @@ import BukalapakIcon from "components/Icon/BukalapakIcon";
 import ShopeeIcon from "components/Icon/ShopeeIcon";
 import TokopediaIcon from "components/Icon/TokopediaIcon";
 import Link from "next/link";
-import Layout from "./layout";
+import Layout from "components/Layout/FAQ/layout";
 
 export default function Marketplace() {
   return (
@@ -37,4 +37,8 @@ export default function Marketplace() {
       </Row>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return { props: {} };
 }

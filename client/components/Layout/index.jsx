@@ -13,6 +13,7 @@ import { cx } from "@emotion/css";
 import MenuDesktop from "./Menu/Desktop";
 import dynamic from "next/dynamic";
 import SearchInput from "components/Search";
+import SubHeader from "components/SubHeader";
 
 const AsideMobile = dynamic(
   () => import(/* webpackChunkName: "aside-mobile" */ "components/Aside"),
@@ -40,6 +41,7 @@ const Layout = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <SubHeader />
       <nav className={styNav}>
         <Container
           md
@@ -54,8 +56,8 @@ const Layout = ({ children }) => {
               <Image
                 src={LOGO}
                 alt="visimedia-logo"
-                width={130}
-                height={33}
+                width={200}
+                height={50}
                 className={cx(hover, noneSelected)}
                 objectFit="cover"
               />

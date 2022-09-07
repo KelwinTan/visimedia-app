@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 import { Col, Grid, Row, Text } from "@nextui-org/react";
 import Link from "next/link";
-import Layout from "./layout";
+import Layout from "components/Layout/FAQ/layout";
 
 const style = {
   info: css`
@@ -19,7 +19,7 @@ export default function AboutUs() {
             terkemuka dan terlengkap di Indonesia
           </Text>
           <div className={style.info}>
-            <Text h4>Jakarta</Text>
+            <Text h4>JAKARTA</Text>
             <Row>
               <Col span={2}>Lokasi </Col>:
               <Col css={{ pl: 10 }}>
@@ -148,4 +148,8 @@ export default function AboutUs() {
       </Grid.Container>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return { props: {} };
 }

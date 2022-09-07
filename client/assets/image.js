@@ -22,6 +22,8 @@ import SHOPEE_ECOM from "./shopee-ecom.svg";
 import TOKOPEDIA_ECOM from "./tokopedia-ecom.svg";
 import JDID_ECOM from "./jdid-ecom.svg";
 import LAZADA_ECOM from "./lazada-ecom.svg";
+import BUKALAPAK_ECOM from "./bukalapak-ecom.svg";
+import WHATSAPP_GIF from "./whatsapp.gif";
 
 export {
   LOGO,
@@ -45,4 +47,6 @@ export {
   TOKOPEDIA_ECOM,
   JDID_ECOM,
   LAZADA_ECOM,
+  BUKALAPAK_ECOM,
+  WHATSAPP_GIF,
 };

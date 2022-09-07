@@ -1,11 +1,5 @@
-import Layout from "./layout";
-import { css } from "@emotion/css";
+import Layout from "components/Layout/FAQ/layout";
 
-const style = {
-  deliveryList: css`
-    margin-right: 8px;
-  `,
-};
 export default function Delivery() {
   return (
     <Layout>
@@ -54,4 +48,8 @@ export default function Delivery() {
       </ol>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return { props: {} };
 }

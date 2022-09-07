@@ -68,3 +68,15 @@ export const height = (h) => css`
 export const dBlock = css`
   display: block;
 `;
+
+export const uMarginLeftAuto = css`
+  margin-left: auto;
+`;
+
+export const styMargin = (...margin) => css`
+  margin: ${margin.map((d) => `${d}px`).join(" ")};
+`;
+
+export const styTextCenter = css`
+  text-align: center;
+`;

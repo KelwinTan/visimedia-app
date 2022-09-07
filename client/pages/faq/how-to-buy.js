@@ -1,6 +1,6 @@
 import { Text } from "@nextui-org/react";
 import Link from "next/link";
-import Layout from "./layout";
+import Layout from "components/Layout/FAQ/layout";
 
 export default function HowToBuy() {
   return (
@@ -36,4 +36,8 @@ export default function HowToBuy() {
       </ol>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return { props: {} };
 }

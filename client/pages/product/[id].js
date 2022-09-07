@@ -41,10 +41,10 @@ export default function ProductDetail({ product }) {
             </Col>
             <Col span={4} css={{ pl: "$10" }}>
               <Text h4>{product.name}</Text>
-              <Text>
+              {/* <Text>
                 Terjual <b>502</b>
-              </Text>
-              <Text del>Harga normal Rp.{toIDR(product.price)}</Text>{" "}
+              </Text> */}
+              <Text>Harga Rp.{toIDR(product.price)}</Text>{" "}
               {/* <Badge variant={"flat"}>Hemat Rp.3.000</Badge> */}
               <Spacer y={1}></Spacer>
               <Text>

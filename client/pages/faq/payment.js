@@ -1,4 +1,4 @@
-import Layout from "./layout";
+import Layout from "components/Layout/FAQ/layout";
 
 export default function Payment() {
   return (
@@ -13,4 +13,8 @@ export default function Payment() {
       </ol>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return { props: {} };
 }

@@ -3,7 +3,7 @@ import CalenderIcon from "components/Icon/CalenderIcon";
 import EmailIcon from "components/Icon/EmailIcon";
 import PhoneIcon from "components/Icon/PhoneIcon";
 import color from "constants/color";
-import Layout from "./layout";
+import Layout from "components/Layout/FAQ/layout";
 
 export default function CallUs() {
   return (
@@ -41,4 +41,8 @@ export default function CallUs() {
       </Row>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return { props: {} };
 }

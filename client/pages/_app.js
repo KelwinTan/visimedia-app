@@ -9,20 +9,25 @@ import { styGlobal as globalCss } from "styles/globals";
 import ContextProvider from "providers/ContextProvider";
 import authConstant from "constants/auth";
 import { node, object } from "prop-types";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps, userAgent, auth }) {
   const dataProps = { userAgent, auth };
 
   return (
-    <NextUIProvider>
-      <Global styles={globalCss} />
-      <ContextProvider {...dataProps}>
-        <Layout>
-          <Component {...pageProps} />
-          <Toaster toastOptions={{ duration: 2000 }} position="top-right" />
-        </Layout>
-      </ContextProvider>
-    </NextUIProvider>
+    <QueryClientProvider client={queryClient}>
+      <NextUIProvider>
+        <Global styles={globalCss} />
+        <ContextProvider {...dataProps}>
+          <Layout>
+            <Component {...pageProps} />
+            <Toaster toastOptions={{ duration: 2000 }} position="top-right" />
+          </Layout>
+        </ContextProvider>
+      </NextUIProvider>
+    </QueryClientProvider>
   );
 }
 MyApp.propTypes = {

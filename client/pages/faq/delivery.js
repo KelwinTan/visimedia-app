@@ -3,7 +3,7 @@ import GrabIcon from "components/Icon/GrabIcon";
 import JneIcon from "components/Icon/JneIcon";
 import MexIcon from "components/Icon/MexIcon";
 import { Text } from "@nextui-org/react";
-import Layout from "./layout";
+import Layout from "../../components/Layout/FAQ/layout";
 import { dFlex, mTop } from "styles/globals";
 import { css, cx } from "@emotion/css";
 
@@ -113,4 +113,8 @@ export default function Delivery() {
       </div>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return { props: {} };
 }

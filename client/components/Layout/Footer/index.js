@@ -20,6 +20,8 @@ import FacebookIcon from "components/Icon/FacebookIcon";
 import InstagramIcon from "components/Icon/InstagramIcon";
 import TwitterIcon from "components/Icon/TwitterIcon";
 import CalenderIcon from "components/Icon/CalenderIcon";
+import YoutubeIcon from "components/Icon/YoutubeIcon";
+import TiktokIcon from "components/Icon/TiktokIcon";
 
 const Footer = () => {
   return (
@@ -176,6 +178,16 @@ const Footer = () => {
                 <Link href="https://twitter.com/visimediasupply">
                   <a target="_blank">
                     <TwitterIcon color={color.twitter} />
+                  </a>
+                </Link>
+                <Link href="https://www.instagram.com/visimediaindonesia/">
+                  <a target={"_blank"}>
+                    <YoutubeIcon color={color.youtube} />
+                  </a>
+                </Link>
+                <Link href="https://www.tiktok.com/@visimediaofficial">
+                  <a target={"_blank"}>
+                    <TiktokIcon color={color.tiktok} />
                   </a>
                 </Link>
               </div>
