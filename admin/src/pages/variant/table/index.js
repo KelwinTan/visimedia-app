@@ -1,13 +1,14 @@
 import { Button, Image, Popconfirm, Space, Table } from "antd";
 import { useEffect, useMemo, useState } from "react";
-import { useBanner } from "../../../context/banner-context";
+import { useProduct } from "../../../context/product-context";
+import { useVariant } from "../../../context/variant-context";
 
-export default function BannerTable({ onUpdate }) {
-  const { getAll, remove, banners } = useBanner();
+export default function VariantTable({ onUpdate }) {
+  const { getAll, variants, remove } = useVariant();
 
   useEffect(() => {
     getAll();
-  }, [getAll]);
+  }, []);
 
   const onDelete = async (id) => {
     await remove(id);
@@ -17,24 +18,10 @@ export default function BannerTable({ onUpdate }) {
     () => [
       {
         title: "Name",
-        dataIndex: "name",
-        key: "name",
+        dataIndex: "variant",
+        key: "variant",
       },
-      {
-        title: "Image",
-        dataIndex: "public_image_path",
-        key: "public_image_path",
-        render: (value) => {
-          return (
-            <Image width={200} src={process.env.REACT_APP_IMAGE_URL + value} />
-          );
-        },
-      },
-      {
-        title: "Redirect URL",
-        dataIndex: "url_redirect",
-        key: "url_redirect",
-      },
+
       {
         title: "Action",
         key: "action",
@@ -61,7 +48,7 @@ export default function BannerTable({ onUpdate }) {
   return (
     <>
       <Table
-        dataSource={banners.map((data, idx) => ({ ...data, key: idx }))}
+        dataSource={variants.map((data, idx) => ({ ...data, key: idx }))}
         columns={columns}
       />
     </>

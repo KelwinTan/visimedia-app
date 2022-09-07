@@ -5,16 +5,17 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useAuth } from "../context/auth-context";
+import { useAuth } from "./auth-context";
 import _axios from "../_axios";
 import { node } from "prop-types";
+import { useEffect } from "react";
 
-const BannerContext = createContext(undefined);
+const VariantContext = createContext(undefined);
 
-export default function BannerProvider({ children }) {
+export default function VariantProvider({ children }) {
   const { token } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [banners, setBanners] = useState([]);
+  const [variants, setVariants] = useState([]);
 
   const baseHeader = useMemo(
     () => ({
@@ -26,10 +27,8 @@ export default function BannerProvider({ children }) {
   const getAll = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await _axios.get("/banners/admin", {
-        headers: baseHeader,
-      });
-      setBanners(data.banners);
+      const { data } = await _axios.get("/variants", { headers: baseHeader });
+      setVariants(data.variants);
     } catch (error) {
       return [];
     } finally {
@@ -40,12 +39,11 @@ export default function BannerProvider({ children }) {
   const getDetail = useCallback(
     async (id) => {
       setLoading(true);
-
       try {
-        const { data } = await _axios.get("/banners/" + id, {
+        const { data } = await _axios.get("/variants/" + id, {
           headers: baseHeader,
         });
-        return data.banner;
+        return data.variant;
       } catch (error) {
         return [];
       } finally {
@@ -60,10 +58,10 @@ export default function BannerProvider({ children }) {
       setLoading(true);
 
       try {
-        const { data } = await _axios.delete("/banners/" + id, {
+        const { data } = await _axios.delete("/variants/" + id, {
           headers: baseHeader,
         });
-        setBanners((b) => {
+        setVariants((b) => {
           const delIdx = b.findIndex((d) => d.id === id);
           return [...b.slice(0, delIdx), ...b.slice(delIdx + 1)];
         });
@@ -78,18 +76,18 @@ export default function BannerProvider({ children }) {
   );
 
   const create = useCallback(
-    async ({ name, image, url_redirect }) => {
+    async ({ name }) => {
       setLoading(true);
 
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("image", image);
-      formData.append("url", url_redirect);
       try {
-        const { data } = await _axios.post("/banners", formData, {
-          headers: baseHeader,
-        });
-        setBanners((b) => [...b, data.banner]);
+        const { data } = await _axios.post(
+          "/variants/create",
+          { variant: name },
+          {
+            headers: baseHeader,
+          }
+        );
+        setVariants((b) => [...b, data.variant]);
         return data;
       } catch (error) {
         throw error;
@@ -101,26 +99,18 @@ export default function BannerProvider({ children }) {
   );
 
   const update = useCallback(
-    async ({ id, name, image }) => {
+    async ({ id, name }) => {
       setLoading(true);
 
-      const formData = new FormData();
-      formData.append("name", name);
-      if (image) formData.append("image", image);
       try {
         const { data } = await _axios.post(
-          "/banners/" + id + "/update",
-          formData,
+          `/variants/${id}/update`,
+          { variant: name },
           {
             headers: baseHeader,
           }
         );
-        setBanners((b) => {
-          const newData = [...b];
-          const updateIdx = newData.findIndex((d) => d.id === id);
-          newData[updateIdx] = data.banner;
-          return newData;
-        });
+        setVariants((b) => [...b, data.variant]);
         return data;
       } catch (error) {
         throw error;
@@ -131,31 +121,58 @@ export default function BannerProvider({ children }) {
     [baseHeader]
   );
 
+  const createWithDetails = useCallback(
+    async ({ price, product_id, product_variant_name, variant_values }) => {
+      setLoading(true);
+
+      try {
+        const { data } = await _axios.post(
+          "/product-variants/create/with-details",
+          {
+            price: Number(price),
+            product_id,
+            product_variant_name: product_variant_name?.trim(),
+            variant_values,
+          },
+          {
+            headers: baseHeader,
+          }
+        );
+        return data;
+      } catch (error) {
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
   return (
-    <BannerContext.Provider
+    <VariantContext.Provider
       value={{
         loading,
         create,
         getAll,
-        getDetail,
         remove,
         update,
-        banners,
+        variants,
+        getDetail,
+        createWithDetails,
       }}
     >
       {children}
-    </BannerContext.Provider>
+    </VariantContext.Provider>
   );
 }
 
-BannerProvider.defaultProps = {
+VariantProvider.defaultProps = {
   children: node.isRequired,
 };
 
-export function useBanner() {
-  const context = useContext(BannerContext);
+export function useVariant() {
+  const context = useContext(VariantContext);
   if (context === undefined) {
-    throw new Error("useBanner must be under BannerProvider");
+    throw new Error("useVariant must be under VariantProvider");
   }
   return context;
 }
