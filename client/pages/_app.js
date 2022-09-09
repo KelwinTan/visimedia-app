@@ -13,6 +13,7 @@ import { node, object } from "prop-types";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import { SSRProvider } from "react-aria";
 
 const queryClient = new QueryClient();
 
@@ -24,17 +25,19 @@ function MyApp({ Component, pageProps, userAgent, auth }) {
   const dataProps = { userAgent, auth };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NextUIProvider>
-        <Global styles={globalCss} />
-        <ContextProvider {...dataProps}>
-          <Layout>
-            <Component {...pageProps} />
-            <Toaster toastOptions={{ duration: 2000 }} position="top-right" />
-          </Layout>
-        </ContextProvider>
-      </NextUIProvider>
-    </QueryClientProvider>
+    <SSRProvider>
+      <QueryClientProvider client={queryClient}>
+        <NextUIProvider>
+          <Global styles={globalCss} />
+          <ContextProvider {...dataProps}>
+            <Layout>
+              <Component {...pageProps} />
+              <Toaster toastOptions={{ duration: 2000 }} position="top-right" />
+            </Layout>
+          </ContextProvider>
+        </NextUIProvider>
+      </QueryClientProvider>
+    </SSRProvider>
   );
 }
 MyApp.propTypes = {

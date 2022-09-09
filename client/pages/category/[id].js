@@ -22,7 +22,7 @@ import { styPlainButton } from "styles/globals";
 
 export default function CategoryDetail({ category }) {
   const { data: categories } = useCategories();
-  const { isDesktop } = useUA();
+  const { isDesktop, isMobile } = useUA();
   const { toggleVisible } = useAside();
 
   return (
@@ -70,14 +70,16 @@ export default function CategoryDetail({ category }) {
               <Col span={10}>
                 <Text h3>Kategori: {category.name}</Text>
               </Col>
-              <Col span={2}>
-                <button
-                  onClick={() => toggleVisible("filter")}
-                  className={styPlainButton}
-                >
-                  <FilterIcon />
-                </button>
-              </Col>
+              {isMobile && (
+                <Col span={2}>
+                  <button
+                    onClick={() => toggleVisible("filter")}
+                    className={styPlainButton}
+                  >
+                    <FilterIcon />
+                  </button>
+                </Col>
+              )}
             </Row>
             <Spacer y={1} />
             <Grid.Container gap={2} justify="flex-start">

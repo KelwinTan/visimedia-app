@@ -5,16 +5,14 @@ import { bool, number } from "prop-types";
 const TokopediaIcon = ({ ecommerce, width, height }) => {
   if (ecommerce) {
     return (
-      <div style={{ position: "relative", width, height }}>
-        <Image
-          src={TOKOPEDIA_ECOM}
-          width={width}
-          height={height}
-          layout="fill"
-          alt="tokopedia"
-          objectFit="contain"
-        />
-      </div>
+      <Image
+        src={TOKOPEDIA_ECOM}
+        width={width}
+        height={height}
+        layout="fixed"
+        alt="tokopedia"
+        objectFit="contain"
+      />
     );
   }
   return (

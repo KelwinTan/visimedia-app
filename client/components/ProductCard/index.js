@@ -11,60 +11,60 @@ import toIDR from "shared/currency/toIDR";
 import { hover, w100 } from "styles/globals";
 
 const ProductCard = forwardRef((props, ref) => {
-  const { item, ...rest } = props;
+  const { item } = props;
 
   return (
-    <a {...rest} className={cx(w100)}>
-      <Card isHoverable className={hover} ref={ref}>
-        <Card.Body css={{ p: 0 }}>
-          <Image
-            src={process.env.IMAGE_URL + item.public_image_url}
-            objectFit="cover"
-            width="100%"
-            height={147}
-            alt={item.title}
-            loading="lazy"
-          />
-        </Card.Body>
-        <Card.Footer>
-          <Container css={{ p: 0 }} direction="column" alignItems="flex-start">
-            <Link
-              passHref
-              href={{ pathname: "/product/[id]", query: { id: item.id } }}
-            >
+    <Card isHoverable className={hover} ref={ref}>
+      <Card.Body css={{ p: 0 }}>
+        <Image
+          src={process.env.IMAGE_URL + item.public_image_url}
+          objectFit="cover"
+          width="100%"
+          height={147}
+          alt={item.name}
+          loading="lazy"
+        />
+      </Card.Body>
+      <Card.Footer>
+        <Container css={{ p: 0 }} direction="column" alignItems="flex-start">
+          <Link
+            passHref
+            href={{ pathname: "/product/[id]", query: { id: item.id } }}
+          >
+            <a>
               <Text css={{ fontWeight: "$medium" }}>{item.name}</Text>
-            </Link>
-            <Text
-              css={{
-                fontWeight: "$bold",
-              }}
+            </a>
+          </Link>
+          <Text
+            css={{
+              fontWeight: "$bold",
+            }}
+          >
+            Rp{toIDR(item.price)}
+          </Text>
+          {/* <Text size={12}>Terjual {item.sold}+</Text> */}
+          <Spacer y={0.25} />
+          <Row align="center">
+            <a
+              href="https://api.whatsapp.com/send/?phone=6282110200808&text=Hallo+Visimedia...&type=phone_number&app_absent=0"
+              target={"_blank"}
             >
-              Rp{toIDR(item.price)}
-            </Text>
-            {/* <Text size={12}>Terjual {item.sold}+</Text> */}
-            <Spacer y={0.25} />
-            <Row align="center">
-              <a
-                href="https://api.whatsapp.com/send/?phone=6282110200808&text=Hallo+Visimedia...&type=phone_number&app_absent=0"
-                target={"_blank"}
-              >
-                <WhatsappIcon color={color.wa} width={25} />
+              <WhatsappIcon color={color.wa} width={25} />
+            </a>
+            {eval(item.tokopedia_link) && (
+              <a href={item.tokopedia_link} target={"_blank"}>
+                <TokopediaIcon width={25} />
               </a>
-              {eval(item.tokopedia_link) && (
-                <a href={item.tokopedia_link} target={"_blank"}>
-                  <TokopediaIcon width={25} />
-                </a>
-              )}
-              {eval(item.shopee_link) && (
-                <a href={item.shopee_link} target={"_blank"}>
-                  <ShopeeIcon marketPlace width={25} />
-                </a>
-              )}
-            </Row>
-          </Container>
-        </Card.Footer>
-      </Card>
-    </a>
+            )}
+            {eval(item.shopee_link) && (
+              <a href={item.shopee_link} target={"_blank"}>
+                <ShopeeIcon marketPlace width={25} />
+              </a>
+            )}
+          </Row>
+        </Container>
+      </Card.Footer>
+    </Card>
   );
 });
 

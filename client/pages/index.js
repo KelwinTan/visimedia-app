@@ -80,6 +80,8 @@ export default function Home({ banners, products }) {
                           width={48}
                           height={48}
                           className={styTextCenter}
+                          alt={data.name}
+                          priority={idx === 0}
                         />
                         <Text
                           className={styTextCenter}

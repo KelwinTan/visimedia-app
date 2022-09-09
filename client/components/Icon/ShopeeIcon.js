@@ -8,7 +8,7 @@ const ShopeeIcon = ({ marketPlace, ecommerce, width, height }) => {
       <div style={{ position: "relative", width, height }}>
         <Image
           width={width}
-          height={30}
+          height={height}
           layout="fill"
           src={SHOPEE_ECOM}
           alt="shopee"
