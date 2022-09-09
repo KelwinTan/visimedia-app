@@ -20,11 +20,14 @@ import TiktokIcon from "components/Icon/TiktokIcon";
 import useCategories from "hooks/useCategories";
 import { useUA } from "providers/user-agent";
 import useBestProduct from "hooks/useBestProduct";
+import useProducts from "hooks/useProducts";
 
-export default function Home({ banners, products }) {
+export default function Home({ banners, categories }) {
   const { data: _categories } = useCategories();
   const { isMobile } = useUA();
   const { data: best_products } = useBestProduct();
+  const { data: products } = useProducts();
+
   return (
     <>
       <Head>
@@ -63,7 +66,7 @@ export default function Home({ banners, products }) {
           <Grid xs={12} md={12}>
             <Marketplace title={"List Kategori"}>
               <Grid.Container gap={2}>
-                {_categories?.map((data, idx) => (
+                {categories?.map((data, idx) => (
                   <Grid justify="center" key={idx} xs={12} md={2}>
                     <Link
                       href={{
@@ -234,14 +237,13 @@ export default function Home({ banners, products }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const [banners, products] = await Promise.all([
+export async function getServerSideProps() {
+  const [banners, categories] = await Promise.all([
     _axios.get("/banners").then((res) => res.data?.banners || []),
-    _axios.get("/products").then((res) => res.data?.products || []),
+    _axios.get("/categories").then((res) => res.data?.categories || []),
   ]);
 
-  console.log({ banners, products });
   return {
-    props: { banners, products }, // will be passed to the page component as props
+    props: { banners, categories }, // will be passed to the page component as props
   };
 }
