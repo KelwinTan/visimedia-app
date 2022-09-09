@@ -6,7 +6,7 @@ import { Container, Text } from "@nextui-org/react";
 import color from "constants/color";
 import { useState } from "react";
 import Link from "next/link";
-import { useDropdown } from "providers/dropdown";
+import { useAside } from "providers/aside";
 
 const colorItem = {
   active: color.primary,
@@ -15,7 +15,7 @@ const colorItem = {
 
 const NavBottom = () => {
   const [active, setActive] = useState(0);
-  const { setVisible, toggleVisible } = useDropdown();
+  const { setVisible, toggleVisible } = useAside();
 
   return (
     <div className={styNavBottom}>
@@ -26,7 +26,7 @@ const NavBottom = () => {
               className={styNavBottomItem}
               onClick={() => {
                 setActive(0);
-                setVisible(false);
+                setVisible("menu", false);
               }}
             >
               <HomeIcon
@@ -44,7 +44,7 @@ const NavBottom = () => {
           className={styNavBottomItem}
           onClick={() => {
             setActive(1);
-            toggleVisible();
+            toggleVisible("menu");
           }}
         >
           <HamburgerIcon
@@ -62,7 +62,7 @@ const NavBottom = () => {
               className={styNavBottomItem}
               onClick={() => {
                 setActive(2);
-                setVisible(false);
+                setVisible("menu", false);
               }}
             >
               <SignInIcon

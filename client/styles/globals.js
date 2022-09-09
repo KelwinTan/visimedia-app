@@ -80,3 +80,8 @@ export const styMargin = (...margin) => css`
 export const styTextCenter = css`
   text-align: center;
 `;
+
+export const styPlainButton = css`
+  background: transparent;
+  border: 0;
+`;

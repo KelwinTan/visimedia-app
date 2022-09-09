@@ -1,4 +1,5 @@
 import App from "next/app";
+import Router from "next/router";
 import { Toaster } from "react-hot-toast";
 import { Global } from "@emotion/react";
 import { NextUIProvider } from "@nextui-org/react";
@@ -10,8 +11,14 @@ import ContextProvider from "providers/ContextProvider";
 import authConstant from "constants/auth";
 import { node, object } from "prop-types";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 const queryClient = new QueryClient();
+
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps, userAgent, auth }) {
   const dataProps = { userAgent, auth };

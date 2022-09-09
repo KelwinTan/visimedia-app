@@ -59,38 +59,45 @@ export default function Home({ banners, products }) {
       <Spacer y={3} />
 
       <Container fluid md css={{ px: 0 }}>
-        <Marketplace title={"List Kategori"}>
-          <Grid.Container gap={2}>
-            {_categories?.map((data, idx) => (
-              <Grid justify="center" key={idx} xs={12} md={2}>
-                <Link
-                  href={{ pathname: "/category/[id]", query: { id: data.id } }}
-                >
-                  <a className={styTextCenter}>
-                    <Image
-                      src={
-                        "https://enterkomputer.com/web-assets/frontend/icon/svg/category/printer.svg"
-                      }
-                      layout="fixed"
-                      width={48}
-                      height={48}
-                      className={styTextCenter}
-                    />
-                    <Text
-                      className={styTextCenter}
-                      css={{ fontWeight: "bolder" }}
+        <Grid.Container gap={2} justify="center">
+          <Grid xs={12} md={12}>
+            <Marketplace title={"List Kategori"}>
+              <Grid.Container gap={2}>
+                {_categories?.map((data, idx) => (
+                  <Grid justify="center" key={idx} xs={12} md={2}>
+                    <Link
+                      href={{
+                        pathname: "/category/[id]",
+                        query: { id: data.id },
+                      }}
                     >
-                      {data.name}
-                    </Text>
-                    <Text className={styTextCenter}>
-                      {data.products?.length} produk
-                    </Text>
-                  </a>
-                </Link>
-              </Grid>
-            ))}
-          </Grid.Container>
-        </Marketplace>
+                      <a className={styTextCenter}>
+                        <Image
+                          src={
+                            "https://enterkomputer.com/web-assets/frontend/icon/svg/category/printer.svg"
+                          }
+                          layout="fixed"
+                          width={48}
+                          height={48}
+                          className={styTextCenter}
+                        />
+                        <Text
+                          className={styTextCenter}
+                          css={{ fontWeight: "bolder" }}
+                        >
+                          {data.name}
+                        </Text>
+                        <Text className={styTextCenter}>
+                          {data.products?.length} produk
+                        </Text>
+                      </a>
+                    </Link>
+                  </Grid>
+                ))}
+              </Grid.Container>
+            </Marketplace>
+          </Grid>
+        </Grid.Container>
       </Container>
 
       <Spacer y={2} />

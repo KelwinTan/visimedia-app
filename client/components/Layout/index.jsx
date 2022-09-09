@@ -16,9 +16,16 @@ import SearchInput from "components/Search";
 import SubHeader from "components/SubHeader";
 
 const AsideMobile = dynamic(
-  () => import(/* webpackChunkName: "aside-mobile" */ "components/Aside"),
+  () => import(/* webpackChunkName: "aside-mobile" */ "components/Aside/Menu"),
   { ssr: false }
 );
+
+const FilterMobile = dynamic(
+  () =>
+    import(/* webpackChunkName: "aside-mobile" */ "components/Aside/Filter"),
+  { ssr: false }
+);
+
 const NavBottom = dynamic(
   () => import(/* webpackChunkName: "nav-bottom" */ "components/NavBottom"),
   { ssr: true }
@@ -78,6 +85,7 @@ const Layout = ({ children }) => {
       {isMobile && (
         <>
           <AsideMobile />
+          <FilterMobile />
           <NavBottom />
         </>
       )}

@@ -4,12 +4,12 @@ import Portal from "components/Portal";
 import color from "constants/color";
 import Link from "next/link";
 import { useCategory } from "providers/categories";
-import { useDropdown } from "providers/dropdown";
+import { useAside } from "providers/aside";
 import { useEffect, useState } from "react";
-import { styAside, styAsideItem, styHeader } from "./style";
+import { styAside, styAsideItem, styHeader } from "../style";
 
-export default function Aside() {
-  const { setVisible, visible } = useDropdown();
+export default function AsideMenu() {
+  const { toggleVisible, visible } = useAside();
   const { getAll } = useCategory();
   const [categories, setCategories] = useState([]);
 
@@ -19,7 +19,7 @@ export default function Aside() {
 
   return (
     <Portal>
-      <aside className={styAside({ visible })}>
+      <aside className={styAside({ visible: visible.menu })}>
         <div className={styHeader}>
           <Container
             fluid
@@ -30,7 +30,7 @@ export default function Aside() {
             <Text weight="bold" h5 color={color.white}>
               KATEGORI BELANJA
             </Text>
-            <div onClick={() => setVisible(!visible)}>
+            <div onClick={() => toggleVisible("menu")}>
               <CloseIcon color={color.white} />
             </div>
           </Container>

@@ -12,6 +12,7 @@ import { hover, w100 } from "styles/globals";
 
 const ProductCard = forwardRef((props, ref) => {
   const { item, ...rest } = props;
+
   return (
     <a {...rest} className={cx(w100)}>
       <Card isHoverable className={hover} ref={ref}>
@@ -49,8 +50,16 @@ const ProductCard = forwardRef((props, ref) => {
               >
                 <WhatsappIcon color={color.wa} width={25} />
               </a>
-              {props.tokopedia_link && <TokopediaIcon width={25} />}
-              {props.shopee_link && <ShopeeIcon marketPlace width={25} />}
+              {eval(item.tokopedia_link) && (
+                <a href={item.tokopedia_link} target={"_blank"}>
+                  <TokopediaIcon width={25} />
+                </a>
+              )}
+              {eval(item.shopee_link) && (
+                <a href={item.shopee_link} target={"_blank"}>
+                  <ShopeeIcon marketPlace width={25} />
+                </a>
+              )}
             </Row>
           </Container>
         </Card.Footer>
