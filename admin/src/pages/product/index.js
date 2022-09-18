@@ -1,56 +1,33 @@
-import { Modal } from "antd";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
+import { useHistory } from "react-router";
 import LayoutContent from "../../components/Layout/Content";
-import ProductForm from "./form/add";
 import ProductTable from "./table";
 
 function Category() {
-  const [showModal, setShowModal] = useState({
-    product: false,
-  });
-  const [selectedId, setSelectedId] = useState(null);
+  const navigate = useHistory();
 
-  const onClose = useCallback(() => {
-    setSelectedId(null);
-    setShowModal({ product: false, variant: false });
-  }, []);
-
-  const onUpdate = useCallback((id) => {
-    setSelectedId(id);
-    setShowModal((d) => ({ ...d, product: true }));
-  }, []);
+  const onUpdate = useCallback(
+    (id) => {
+      navigate.push(`/product/detail?id=${id}`);
+    },
+    [navigate]
+  );
 
   return (
-    <>
-      {showModal.product && (
-        <Modal
-          title={selectedId ? "Product Detail" : "Add Product"}
-          visible={true}
-          onCancel={() => {
-            setSelectedId(null);
-            setShowModal((d) => ({ ...d, product: false }));
-          }}
-          footer={null}
-        >
-          <ProductForm id={selectedId} onClose={onClose} />
-        </Modal>
-      )}
-
-      <LayoutContent
-        title="Product"
-        actions={[
-          {
-            text: "Add Product",
-            type: "primary",
-            onClick: () => {
-              setShowModal((d) => ({ ...d, product: true }));
-            },
+    <LayoutContent
+      title="Product"
+      actions={[
+        {
+          text: "Add Product",
+          type: "primary",
+          onClick: () => {
+            navigate.push("/product/detail");
           },
-        ]}
-      >
-        <ProductTable onUpdate={onUpdate} />
-      </LayoutContent>
-    </>
+        },
+      ]}
+    >
+      <ProductTable onUpdate={onUpdate} />
+    </LayoutContent>
   );
 }
 

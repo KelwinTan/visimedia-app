@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 import { useCallback } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { VISIMEDIA_LOGO } from "../../../assets/image";
 import { useAuth } from "../../../context/auth-context";
 import { styContainer, styLogo } from "./styles";
@@ -8,7 +8,7 @@ import { styContainer, styLogo } from "./styles";
 function Login() {
   const { login } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useHistory();
 
   const onFinish = useCallback(
     (values) => {
@@ -16,7 +16,7 @@ function Login() {
         .then(() => {
           const u = new URLSearchParams(location.search);
           const redirectURL = u.get("ld") || "/";
-          navigate({ pathname: redirectURL });
+          navigate.push(redirectURL);
         })
         .catch((err) => {
           const error = err.response?.data?.error || err || "";

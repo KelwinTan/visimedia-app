@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "./pages/auth/login/lazy";
 import ContextProvider from "./context";
 import PrivateRoute from "./components/PrivateRoute";
@@ -13,24 +13,18 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <ContextProvider>
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <PrivateRoute>
-              <App />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+      <Switch>
+        <Route exact path="/login">
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        </Route>
+        <Route path="/">
+          <PrivateRoute>
+            <App />
+          </PrivateRoute>
+        </Route>
+      </Switch>
     </ContextProvider>
   </BrowserRouter>
 );
