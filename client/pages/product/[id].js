@@ -1,6 +1,7 @@
 import {
   Card,
   Col,
+  Collapse,
   Container,
   Divider,
   Image,
@@ -54,24 +55,32 @@ export default function ProductDetail({ product }) {
               Kategori: <b>Accessories</b>
             </Text>
             <Text css={{ mt: "$8" }}>{product.description}</Text>
-            <Spacer y={3} />
-            <Text color="error">
-              *Mohon maaf saat ini media Whatsapp sedang tidak tersedia, silakan
-              order melalui media Email : sales@enterkomputer.com
-            </Text>
-            <Text>Pengiriman</Text>
-            <Divider y={1} />
-            <Text>
-              Dikirim dari <b>Jakarta pusat</b>
-            </Text>
-            <Text>
-              Dikirim ke <b>Pilih Tujuan</b>
-            </Text>
           </Col>
           {isDesktop && (
             <Col span={3} css={{ pl: "$8" }}>
               <Card variant="bordered" css={{ borderRadius: 8, maxWidth: 300 }}>
                 <Card.Body>
+                  <Text b h4>
+                    Pilih Varian
+                  </Text>
+                  <Collapse.Group css={{ px: 0 }}>
+                    {product.productVariantsData?.map((variant, idx) => {
+                      return (
+                        <Collapse
+                          key={idx}
+                          title={variant.product_variant_name}
+                          subtitle={"Rp." + toIDR(variant.price)}
+                        >
+                          {variant.variantValues?.flat()?.map((detail, idx) => (
+                            <Text key={idx}>
+                              {detail.variant?.variant} - {detail.value}
+                            </Text>
+                          ))}
+                        </Collapse>
+                      );
+                    })}
+                  </Collapse.Group>
+
                   <Text b h5>
                     Belanja Sekarang
                   </Text>
@@ -84,6 +93,11 @@ export default function ProductDetail({ product }) {
           )}
         </Row>
       </Container>
+      {/* 
+      <Container md fluid css={{ mt: "$10" }}>
+        <NestedTable />
+      </Container>
+ */}
       {/* if mobile, show beli in bottom dock */}
       {isMobile && (
         <Row
