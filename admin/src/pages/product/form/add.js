@@ -1,13 +1,14 @@
-import { Button, Form, Image, Input, message, Select, Space } from "antd";
-import { useEffect, useRef, useState } from "react";
-import { useBanner } from "../../../context/banner-context";
+import { Button, Form, Input, message, Select, Space } from "antd";
+import React, { useEffect, useRef, useState } from "react";
 import { useCategory } from "../../../context/category-context";
 import { useProduct } from "../../../context/product-context";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { useVariant } from "../../../context/variant-context";
 
 export default function ProductForm({ id, onClose }) {
   const { loading, create, getDetail, update } = useProduct();
   const { categories, getAll } = useCategory();
+  const { variants, getAll: getAllVariants, createWithDetails } = useVariant();
 
   const [detail, setDetail] = useState({});
   const imageRef = useRef(null);
@@ -15,7 +16,8 @@ export default function ProductForm({ id, onClose }) {
 
   useEffect(() => {
     getAll();
-  }, [getAll]);
+    getAllVariants();
+  }, [getAll, getAllVariants]);
 
   useEffect(() => {
     if (id) {
@@ -31,42 +33,7 @@ export default function ProductForm({ id, onClose }) {
     } else {
       setDetail({});
     }
-  }, [getDetail, id]);
-
-  const onAdd = async ({
-    name,
-    description,
-    sku = "",
-    price,
-    image,
-    category_id,
-    quantity,
-    tokopedia_link,
-    shopee_link,
-  }) => {
-    try {
-      await create({
-        name,
-        description,
-        sku,
-        price,
-        image,
-        category_id,
-        quantity,
-        tokopedia_link,
-        shopee_link,
-        image: imageRef.current,
-      });
-      message.success("Success add a new banner");
-      onClose();
-    } catch (error) {
-      const errorResponse = error.response?.data?.errors || undefined;
-      if (errorResponse) {
-        const [_error] = Object.entries(errorResponse);
-        message.error("Error: " + _error[1]);
-      }
-    }
-  };
+  }, [getDetail, form, id]);
 
   const onChangeImage = (file) => {
     imageRef.current = file;
@@ -77,32 +44,20 @@ export default function ProductForm({ id, onClose }) {
     fileReader.readAsDataURL(file);
   };
 
-  const onUpdate = async ({
-    name,
-    description,
-    sku = "",
-    price,
-    image,
-    category_id,
-    quantity,
-    tokopedia_link,
-    shopee_link,
-  }) => {
+  const onFinish = async (payload) => {
+    const { product_variant_name, price, variant_values, ...productField } =
+      payload;
+    const api = id ? update(productField) : create(productField);
     try {
-      await update({
-        name,
-        description,
-        sku,
+      const response = await api;
+      const variantPayload = {
+        product_variant_name,
         price,
-        image,
-        category_id,
-        quantity,
-        image: imageRef.current,
-        id,
-        tokopedia_link,
-        shopee_link,
-      });
-      message.success("Success add a new banner");
+        variant_values,
+        product_id: response?.product?.id || id,
+      };
+      await createWithDetails(variantPayload);
+      message.success("Success update a new banner");
       onClose();
     } catch (error) {
       const errorResponse = error.response?.data?.errors || undefined;
@@ -110,44 +65,6 @@ export default function ProductForm({ id, onClose }) {
         const [_error] = Object.entries(errorResponse);
         message.error("Error: " + _error[1]);
       }
-    }
-  };
-
-  const onFinish = ({
-    name,
-    description,
-    sku,
-    price,
-    image,
-    category_id,
-    quantity,
-    tokopedia_link,
-    shopee_link,
-  }) => {
-    if (id) {
-      onUpdate({
-        name,
-        description,
-        sku,
-        price,
-        image,
-        category_id,
-        quantity,
-        tokopedia_link,
-        shopee_link,
-      });
-    } else {
-      onAdd({
-        name,
-        description,
-        sku,
-        price,
-        image,
-        category_id,
-        quantity,
-        tokopedia_link,
-        shopee_link,
-      });
     }
   };
 
@@ -233,6 +150,22 @@ export default function ProductForm({ id, onClose }) {
       <Form.Item label="Tokopdia Link" name="tokopedia_link">
         <Input />
       </Form.Item>
+
+      <Form.Item label="Product Variant" name="product_variant_name">
+        <Input placeholder="Product Variant Name" />
+      </Form.Item>
+
+      <Form.Item label="Product Variant Price" name="price">
+        <Input placeholder="Product Variant Price" type="number" prefix="Rp." />
+      </Form.Item>
+
+      {variants.map((d, idx) => (
+        <React.Fragment key={idx}>
+          <Form.Item label={d.variant} name={[d.variant, "value"]} rules={[]}>
+            <Input placeholder="Value" />
+          </Form.Item>
+        </React.Fragment>
+      ))}
 
       <Form.Item>
         <Button

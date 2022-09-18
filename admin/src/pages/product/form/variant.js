@@ -1,7 +1,5 @@
-import { Button, Form, Image, Input, message, Select, Space } from "antd";
+import { Button, Form, Input, message, Select, Space } from "antd";
 import { useEffect, useRef, useState } from "react";
-import { useBanner } from "../../../context/banner-context";
-import { useCategory } from "../../../context/category-context";
 import { useProduct } from "../../../context/product-context";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { useVariant } from "../../../context/variant-context";
@@ -28,7 +26,6 @@ export default function ProductForm({ id, onClose }) {
   return (
     <Form
       form={form}
-      defaultValue={detail}
       name="basic"
       onFinish={onFinish}
       autoComplete="off"
