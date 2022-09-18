@@ -21,6 +21,7 @@ import useCategories from "hooks/useCategories";
 import { useUA } from "providers/user-agent";
 import useBestProduct from "hooks/useBestProduct";
 import useProducts from "hooks/useProducts";
+import PrinterIcon from "components/Icon/PrinterIcon";
 
 export default function Home({ banners, categories }) {
   const { data: _categories } = useCategories();
@@ -61,54 +62,45 @@ export default function Home({ banners, categories }) {
 
       <Spacer y={3} />
 
-      <Container fluid md css={{ px: 0 }}>
-        <Grid.Container gap={2} justify="center">
-          <Grid xs={12} md={12}>
-            <Marketplace title={"List Kategori"}>
-              <Grid.Container gap={2}>
-                {categories?.map((data, idx) => (
-                  <Grid justify="center" key={idx} xs={12} md={2}>
-                    <Link
-                      href={{
-                        pathname: "/category/[id]",
-                        query: { id: data.id },
-                      }}
+      <Container fluid md css={{ px: "1rem" }}>
+        <Marketplace title={"List Kategori"}>
+          <Grid.Container gap={2}>
+            {categories?.map((data, idx) => (
+              <Grid justify="center" key={idx} xs={12} md={2}>
+                <Link
+                  href={{
+                    pathname: "/category/[id]",
+                    query: { id: data.id },
+                  }}
+                >
+                  <a className={styTextCenter}>
+                    <PrinterIcon
+                      width={48}
+                      height={48}
+                      className={styTextCenter}
+                      priority={idx < 2}
+                    />
+                    <Text
+                      className={styTextCenter}
+                      css={{ fontWeight: "bolder" }}
                     >
-                      <a className={styTextCenter}>
-                        <Image
-                          src={
-                            "https://enterkomputer.com/web-assets/frontend/icon/svg/category/printer.svg"
-                          }
-                          layout="fixed"
-                          width={48}
-                          height={48}
-                          className={styTextCenter}
-                          alt={data.name}
-                          priority={idx === 0}
-                        />
-                        <Text
-                          className={styTextCenter}
-                          css={{ fontWeight: "bolder" }}
-                        >
-                          {data.name}
-                        </Text>
-                        <Text className={styTextCenter}>
-                          {data.products?.length} produk
-                        </Text>
-                      </a>
-                    </Link>
-                  </Grid>
-                ))}
-              </Grid.Container>
-            </Marketplace>
-          </Grid>
-        </Grid.Container>
+                      {data.name}
+                    </Text>
+                    <Text className={styTextCenter}>
+                      {data.products?.length} produk
+                    </Text>
+                  </a>
+                </Link>
+              </Grid>
+            ))}
+          </Grid.Container>
+        </Marketplace>
       </Container>
 
       <Spacer y={2} />
 
-      <Container fluid md css={{ px: 0 }}>
-        <Grid.Container gap={2} justify="center">
+      <Container fluid md css={{ px: "0.75rem" }}>
+        <Grid.Container gap={isMobile ? 1 : 2} justify="center">
           <Grid xs={12} md={6}>
             <Marketplace title={"Social Media"}>
               <Grid.Container gap={2} justify="flex-start">
@@ -164,21 +156,21 @@ export default function Home({ banners, categories }) {
             <Marketplace title={"Marketplace"}>
               <Grid.Container gap={3} justify="flex-start">
                 <Grid justify="center" xs={12} md={6}>
-                  <Link href="https://www.facebook.com/people/Visimedia-SupplierPrinting/100013772404133/">
+                  <Link href="https://www.tokopedia.com/visimediasupply">
                     <a target="_blank">
                       <TokopediaIcon ecommerce width={250} height={75} />
                     </a>
                   </Link>
                 </Grid>
                 <Grid justify="center" xs={12} md={6}>
-                  <Link href="https://www.instagram.com/visimediaindonesia/">
+                  <Link href="https://shopee.co.id/visimediasupply">
                     <a target="_blank">
                       <ShopeeIcon ecommerce width={250} height={75} />
                     </a>
                   </Link>
                 </Grid>
                 <Grid justify="center" xs={12} md={6}>
-                  <Link href="https://twitter.com/visimediasupply">
+                  <Link href="https://www.bukalapak.com/u/visimediasuppliesjkt">
                     <a target="_blank">
                       <BukalapakIcon ecommerce width={250} height={75} />
                     </a>
@@ -205,7 +197,7 @@ export default function Home({ banners, categories }) {
         </Row>
         <Grid.Container gap={2} css={{ px: 0 }} justify="flex-start">
           {best_products.map((item, index) => (
-            <Grid xs={12} sm={2} key={index}>
+            <Grid xs={12} sm={3} key={index}>
               <ProductCard item={item} />
             </Grid>
           ))}
@@ -227,7 +219,7 @@ export default function Home({ banners, categories }) {
         </Row>
         <Grid.Container gap={2} css={{ px: 0 }} justify="flex-start">
           {products.map((item, index) => (
-            <Grid xs={12} sm={2} key={index}>
+            <Grid xs={12} sm={3} key={index}>
               <ProductCard item={item} />
             </Grid>
           ))}

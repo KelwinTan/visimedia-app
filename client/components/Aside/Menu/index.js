@@ -42,7 +42,7 @@ export default function AsideMenu() {
               <Link
                 href={{ pathname: "/category/[id]", query: { id: data.id } }}
               >
-                <a>
+                <a onClick={() => toggleVisible("menu")}>
                   <Text weight={"semibold"}>{data.name}</Text>
                 </a>
               </Link>

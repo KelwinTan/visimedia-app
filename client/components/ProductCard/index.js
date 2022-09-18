@@ -1,4 +1,3 @@
-import { cx } from "@emotion/css";
 import { Card, Container, Row, Spacer, Text } from "@nextui-org/react";
 import ShopeeIcon from "components/Icon/ShopeeIcon";
 import TokopediaIcon from "components/Icon/TokopediaIcon";
@@ -20,7 +19,7 @@ const ProductCard = forwardRef((props, ref) => {
           src={process.env.IMAGE_URL + item.public_image_url}
           objectFit="cover"
           width="100%"
-          height={147}
+          height={300}
           alt={item.name}
           loading="lazy"
         />
@@ -42,7 +41,6 @@ const ProductCard = forwardRef((props, ref) => {
           >
             Rp{toIDR(item.price)}
           </Text>
-          {/* <Text size={12}>Terjual {item.sold}+</Text> */}
           <Spacer y={0.25} />
           <Row align="center">
             <a

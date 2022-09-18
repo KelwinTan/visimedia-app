@@ -2,6 +2,7 @@ import { Container, Row, Text } from "@nextui-org/react";
 import { upperFirst } from "lodash";
 import Link from "next/link";
 import { arrayOf, string } from "prop-types";
+import React from "react";
 
 export default function Breadcrumb({ links }) {
   return (
@@ -9,10 +10,12 @@ export default function Breadcrumb({ links }) {
       <Container fluid md css={{ py: 4 }}>
         <Row align="center">
           {links.map((data, idx, arr) => (
-            <>
-              <Link href="/">{upperFirst(data)}</Link>
+            <React.Fragment key={idx}>
+              <Link href="/">
+                <a style={{ whiteSpace: "nowrap" }}>{upperFirst(data)}</a>
+              </Link>
               {idx < arr.length - 1 && <Text css={{ mx: 9 }}>/</Text>}
-            </>
+            </React.Fragment>
           ))}
         </Row>
       </Container>

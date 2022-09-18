@@ -7,7 +7,7 @@ const config = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
 const nextConfig = {
   ...config,
   reactStrictMode: false,
-  images: { domains: ["api.visimediasupplies.id", "enterkomputer.com"] },
+  images: { domains: ["api.visimediasupplies.id"] },
   env: {
     API_URL: "https://api.visimediasupplies.id/api",
     IMAGE_URL: "https://api.visimediasupplies.id/",

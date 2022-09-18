@@ -40,12 +40,6 @@ function MyApp({ Component, pageProps, userAgent, auth }) {
     </SSRProvider>
   );
 }
-MyApp.propTypes = {
-  Component: node.isRequired,
-  pageProps: object.isRequired,
-  userAgent: object.isRequired,
-  auth: object.isRequired,
-};
 
 MyApp.getInitialProps = async (ctx) => {
   const initialProps = await App.getInitialProps(ctx);

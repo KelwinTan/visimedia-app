@@ -24,6 +24,7 @@ import JDID_ECOM from "./jdid-ecom.svg";
 import LAZADA_ECOM from "./lazada-ecom.svg";
 import BUKALAPAK_ECOM from "./bukalapak-ecom.svg";
 import WHATSAPP_GIF from "./whatsapp.gif";
+import PRINTER from "./printer.svg";
 
 export {
   LOGO,
@@ -49,4 +50,5 @@ export {
   LAZADA_ECOM,
   BUKALAPAK_ECOM,
   WHATSAPP_GIF,
+  PRINTER,
 };

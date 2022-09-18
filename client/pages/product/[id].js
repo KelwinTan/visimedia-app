@@ -32,66 +32,57 @@ export default function ProductDetail({ product }) {
       </Head>
       <Breadcrumb links={["home", "detail", product.name]} />
       <Container md css={{ mt: "$10" }} fluid>
-        <Container fluid>
-          <Row wrap="wrap">
-            <Col span={isMobile ? 12 : 4}>
-              <Image
-                src={process.env.IMAGE_URL + product.public_image_url}
-                alt="Default Image"
-                objectFit="cover"
-              />
+        <Row wrap="wrap">
+          <Col span={isMobile ? 12 : 4}>
+            <Image
+              src={process.env.IMAGE_URL + product.public_image_url}
+              alt="Default Image"
+              objectFit="cover"
+            />
+          </Col>
+          <Col span={isMobile ? 12 : 4} css={{ pl: isDesktop ? "$10" : "$0" }}>
+            <Text h4>{product.name}</Text>
+            <Text>Harga Rp.{toIDR(product.price)}</Text>
+            <Spacer y={1}></Spacer>
+            <Text>
+              SKU: <b>{product.sku}</b>
+            </Text>
+            <Text>
+              Est Berat: <b>1 Kg</b>
+            </Text>
+            <Text>
+              Kategori: <b>Accessories</b>
+            </Text>
+            <Text css={{ mt: "$8" }}>{product.description}</Text>
+            <Spacer y={3} />
+            <Text color="error">
+              *Mohon maaf saat ini media Whatsapp sedang tidak tersedia, silakan
+              order melalui media Email : sales@enterkomputer.com
+            </Text>
+            <Text>Pengiriman</Text>
+            <Divider y={1} />
+            <Text>
+              Dikirim dari <b>Jakarta pusat</b>
+            </Text>
+            <Text>
+              Dikirim ke <b>Pilih Tujuan</b>
+            </Text>
+          </Col>
+          {isDesktop && (
+            <Col span={3} css={{ pl: "$8" }}>
+              <Card variant="bordered" css={{ borderRadius: 8, maxWidth: 300 }}>
+                <Card.Body>
+                  <Text b h5>
+                    Belanja Sekarang
+                  </Text>
+                  <Button onClick={goCheckout} bordered={false} primary>
+                    Beli Sekarang
+                  </Button>
+                </Card.Body>
+              </Card>
             </Col>
-            <Col span={isMobile ? 12 : 4} css={{ pl: "$10" }}>
-              <Text h4>{product.name}</Text>
-              {/* <Text>
-                Terjual <b>502</b>
-              </Text> */}
-              <Text>Harga Rp.{toIDR(product.price)}</Text>{" "}
-              {/* <Badge variant={"flat"}>Hemat Rp.3.000</Badge> */}
-              <Spacer y={1}></Spacer>
-              <Text>
-                SKU: <b>{product.sku}</b>
-              </Text>
-              <Text>
-                Est Berat: <b>1 Kg</b>
-              </Text>
-              <Text>
-                Kategori: <b>Accessories</b>
-              </Text>
-              <Text css={{ mt: "$8" }}>{product.description}</Text>
-              <Spacer y={3} />
-              <Text color="error">
-                *Mohon maaf saat ini media Whatsapp sedang tidak tersedia,
-                silakan order melalui media Email : sales@enterkomputer.com
-              </Text>
-              <Text>Pengiriman</Text>
-              <Divider y={1} />
-              <Text>
-                Dikirim dari <b>Jakarta pusat</b>
-              </Text>
-              <Text>
-                Dikirim ke <b>Pilih Tujuan</b>
-              </Text>
-            </Col>
-            {isDesktop && (
-              <Col span={3} css={{ pl: "$8" }}>
-                <Card
-                  variant="bordered"
-                  css={{ borderRadius: 8, maxWidth: 300 }}
-                >
-                  <Card.Body>
-                    <Text b h5>
-                      Belanja Sekarang
-                    </Text>
-                    <Button onClick={goCheckout} bordered={false} primary>
-                      Beli Sekarang
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            )}
-          </Row>
-        </Container>
+          )}
+        </Row>
       </Container>
       {/* if mobile, show beli in bottom dock */}
       {isMobile && (

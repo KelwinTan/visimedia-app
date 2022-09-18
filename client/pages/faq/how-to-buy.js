@@ -19,19 +19,25 @@ export default function HowToBuy() {
             target="_blank"
             href="https://www.tokopedia.com/visimediasupply"
           >
-            https://www.tokopedia.com/visimediasupply
-          </Link>{" "}
+            <a style={{ wordBreak: "break-all" }}>
+              https://www.tokopedia.com/visimediasupply
+            </a>
+          </Link>
           <br />
           <Link target="_blank" href="https://shopee.co.id/visimediasupply">
-            https://shopee.co.id/visimediasupply
-          </Link>{" "}
+            <a style={{ wordBreak: "break-all" }}>
+              https://shopee.co.id/visimediasupply
+            </a>
+          </Link>
           <br />
           <Link
             target="_blank"
             href="https://www.bukalapak.com/u/visimediasuppliesjkt"
           >
-            https://www.bukalapak.com/u/visimediasuppliesjkt
-          </Link>{" "}
+            <a style={{ wordBreak: "break-all" }}>
+              https://www.bukalapak.com/u/visimediasuppliesjkt
+            </a>
+          </Link>
         </li>
       </ol>
     </Layout>
