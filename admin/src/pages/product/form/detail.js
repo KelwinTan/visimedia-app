@@ -63,7 +63,7 @@ export default function ProductForm() {
     /**
      * remapping between variant label to variant id
      */
-    const variant_values = variants.map((data) => {
+    const variant_values = variants?.map((data) => {
       const { product_variant_name, variant_price, ...variantField } = data;
       const variant_ids = listVariants
         .filter((v) => variantField[v.variant])
@@ -77,7 +77,7 @@ export default function ProductForm() {
       image: imageRef.current,
     };
 
-    const api = id ? update(payload) : create(payload);
+    const api = id ? update({ ...payload, id }) : create(payload);
     try {
       const response = await api;
       console.log(response);

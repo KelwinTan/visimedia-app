@@ -97,6 +97,7 @@ export default function ProductProvider({ children }) {
       tokopedia_link,
       shopee_link,
       id,
+      variant_values = [],
     }) => {
       setLoading(true);
 
@@ -111,8 +112,17 @@ export default function ProductProvider({ children }) {
         quantity,
         tokopedia_link,
         shopee_link,
+        variant_values,
       }).forEach(([key, value]) => {
-        formData.append(key, value);
+        if (typeof value !== "undefined") {
+          if (Array.isArray(value)) {
+            value.forEach((v, idx) => {
+              formData.append(`${key}[${idx}]`, JSON.stringify(v));
+            });
+          } else {
+            formData.append(key, value);
+          }
+        }
       });
 
       try {
