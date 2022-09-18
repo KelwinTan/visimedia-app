@@ -49,12 +49,12 @@ const ProductCard = forwardRef((props, ref) => {
             >
               <WhatsappIcon color={color.wa} width={25} />
             </a>
-            {eval(item.tokopedia_link) && (
+            {item.tokopedia_link && item.tokopedia_link !== "null" && (
               <a href={item.tokopedia_link} target={"_blank"}>
                 <TokopediaIcon width={25} />
               </a>
             )}
-            {eval(item.shopee_link) && (
+            {item.shopee_link && item.shopee_link !== "null" && (
               <a href={item.shopee_link} target={"_blank"}>
                 <ShopeeIcon marketPlace width={25} />
               </a>
