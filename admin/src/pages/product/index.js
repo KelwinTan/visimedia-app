@@ -2,13 +2,11 @@ import { Modal } from "antd";
 import { useCallback, useState } from "react";
 import LayoutContent from "../../components/Layout/Content";
 import ProductForm from "./form/add";
-import ProductVariantForm from "./form/variant";
 import ProductTable from "./table";
 
 function Category() {
   const [showModal, setShowModal] = useState({
     product: false,
-    variant: false,
   });
   const [selectedId, setSelectedId] = useState(null);
 
@@ -17,13 +15,10 @@ function Category() {
     setShowModal({ product: false, variant: false });
   }, []);
 
-  const onUpdate = useCallback(
-    (id) => {
-      setSelectedId(id);
-      setShowModal((d) => ({ ...d, product: true }));
-    },
-    [showModal]
-  );
+  const onUpdate = useCallback((id) => {
+    setSelectedId(id);
+    setShowModal((d) => ({ ...d, product: true }));
+  }, []);
 
   return (
     <>
@@ -41,20 +36,6 @@ function Category() {
         </Modal>
       )}
 
-      {showModal.variant && (
-        <Modal
-          title={"Product Variant"}
-          visible={true}
-          onCancel={() => {
-            setSelectedId(null);
-            setShowModal((d) => ({ ...d, variant: false }));
-          }}
-          footer={null}
-        >
-          <ProductVariantForm id={selectedId} onClose={onClose} />
-        </Modal>
-      )}
-
       <LayoutContent
         title="Product"
         actions={[
@@ -63,13 +44,6 @@ function Category() {
             type: "primary",
             onClick: () => {
               setShowModal((d) => ({ ...d, product: true }));
-            },
-          },
-          {
-            text: "Add Product Variant",
-            type: "secondary",
-            onClick: () => {
-              setShowModal((d) => ({ ...d, variant: true }));
             },
           },
         ]}
