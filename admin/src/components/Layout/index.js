@@ -17,13 +17,13 @@ import {
 import navItems, { navItemsPath } from "./navItem";
 import { cx } from "@emotion/css";
 import { useAuth } from "../../context/auth-context";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const { Header, Content, Sider } = Layout;
 
 const _Layout = ({ children }) => {
   const { logout, user } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useHistory();
   const location = useLocation();
   const activeIndex = navItemsPath.findIndex((d) => d === location.pathname);
 
@@ -68,7 +68,7 @@ const _Layout = ({ children }) => {
           <Menu
             mode="inline"
             defaultSelectedKeys={[String(activeIndex)]}
-            onClick={({ key }) => navigate(navItemsPath[key])}
+            onClick={({ key }) => navigate.push(navItemsPath[key])}
             items={navItems.map((item, idx) => {
               const Icon = item.icon;
               return {
@@ -83,6 +83,7 @@ const _Layout = ({ children }) => {
         <Layout
           style={{
             padding: 32,
+            overflowY: "auto",
           }}
         >
           <Content className={cx(stySiteLayoutBg, styContent)}>
