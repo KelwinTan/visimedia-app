@@ -74,7 +74,7 @@ export default function BannerForm({ id, onClose }) {
     } else {
       setDetail({});
     }
-  }, [getDetail, id]);
+  }, [form, getDetail, id]);
 
   return (
     <Form

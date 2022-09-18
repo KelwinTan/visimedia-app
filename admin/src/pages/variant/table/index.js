@@ -1,6 +1,5 @@
-import { Button, Image, Popconfirm, Space, Table } from "antd";
-import { useEffect, useMemo, useState } from "react";
-import { useProduct } from "../../../context/product-context";
+import { Button, Popconfirm, Space, Table } from "antd";
+import { useEffect, useMemo } from "react";
 import { useVariant } from "../../../context/variant-context";
 
 export default function VariantTable({ onUpdate }) {
@@ -8,7 +7,7 @@ export default function VariantTable({ onUpdate }) {
 
   useEffect(() => {
     getAll();
-  }, []);
+  }, [getAll]);
 
   const onDelete = async (id) => {
     await remove(id);
@@ -42,7 +41,7 @@ export default function VariantTable({ onUpdate }) {
         ),
       },
     ],
-    []
+    [onDelete, onUpdate]
   );
 
   return (

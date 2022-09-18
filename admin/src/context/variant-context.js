@@ -8,7 +8,6 @@ import {
 import { useAuth } from "./auth-context";
 import _axios from "../_axios";
 import { node } from "prop-types";
-import { useEffect } from "react";
 
 const VariantContext = createContext(undefined);
 

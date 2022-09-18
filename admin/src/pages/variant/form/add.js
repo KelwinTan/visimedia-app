@@ -1,13 +1,11 @@
-import { Button, Form, Image, Input, message, Select } from "antd";
-import { useEffect, useRef, useState } from "react";
-import { useBanner } from "../../../context/banner-context";
+import { Button, Form, Input, message } from "antd";
+import { useEffect, useState } from "react";
 import { useCategory } from "../../../context/category-context";
-import { useProduct } from "../../../context/product-context";
 import { useVariant } from "../../../context/variant-context";
 
 export default function VariantForm({ id, onClose }) {
   const { loading, create, getDetail, update } = useVariant();
-  const { categories, getAll } = useCategory();
+  const { getAll } = useCategory();
 
   const [detail, setDetail] = useState({});
   const [form] = Form.useForm();

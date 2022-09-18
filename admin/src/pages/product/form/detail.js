@@ -6,7 +6,6 @@ import {
   Input,
   message,
   Select,
-  Space,
   Typography,
 } from "antd";
 import React, { useEffect, useRef, useState } from "react";
@@ -21,11 +20,7 @@ export default function ProductForm() {
 
   const { loading, create, getDetail, update } = useProduct();
   const { categories, getAll } = useCategory();
-  const {
-    variants: listVariants,
-    getAll: getAllVariants,
-    createWithDetails,
-  } = useVariant();
+  const { variants: listVariants, getAll: getAllVariants } = useVariant();
 
   const [detail, setDetail] = useState({});
   const [detailVariants, setDetailVariants] = useState([]);
@@ -63,20 +58,30 @@ export default function ProductForm() {
     fileReader.readAsDataURL(file);
   };
 
-  const onFinish = async (payload) => {
-    const { ...productField } = payload;
-    const api = id ? update(productField) : create(productField);
+  const onFinish = async (fields) => {
+    const { variants, ...productField } = fields;
+    /**
+     * remapping between variant label to variant id
+     */
+    const variant_values = variants.map((data) => {
+      const { product_variant_name, variant_price, ...variantField } = data;
+      const variant_ids = listVariants
+        .filter((v) => variantField[v.variant])
+        .map((v) => ({ id: v.id, value: variantField[v.variant] }));
+      return { product_variant_name, variant_price, variant_ids };
+    });
+
+    const payload = {
+      ...productField,
+      variant_values,
+      image: imageRef.current,
+    };
+
+    const api = id ? update(payload) : create(payload);
     try {
       const response = await api;
       console.log(response);
-      // const variantPayload = {
-      //   product_variant_name,
-      //   price,
-      //   variant_values,
-      //   product_id: response?.product?.id || id,
-      // };
-      // await createWithDetails(variantPayload);
-      message.success("Success update a new banner");
+      message.success("Success update a banner");
     } catch (error) {
       const errorResponse = error.response?.data?.errors || undefined;
       if (errorResponse) {
@@ -134,13 +139,6 @@ export default function ProductForm() {
             onChange={(e) => onChangeImage(e.target.files[0])}
           />
         </Form.Item>
-        {/* <Form.Item
-        label="Sku"
-        name="sku"
-        rules={[{ required: true, message: "Please input sku" }]}
-      >
-        <Input />
-      </Form.Item> */}
         <Form.Item
           label="Quantity"
           name="quantity"
@@ -187,7 +185,6 @@ export default function ProductForm() {
                     const selectedVariants = listVariants.filter(
                       (d) => values[d.variant]
                     );
-                    console.log({ newDV: [...p].concat([selectedVariants]) });
                     return [...p].concat([selectedVariants]);
                   });
 
@@ -216,7 +213,7 @@ export default function ProductForm() {
                   <Form.Item
                     {...f}
                     label="Varian Name"
-                    name={[f.name, "variant_name"]}
+                    name={[f.name, "product_variant_name"]}
                   >
                     <Input placeholder="Varian Name" />
                   </Form.Item>
@@ -232,7 +229,11 @@ export default function ProductForm() {
                     </Form.Item>
                   ))}
 
-                  <Form.Item {...f} label="Harga" name={[f.name, "price"]}>
+                  <Form.Item
+                    {...f}
+                    label="Harga"
+                    name={[f.name, "variant_price"]}
+                  >
                     <Input placeholder="Harga" type="number" prefix="Rp." />
                   </Form.Item>
                 </Card>

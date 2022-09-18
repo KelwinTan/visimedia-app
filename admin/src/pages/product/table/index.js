@@ -1,5 +1,5 @@
 import { Button, Image, Popconfirm, Space, Table } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useProduct } from "../../../context/product-context";
 
 export default function ProductTable({ onUpdate }) {
