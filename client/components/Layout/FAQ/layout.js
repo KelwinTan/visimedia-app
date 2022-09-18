@@ -83,7 +83,7 @@ export default function Layout({ children }) {
           )}
 
           <Grid xs={12} md={9} css={{ paddingLeft: isMd ? 0 : "2rem" }}>
-            <>{children}</>
+            <div>{children}</div>
           </Grid>
         </Grid.Container>
       </Container>

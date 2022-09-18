@@ -15,12 +15,12 @@ const style = {
 export default function Delivery() {
   return (
     <Layout>
-      <div>
+      <>
         <Text h4>
           Pengiriman barang dilakukan dengan menggunakan jasa expedisi , kurir
           (pihak ketiga) Seperti:
         </Text>
-      </div>
+      </>
 
       <div className={cx(dFlex, mTop("10px"))}>
         <div className={style.deliveryList}>
