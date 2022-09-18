@@ -1,10 +1,9 @@
-import { Button, Form, Image, Input, message } from "antd";
-import { useEffect, useRef, useState } from "react";
-import { useBanner } from "../../../context/banner-context";
+import { Button, Form, Input, message } from "antd";
+import { useEffect, useState } from "react";
 import { useCategory } from "../../../context/category-context";
 
 export default function CategoryForm({ id, onClose }) {
-  const { loading, create, update, getDetail } = useCategory();
+  const { loading, create, getDetail } = useCategory();
   const [detail, setDetail] = useState({});
   const [form] = Form.useForm();
 
@@ -34,7 +33,7 @@ export default function CategoryForm({ id, onClose }) {
     } else {
       setDetail({});
     }
-  }, [getDetail, id]);
+  }, [form, getDetail, id]);
 
   return (
     <Form

@@ -13,13 +13,10 @@ function Category() {
     setShowModal(false);
   }, []);
 
-  const onUpdate = useCallback(
-    (id) => {
-      setSelectedId(id);
-      setShowModal(true);
-    },
-    [showModal]
-  );
+  const onUpdate = useCallback((id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  }, []);
 
   return (
     <>

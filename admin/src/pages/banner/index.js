@@ -8,13 +8,10 @@ function Banner() {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
-  const onUpdate = useCallback(
-    (id) => {
-      setSelectedId(id);
-      setShowModal(true);
-    },
-    [showModal]
-  );
+  const onUpdate = useCallback((id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  }, []);
 
   const onClose = useCallback(() => {
     setSelectedId(null);

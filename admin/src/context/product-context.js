@@ -36,7 +36,16 @@ export default function ProductProvider({ children }) {
   }, [baseHeader]);
 
   const create = useCallback(
-    async ({ name, description, sku, price, image, category_id, quantity }) => {
+    async ({
+      name,
+      description,
+      sku,
+      price,
+      image,
+      category_id,
+      quantity,
+      variant_values,
+    }) => {
       setLoading(true);
 
       const formData = new FormData();
@@ -48,8 +57,17 @@ export default function ProductProvider({ children }) {
         image,
         category_id,
         quantity,
+        variant_values,
       }).forEach(([key, value]) => {
-        formData.append(key, value);
+        if (typeof value !== "undefined") {
+          if (Array.isArray(value)) {
+            value.forEach((v, idx) => {
+              formData.append(`${key}[${idx}]`, JSON.stringify(v));
+            });
+          } else {
+            formData.append(key, value);
+          }
+        }
       });
 
       try {
