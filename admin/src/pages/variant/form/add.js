@@ -2,6 +2,7 @@ import { Button, Form, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import { useCategory } from "../../../context/category-context";
 import { useVariant } from "../../../context/variant-context";
+import transformError from "../../../shared/transformError";
 
 export default function VariantForm({ id, onClose }) {
   const { loading, create, getDetail, update } = useVariant();
@@ -22,7 +23,7 @@ export default function VariantForm({ id, onClose }) {
     } else {
       setDetail({});
     }
-  }, [getDetail, id]);
+  }, [form, getDetail, id]);
 
   const onAdd = async ({ name }) => {
     try {
@@ -32,11 +33,8 @@ export default function VariantForm({ id, onClose }) {
       message.success("Success add a new variant");
       onClose();
     } catch (error) {
-      const errorResponse = error.response?.data?.errors || undefined;
-      if (errorResponse) {
-        const [_error] = Object.entries(errorResponse);
-        message.error("Error: " + _error[1]);
-      }
+      const errorResponse = transformError(error);
+      message.error("Error: " + errorResponse);
     }
   };
 
@@ -48,11 +46,8 @@ export default function VariantForm({ id, onClose }) {
       message.success("Success add a new variant");
       onClose();
     } catch (error) {
-      const errorResponse = error.response?.data?.errors || undefined;
-      if (errorResponse) {
-        const [_error] = Object.entries(errorResponse);
-        message.error("Error: " + _error[1]);
-      }
+      const errorResponse = transformError(error);
+      message.error("Error: " + errorResponse);
     }
   };
 

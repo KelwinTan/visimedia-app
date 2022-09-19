@@ -115,21 +115,26 @@ export default function ProductForm() {
             let variantValue = {};
             detail.productVariantsData.forEach((pv) => {
               pv.variantValues.forEach((pvVariantValue) => {
-                if (pvVariantValue.variant_id === v.id) {
+                if (pvVariantValue.variant.id === v.id) {
                   variantValue = pvVariantValue;
                 }
               });
             });
-            variantIdData.variant_value_id = variantValue?.id;
+            if (variantValue?.id)
+              variantIdData.variant_value_id = variantValue?.id;
           }
           return variantIdData;
         });
       const variantData = { product_variant_name, variant_price, variant_ids };
       if (id) {
-        variantData.product_variant_id = detail.productVariantsData[idx]?.id;
+        if (detail.productVariantsData[idx]?.id)
+          variantData.product_variant_id = detail.productVariantsData[idx]?.id;
       }
       return variantData;
     });
+
+    // console.log({ variant_values });
+    // return;
 
     const payload = {
       ...productField,
