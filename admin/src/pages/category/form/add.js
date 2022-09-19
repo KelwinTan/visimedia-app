@@ -1,6 +1,7 @@
 import { Button, Form, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import { useCategory } from "../../../context/category-context";
+import transformError from "../../../shared/transformError";
 
 export default function CategoryForm({ id, onClose }) {
   const { loading, create, getDetail } = useCategory();
@@ -13,11 +14,8 @@ export default function CategoryForm({ id, onClose }) {
       message.success("Success add a new category");
       onClose();
     } catch (error) {
-      const errorResponse = error.response?.data?.errors || undefined;
-      if (errorResponse) {
-        const [_error] = Object.entries(errorResponse);
-        message.error("Error: " + _error[1]);
-      }
+      const errorResponse = transformError(error);
+      message.error("Error: " + errorResponse);
     }
   };
 

@@ -1,6 +1,7 @@
 import { Button, Form, Image, Input, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useBanner } from "../../../context/banner-context";
+import transformError from "../../../shared/transformError";
 
 export default function BannerForm({ id, onClose }) {
   const { loading, create, update, getDetail } = useBanner();
@@ -14,11 +15,8 @@ export default function BannerForm({ id, onClose }) {
       message.success("Success add a new banner");
       onClose();
     } catch (error) {
-      const errorResponse = error.response?.data?.errors || undefined;
-      if (errorResponse) {
-        const [_error] = Object.entries(errorResponse);
-        message.error("Error: " + _error[1]);
-      }
+      const errorResponse = transformError(error);
+      message.error("Error: " + errorResponse);
     }
   };
 
