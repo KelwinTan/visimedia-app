@@ -43,7 +43,6 @@ export default function ProductProvider({ children }) {
       price,
       image,
       category_id,
-      quantity,
       variant_values,
     }) => {
       setLoading(true);
@@ -56,7 +55,6 @@ export default function ProductProvider({ children }) {
         price,
         image,
         category_id,
-        quantity,
         variant_values,
       }).forEach(([key, value]) => {
         if (typeof value !== "undefined") {
@@ -93,7 +91,6 @@ export default function ProductProvider({ children }) {
       price,
       image,
       category_id,
-      quantity,
       tokopedia_link,
       shopee_link,
       id,
@@ -109,7 +106,6 @@ export default function ProductProvider({ children }) {
         price,
         image,
         category_id,
-        quantity,
         tokopedia_link,
         shopee_link,
         variant_values,

@@ -146,6 +146,25 @@ export default function VariantProvider({ children }) {
     },
     [baseHeader]
   );
+
+  const removeProductVariant = useCallback(
+    async (id) => {
+      setLoading(true);
+
+      try {
+        const { data } = await _axios.delete(`/product-variants/${id}`, {
+          headers: baseHeader,
+        });
+        return data;
+      } catch (error) {
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
   return (
     <VariantContext.Provider
       value={{
@@ -157,6 +176,7 @@ export default function VariantProvider({ children }) {
         variants,
         getDetail,
         createWithDetails,
+        removeProductVariant,
       }}
     >
       {children}

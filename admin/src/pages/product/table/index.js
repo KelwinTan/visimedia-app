@@ -1,4 +1,4 @@
-import { Button, Image, Popconfirm, Space, Table } from "antd";
+import { Button, Image, message, Popconfirm, Space, Table } from "antd";
 import { useEffect, useMemo } from "react";
 import { useProduct } from "../../../context/product-context";
 
@@ -10,7 +10,12 @@ export default function ProductTable({ onUpdate }) {
   }, [getAll]);
 
   const onDelete = async (id) => {
-    await remove(id);
+    try {
+      await remove(id);
+      message.success("Success delete product");
+    } catch (error) {
+      message.error(error);
+    }
   };
 
   const columns = useMemo(
@@ -25,13 +30,6 @@ export default function ProductTable({ onUpdate }) {
         dataIndex: "description",
         key: "description",
       },
-
-      // {
-      //   title: "SKU",
-      //   dataIndex: "sku",
-      //   key: "sku",
-      // },
-
       {
         title: "Price",
         dataIndex: "price",
@@ -43,12 +41,12 @@ export default function ProductTable({ onUpdate }) {
         dataIndex: "public_image_url",
         key: "public_image_url",
         render: (value) => {
-          console.log({ value });
           return (
             value && (
               <Image
                 width={200}
                 src={process.env.REACT_APP_IMAGE_URL + value}
+                loading="lazy"
               />
             )
           );
@@ -68,7 +66,7 @@ export default function ProductTable({ onUpdate }) {
               cancelText="No"
             >
               <a href="#">
-                <Button>Delete</Button>
+                <Button danger>Delete</Button>
               </a>
             </Popconfirm>
           </Space>
