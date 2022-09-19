@@ -9,18 +9,26 @@ import {
   Typography,
 } from "antd";
 import React, { useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useCategory } from "../../../context/category-context";
 import { useProduct } from "../../../context/product-context";
 import { useVariant } from "../../../context/variant-context";
 import useSearchParams from "../../../hooks/useSearchParams";
 import uniqueKey from "../../../shared/uniqueKey";
+import { DeleteOutlined } from "@ant-design/icons";
+import transformError from "../../../shared/transformError";
 
 export default function ProductForm() {
   const { id } = useSearchParams();
+  const history = useHistory();
 
   const { loading, create, getDetail, update } = useProduct();
   const { categories, getAll } = useCategory();
-  const { variants: listVariants, getAll: getAllVariants } = useVariant();
+  const {
+    variants: listVariants,
+    getAll: getAllVariants,
+    removeProductVariant,
+  } = useVariant();
 
   const [detail, setDetail] = useState({});
   const [detailVariants, setDetailVariants] = useState([]);
@@ -37,11 +45,42 @@ export default function ProductForm() {
     if (id) {
       getDetail(id).then((data) => {
         const { image, ...payloadWithoutImage } = data;
-        form.setFieldsValue(payloadWithoutImage);
+
+        const variants = payloadWithoutImage.productVariantsData?.map((vr) => {
+          const variantValues = vr.variantValues?.flat()?.reduce((curr, v) => {
+            curr[v?.variant?.variant] = v.value;
+            return curr;
+          }, {});
+          return {
+            id: vr.id,
+            product_variant_name: vr.product_variant_name,
+            variant_price: vr.price,
+            ...variantValues,
+          };
+        });
+        form.setFieldsValue({ ...payloadWithoutImage, variants });
+
+        setDetailVariants(() => {
+          return payloadWithoutImage.productVariantsData?.map((vr) => {
+            return vr.variantValues?.flat()?.map((v) => ({
+              ...v.variant,
+              value: v.value,
+            }));
+          });
+        });
+
         setDetail({
           ...data,
           public_image_url:
             process.env.REACT_APP_IMAGE_URL + data.public_image_path,
+          productVariantsData: payloadWithoutImage.productVariantsData?.map(
+            (vr) => {
+              return {
+                ...vr,
+                variantValues: vr.variantValues?.flat(),
+              };
+            }
+          ),
         });
       });
     } else {
@@ -63,12 +102,33 @@ export default function ProductForm() {
     /**
      * remapping between variant label to variant id
      */
-    const variant_values = variants?.map((data) => {
+    const variant_values = variants?.map((data, idx) => {
       const { product_variant_name, variant_price, ...variantField } = data;
       const variant_ids = listVariants
         .filter((v) => variantField[v.variant])
-        .map((v) => ({ id: v.id, value: variantField[v.variant] }));
-      return { product_variant_name, variant_price, variant_ids };
+        .map((v) => {
+          const variantIdData = {
+            variant_id: v.id,
+            value: variantField[v.variant],
+          };
+          if (id) {
+            let variantValue = {};
+            detail.productVariantsData.forEach((pv) => {
+              pv.variantValues.forEach((pvVariantValue) => {
+                if (pvVariantValue.variant_id === v.id) {
+                  variantValue = pvVariantValue;
+                }
+              });
+            });
+            variantIdData.variant_value_id = variantValue?.id;
+          }
+          return variantIdData;
+        });
+      const variantData = { product_variant_name, variant_price, variant_ids };
+      if (id) {
+        variantData.product_variant_id = detail.productVariantsData[idx]?.id;
+      }
+      return variantData;
     });
 
     const payload = {
@@ -79,16 +139,28 @@ export default function ProductForm() {
 
     const api = id ? update({ ...payload, id }) : create(payload);
     try {
-      const response = await api;
-      console.log(response);
-      message.success("Success update a banner");
+      await api;
+      message.success(`Success ${id ? "update" : "add"} a product`);
+      history.push("/product");
     } catch (error) {
-      const errorResponse = error.response?.data?.errors || undefined;
-      if (errorResponse) {
-        const [_error] = Object.entries(errorResponse);
-        message.error("Error: " + _error[1]);
-      }
+      const errorMsg = transformError(error);
+      message.error("Error: " + errorMsg);
     }
+  };
+
+  const onRemoveProductVariant = async (idx) => {
+    try {
+      const id = detail.productVariantsData[idx]?.id;
+      await removeProductVariant(id);
+      setDetailVariants((d) => [...d.slice(0, idx), ...d.slice(idx)]);
+      setDetail({
+        ...detail,
+        productVariantsData: [
+          ...detail.productVariantsDatas.slice(0, idx),
+          ...detail.productVariantsDatas.slice(idx),
+        ],
+      });
+    } catch (error) {}
   };
 
   return (
@@ -140,13 +212,6 @@ export default function ProductForm() {
           />
         </Form.Item>
         <Form.Item
-          label="Quantity"
-          name="quantity"
-          rules={[{ required: true, message: "Please input quantity" }]}
-        >
-          <Input type="number" />
-        </Form.Item>
-        <Form.Item
           label="Price"
           name="price"
           rules={[{ required: true, message: "Please input price" }]}
@@ -175,11 +240,18 @@ export default function ProductForm() {
         ))}
 
         <Form.List name="variants">
-          {(fields, { add }) => (
+          {(fields, { add, remove }) => (
             <>
               <Button
                 onClick={() => {
                   const values = { ...form.getFieldsValue() };
+
+                  const hasCheckedVariant = listVariants.some(
+                    (d) => values[d.variant]
+                  );
+                  if (!hasCheckedVariant) {
+                    return;
+                  }
 
                   setDetailVariants((p) => {
                     const selectedVariants = listVariants.filter(
@@ -209,7 +281,18 @@ export default function ProductForm() {
               </Typography>
 
               {fields.map((f, idx) => (
-                <Card key={f.key} style={{ marginBottom: 14 }}>
+                <Card
+                  key={f.key + uniqueKey()}
+                  title={`Variant ${idx + 1}`}
+                  style={{ marginBottom: 14 }}
+                  extra={
+                    <DeleteOutlined
+                      onClick={() => {
+                        onRemoveProductVariant(idx).then(() => remove(idx));
+                      }}
+                    />
+                  }
+                >
                   <Form.Item
                     {...f}
                     label="Varian Name"
@@ -249,7 +332,7 @@ export default function ProductForm() {
             type="primary"
             htmlType="submit"
           >
-            Submit
+            {id ? "Update" : "Add"}
           </Button>
         </Form.Item>
       </Form>
