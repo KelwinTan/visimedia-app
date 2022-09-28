@@ -22,6 +22,11 @@ const navItems = [
   },
 
   {
+    label: "Best Product",
+    icon: AppstoreOutlined,
+  },
+
+  {
     label: "Variant",
     icon: AppstoreOutlined,
   },
@@ -34,5 +39,6 @@ export const navItemsPath = [
   "/banner",
   "/category",
   "/product",
+  "/best-product",
   "/variant",
 ];
