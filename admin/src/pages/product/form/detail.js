@@ -1,13 +1,4 @@
-import {
-  Button,
-  Card,
-  Checkbox,
-  Form,
-  Input,
-  message,
-  Select,
-  Typography,
-} from "antd";
+import { Button, Card, Form, Input, message, Select, Typography } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useCategory } from "../../../context/category-context";
@@ -190,7 +181,7 @@ export default function ProductForm() {
           name="description"
           rules={[{ required: true, message: "Please input description" }]}
         >
-          <Input />
+          <Input.TextArea showCount maxLength={1000} rows={4} />
         </Form.Item>
         <Form.Item
           label="Category"
@@ -230,20 +221,6 @@ export default function ProductForm() {
           <Input />
         </Form.Item>
 
-        <Typography
-          style={{ fontWeight: "bold", marginBottom: 10, fontSize: "1rem" }}
-        >
-          Variant Produk
-        </Typography>
-
-        {listVariants.map((d, idx) => (
-          <React.Fragment key={idx}>
-            <Form.Item name={d.variant} valuePropName="checked">
-              <Checkbox>{d.variant}</Checkbox>
-            </Form.Item>
-          </React.Fragment>
-        ))}
-
         <Form.List name="variants">
           {(fields, { add, remove }) => (
             <>
@@ -251,16 +228,9 @@ export default function ProductForm() {
                 onClick={() => {
                   const values = { ...form.getFieldsValue() };
 
-                  const hasCheckedVariant = listVariants.some(
-                    (d) => values[d.variant]
-                  );
-                  if (!hasCheckedVariant) {
-                    return;
-                  }
-
                   setDetailVariants((p) => {
-                    const selectedVariants = listVariants.filter(
-                      (d) => values[d.variant]
+                    const selectedVariants = listVariants.filter((d) =>
+                      d.variant.toLowerCase().includes("size")
                     );
                     return [...p].concat([selectedVariants]);
                   });
