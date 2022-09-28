@@ -66,7 +66,7 @@ export default function Home({ banners, categories }) {
         <Marketplace title={"List Kategori"}>
           <Grid.Container gap={2}>
             {categories?.map((data, idx) => (
-              <Grid justify="center" key={idx} xs={12} md={2}>
+              <Grid justify="center" key={idx} xs={4} md={2}>
                 <Link
                   href={{
                     pathname: "/category/[id]",
@@ -104,14 +104,14 @@ export default function Home({ banners, categories }) {
           <Grid xs={12} md={6}>
             <Marketplace title={"Social Media"}>
               <Grid.Container gap={2} justify="flex-start">
-                <Grid justify="center" xs={12} md={4}>
+                <Grid justify="center" xs={4} md={4}>
                   <Link href="https://www.facebook.com/visimediasupply">
                     <a target="_blank">
                       <FacebookIcon color={color.blue} width={75} height={75} />
                     </a>
                   </Link>
                 </Grid>
-                <Grid justify="center" xs={12} md={4}>
+                <Grid justify="center" xs={4} md={4}>
                   <Link href="https://twitter.com/visimediasupply">
                     <a target="_blank">
                       <TwitterIcon
@@ -122,7 +122,7 @@ export default function Home({ banners, categories }) {
                     </a>
                   </Link>
                 </Grid>
-                <Grid justify="center" xs={12} md={4}>
+                <Grid justify="center" xs={4} md={4}>
                   <Link href="https://www.instagram.com/visimediasupply/">
                     <a target="_blank">
                       <InstagramIcon color={color.ig} width={75} height={75} />
@@ -130,7 +130,7 @@ export default function Home({ banners, categories }) {
                   </Link>
                 </Grid>
 
-                <Grid justify="center" xs={12} md={4}>
+                <Grid justify="center" xs={4} md={4}>
                   <Link href="https://www.youtube.com/channel/UCsMPBOwCuzcEDQAtCNMCmM">
                     <a target="_blank">
                       <YoutubeIcon
@@ -142,7 +142,7 @@ export default function Home({ banners, categories }) {
                   </Link>
                 </Grid>
 
-                <Grid justify="center" xs={12} md={4}>
+                <Grid justify="center" xs={4} md={4}>
                   <Link href="https://www.tiktok.com/@visimediaofficial">
                     <a target="_blank">
                       <TiktokIcon color={color.tiktok} width={75} height={75} />
@@ -197,7 +197,7 @@ export default function Home({ banners, categories }) {
         </Row>
         <Grid.Container gap={2} css={{ px: 0 }} justify="flex-start">
           {best_products.map((item, index) => (
-            <Grid xs={12} sm={3} key={index}>
+            <Grid xs={6} sm={3} key={index}>
               <ProductCard item={item} />
             </Grid>
           ))}
@@ -219,7 +219,7 @@ export default function Home({ banners, categories }) {
         </Row>
         <Grid.Container gap={2} css={{ px: 0 }} justify="flex-start">
           {products.map((item, index) => (
-            <Grid xs={12} sm={3} key={index}>
+            <Grid xs={6} sm={3} key={index}>
               <ProductCard item={item} />
             </Grid>
           ))}

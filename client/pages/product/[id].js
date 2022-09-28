@@ -1,9 +1,7 @@
 import {
   Card,
   Col,
-  Collapse,
   Container,
-  Divider,
   Image,
   Row,
   Spacer,
@@ -11,16 +9,17 @@ import {
 } from "@nextui-org/react";
 import Breadcrumb from "components/Breadcrumb";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useUA } from "providers/user-agent";
-import { useCallback } from "react";
 import _axios from "shared/axios";
 import toIDR from "shared/currency/toIDR";
 import Button from "components/Button";
+import ProductVariant from "components/ProductVariant";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 
 export default function ProductDetail({ product }) {
-  const router = useRouter();
   const { isMobile, isDesktop } = useUA();
+  const router = useRouter();
 
   const goCheckout = useCallback(() => {
     router.push("/checkout");
@@ -44,43 +43,22 @@ export default function ProductDetail({ product }) {
           <Col span={isMobile ? 12 : 4} css={{ pl: isDesktop ? "$10" : "$0" }}>
             <Text h4>{product.name}</Text>
             <Text>Harga Rp.{toIDR(product.price)}</Text>
-            <Spacer y={1}></Spacer>
-            <Text>
-              SKU: <b>{product.sku}</b>
-            </Text>
-            <Text>
-              Est Berat: <b>1 Kg</b>
-            </Text>
-            <Text>
-              Kategori: <b>Accessories</b>
-            </Text>
             <Text css={{ mt: "$8" }}>{product.description}</Text>
+            {isMobile && (
+              <>
+                <Spacer y={1} />
+                <ProductVariant product={product} showSellNow={false} />
+              </>
+            )}
           </Col>
           {isDesktop && (
             <Col span={3} css={{ pl: "$8" }}>
-              <Card variant="bordered" css={{ borderRadius: 8, maxWidth: 300 }}>
+              <Card
+                variant="bordered"
+                css={{ borderRadius: 8, maxWidth: isMobile ? "100%" : 300 }}
+              >
                 <Card.Body>
-                  <Text b h4>
-                    Pilih Varian
-                  </Text>
-                  <Collapse.Group css={{ px: 0 }}>
-                    {product.productVariantsData?.map((variant, idx) => {
-                      return (
-                        <Collapse
-                          key={idx}
-                          title={variant.product_variant_name}
-                          subtitle={"Rp." + toIDR(variant.price)}
-                        >
-                          {variant.variantValues?.flat()?.map((detail, idx) => (
-                            <Text key={idx}>
-                              {detail.variant?.variant} - {detail.value}
-                            </Text>
-                          ))}
-                        </Collapse>
-                      );
-                    })}
-                  </Collapse.Group>
-
+                  <ProductVariant product={product} />
                   <Text b h5>
                     Belanja Sekarang
                   </Text>
@@ -93,11 +71,6 @@ export default function ProductDetail({ product }) {
           )}
         </Row>
       </Container>
-      {/* 
-      <Container md fluid css={{ mt: "$10" }}>
-        <NestedTable />
-      </Container>
- */}
       {/* if mobile, show beli in bottom dock */}
       {isMobile && (
         <Row

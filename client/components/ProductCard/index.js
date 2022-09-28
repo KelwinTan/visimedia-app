@@ -5,12 +5,14 @@ import WhatsappIcon from "components/Icon/WhatsappIcon";
 import color from "constants/color";
 import Image from "next/image";
 import Link from "next/link";
+import { useUA } from "providers/user-agent";
 import { forwardRef } from "react";
 import toIDR from "shared/currency/toIDR";
 import { hover, w100 } from "styles/globals";
 
 const ProductCard = forwardRef((props, ref) => {
   const { item } = props;
+  const { isMobile } = useUA();
 
   return (
     <Card isHoverable className={hover} ref={ref}>
@@ -19,7 +21,7 @@ const ProductCard = forwardRef((props, ref) => {
           src={process.env.IMAGE_URL + item.public_image_url}
           objectFit="cover"
           width="100%"
-          height={300}
+          height={isMobile ? 180 : 300}
           alt={item.name}
           loading="lazy"
         />
