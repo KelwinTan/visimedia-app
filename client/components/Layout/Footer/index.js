@@ -170,7 +170,7 @@ const Footer = () => {
                     <FacebookIcon color={color.blue} />
                   </a>
                 </Link>
-                <Link href="https://www.instagram.com/visimediaindonesia/">
+                <Link href="https://www.instagram.com/visimediasupply/">
                   <a target="_blank">
                     <InstagramIcon color={color.ig} />
                   </a>
