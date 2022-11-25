@@ -180,7 +180,7 @@ const Footer = () => {
                     <TwitterIcon color={color.twitter} />
                   </a>
                 </Link>
-                <Link href="https://www.youtube.com/channel/UCsMPBOwCuzcEDQAtCNMCmM">
+                <Link href="https://www.youtube.com/@visimediasupply">
                   <a target={"_blank"}>
                     <YoutubeIcon color={color.youtube} />
                   </a>
