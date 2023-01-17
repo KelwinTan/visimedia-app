@@ -170,7 +170,7 @@ const Footer = () => {
                     <FacebookIcon color={color.blue} />
                   </a>
                 </Link>
-                <Link href="https://www.instagram.com/visimediaindonesia/">
+                <Link href="https://www.instagram.com/visimediasupply/">
                   <a target="_blank">
                     <InstagramIcon color={color.ig} />
                   </a>
@@ -180,7 +180,7 @@ const Footer = () => {
                     <TwitterIcon color={color.twitter} />
                   </a>
                 </Link>
-                <Link href="https://www.youtube.com/channel/UCsMPBOwCuzcEDQAtCNMCmM">
+                <Link href="https://www.youtube.com/@visimediasupply">
                   <a target={"_blank"}>
                     <YoutubeIcon color={color.youtube} />
                   </a>
