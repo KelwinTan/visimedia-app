@@ -41,22 +41,23 @@ export default function Home({ banners, categories }) {
 
       <Carousel
         items={banners.map((banner, idx) => (
-          <div
-            key={idx}
-            className={css`
-              width: 100%;
-              position: relative;
-              height: ${isMobile ? "132px" : "490px"};
-            `}
-          >
-            <Image
-              src={`${process.env.IMAGE_URL}${banner.public_image_path}`}
-              layout={"fill"}
-              objectFit="cover"
-              alt="banner"
-              priority={idx === 0}
-            />
-          </div>
+          <a key={idx} href={banner.url_redirect} target="_blank">
+            <div
+              className={css`
+                width: 100%;
+                position: relative;
+                height: ${isMobile ? "132px" : "490px"};
+              `}
+            >
+              <Image
+                src={`${process.env.IMAGE_URL}${banner.public_image_path}`}
+                layout={"fill"}
+                objectFit="cover"
+                alt="banner"
+                priority={idx === 0}
+              />
+            </div>
+          </a>
         ))}
       />
 

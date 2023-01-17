@@ -4,7 +4,7 @@
     "next/core-web-vitals"
     // "eslint:recommended",
     // "plugin:react/recommended"
-  ],
+  ]
   // "parser": "@babel/eslint-parser",
   // "rules": {
   //    "react/react-in-jsx-scope": "off"

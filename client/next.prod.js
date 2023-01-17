@@ -21,7 +21,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
     removeConsole: {
-      exclude: ["error"],
+      exclude: ["error", "warn"],
     },
   },
   images: {

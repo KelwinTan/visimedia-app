@@ -15,7 +15,7 @@ import toIDR from "shared/currency/toIDR";
 import Button from "components/Button";
 import ProductVariant from "components/ProductVariant";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 export default function ProductDetail({ product }) {
   const { isMobile, isDesktop } = useUA();
@@ -28,7 +28,8 @@ export default function ProductDetail({ product }) {
   return (
     <>
       <Head>
-        <title>produk detail</title>
+        <title>{product.name}</title>
+        <meta name="description" content={product.description} />
       </Head>
       <Breadcrumb links={["home", "detail", product.name]} />
       <Container md css={{ mt: "$10" }} fluid>
@@ -47,7 +48,7 @@ export default function ProductDetail({ product }) {
             {isMobile && (
               <>
                 <Spacer y={1} />
-                <ProductVariant product={product} showSellNow={false} />
+                <ProductVariant product={product} />
               </>
             )}
           </Col>
@@ -59,9 +60,6 @@ export default function ProductDetail({ product }) {
               >
                 <Card.Body>
                   <ProductVariant product={product} />
-                  <Text b h5>
-                    Belanja Sekarang
-                  </Text>
                   <Button onClick={goCheckout} bordered={false} primary>
                     Beli Sekarang
                   </Button>

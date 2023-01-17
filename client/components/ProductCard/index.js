@@ -3,7 +3,7 @@ import ShopeeIcon from "components/Icon/ShopeeIcon";
 import TokopediaIcon from "components/Icon/TokopediaIcon";
 import WhatsappIcon from "components/Icon/WhatsappIcon";
 import color from "constants/color";
-import Image from "next/image";
+import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useUA } from "providers/user-agent";
 import { forwardRef } from "react";
@@ -19,11 +19,12 @@ const ProductCard = forwardRef((props, ref) => {
       <Card.Body css={{ p: 0 }}>
         <Image
           src={process.env.IMAGE_URL + item.public_image_url}
-          objectFit="cover"
+          objectFit="fill"
           width="100%"
           height={isMobile ? 180 : 300}
           alt={item.name}
           loading="lazy"
+          quality={100}
         />
       </Card.Body>
       <Card.Footer>
