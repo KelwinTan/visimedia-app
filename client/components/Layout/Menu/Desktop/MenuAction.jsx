@@ -16,6 +16,7 @@ export default function MenuAction() {
         <a
           href="https://api.whatsapp.com/send/?phone=6282110200808&text=Hallo+Visimedia...&type=phone_number&app_absent=0"
           target={"_blank"}
+          rel="noreferrer"
         >
           <WhatsappGIF width={48} height={48} classnames={hover} />
         </a>

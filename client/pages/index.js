@@ -41,7 +41,12 @@ export default function Home({ banners, categories }) {
 
       <Carousel
         items={banners.map((banner, idx) => (
-          <a key={idx} href={banner.url_redirect} target="_blank">
+          <a
+            key={idx}
+            href={banner.url_redirect}
+            target="_blank"
+            rel="noreferrer"
+          >
             <div
               className={css`
                 width: 100%;

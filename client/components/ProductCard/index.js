@@ -33,7 +33,7 @@ const ProductCard = forwardRef((props, ref) => {
             passHref
             href={{ pathname: "/product/[id]", query: { id: item.id } }}
           >
-            <a>
+            <a rel="noreferrer">
               <Text css={{ fontWeight: "$medium" }}>{item.name}</Text>
             </a>
           </Link>
@@ -49,16 +49,17 @@ const ProductCard = forwardRef((props, ref) => {
             <a
               href="https://api.whatsapp.com/send/?phone=6282110200808&text=Hallo+Visimedia...&type=phone_number&app_absent=0"
               target={"_blank"}
+              rel="noreferrer"
             >
               <WhatsappIcon color={color.wa} width={25} />
             </a>
             {item.tokopedia_link && item.tokopedia_link !== "null" && (
-              <a href={item.tokopedia_link} target={"_blank"}>
+              <a href={item.tokopedia_link} target={"_blank"} rel="noreferrer">
                 <TokopediaIcon width={25} />
               </a>
             )}
             {item.shopee_link && item.shopee_link !== "null" && (
-              <a href={item.shopee_link} target={"_blank"}>
+              <a href={item.shopee_link} target={"_blank"} rel="noreferrer">
                 <ShopeeIcon marketPlace width={25} />
               </a>
             )}
