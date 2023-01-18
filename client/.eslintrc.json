@@ -1,17 +1,32 @@
 {
   "extends": [
-    "next",
-    "next/core-web-vitals"
-    // "eslint:recommended",
-    // "plugin:react/recommended"
-  ]
-  // "parser": "@babel/eslint-parser",
-  // "rules": {
-  //    "react/react-in-jsx-scope": "off"
-  // },
-  // "env": {
-  //   "browser": true,
-  //   "node": true,
-  //   "jasmine": true
-  // }
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+     "plugin:react/jsx-runtime"
+  ],
+  "plugins": [
+    "prettier",
+    "unused-imports"
+  ],
+  "root": true,
+  "rules": {
+    "prettier/prettier": [
+      "error"
+    ],
+    "react/display-name": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error"
+  }
 }

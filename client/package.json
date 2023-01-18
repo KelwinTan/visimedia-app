@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "cross-env ANALYZE=true next build"
+    "analyze": "cross-env ANALYZE=true next build",
   },
   "dependencies": {
     "@emotion/css": "^11.9.0",
@@ -37,11 +37,11 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "eslint-plugin-react": "^7.31.4",
     "@babel/core": "^7.18.13",
     "@babel/eslint-parser": "^7.18.9",
     "cross-env": "^7.0.3",
     "eslint": "^8.23.0",
-    "eslint-config-next": "12.1.5"
+    "eslint-config-next": "12.1.5",
+    "eslint-plugin-react": "^7.31.4",
   }
 }
