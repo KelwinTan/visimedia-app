@@ -23,6 +23,9 @@ export default function ProductVariant({ product }) {
       <Collapse.Group css={{ px: 0 }}>
         {product.productVariantsData?.map((variant, idx) => {
           const variantValues = variant.variantValues?.flat();
+          if (variantValues.length === 0) {
+            return null;
+          }
           const productSizeIndex = variantValues.findIndex(
             (v) => v.variant.variant === "SIZE (meter)"
           );
