@@ -46,7 +46,6 @@ export default function ProductVariant({ product }) {
                     isSelected={selectedVariant === key}
                     onChange={(checked) => {
                       if (checked) {
-                        onSelectedPrice(variant.price);
                         setSelectedVariant(key);
                       } else {
                         setSelectedVariant("");
