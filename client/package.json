@@ -7,19 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "cross-env ANALYZE=true next build",
-    "prepare": "husky install"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.js(x)?": [
-      "eslint --fix",
-      "git add"
-    ]
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@emotion/css": "^11.9.0",
@@ -48,6 +36,7 @@
     "react-slick": "^0.29.0",
     "sharp": "^0.30.7",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.6",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -60,8 +49,6 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.1.0",
     "prettier": "^2.8.3"
   }
 }
