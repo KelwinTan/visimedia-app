@@ -1,5 +1,4 @@
 {
-  "parser": "@typescript-eslint/parser",
   "extends": [
     "next/core-web-vitals",
     "plugin:prettier/recommended",
@@ -12,7 +11,7 @@
   "root": true,
   "rules": {
     "prettier/prettier": [
-      "error"
+      "warn"
     ],
     "react/display-name": "off",
     "react/jsx-uses-react": "error",
