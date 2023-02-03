@@ -7,7 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "cross-env ANALYZE=true next build"
+    "analyze": "cross-env ANALYZE=true next build",
+    "postinstall": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js(x)?": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "@emotion/css": "^11.9.0",
@@ -44,6 +56,8 @@
     "@types/lodash-es": "^4.17.6",
     "cross-env": "^7.0.3",
     "eslint": "^8.23.0",
-    "eslint-config-next": "12.1.5"
+    "eslint-config-next": "12.1.5",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0"
   }
 }
