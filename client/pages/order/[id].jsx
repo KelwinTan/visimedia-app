@@ -27,7 +27,7 @@ export default function Index() {
     ['order-details', id],
     () =>
       _axios
-        .get(`order-details/${id}`, {
+        .get(`order-details/all/own`, {
           headers: {
             Authorization: `Bearer ${getCookie(auth.TOKEN)}`
           }
