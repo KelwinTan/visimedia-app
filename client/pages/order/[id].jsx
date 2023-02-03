@@ -1,38 +1,38 @@
-import useAuthMiddleware from "middleware/auth.middleware";
-import OrderDetail from "components/order/OrderDetail";
-import OrderFilter from "components/order/OrderFilter";
-import Head from "next/head";
-import { useState } from "react";
-import { Badge, Container, Spacer, Text } from "@nextui-org/react";
-import color from "constants/color";
-import { useQuery } from "@tanstack/react-query";
-import _axios from "shared/axios";
-import { useRouter } from "next/router";
-import { getCookie } from "cookies-next";
-import auth from "constants/auth";
+import useAuthMiddleware from 'middleware/auth.middleware';
+import OrderDetail from 'components/order/OrderDetail';
+import OrderFilter from 'components/order/OrderFilter';
+import Head from 'next/head';
+import { useState } from 'react';
+import { Badge, Container, Spacer, Text } from '@nextui-org/react';
+import color from 'constants/color';
+import { useQuery } from '@tanstack/react-query';
+import _axios from 'shared/axios';
+import { useRouter } from 'next/router';
+import { getCookie } from 'cookies-next';
+import auth from 'constants/auth';
 
 export default function Index() {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
-  const id = Array.isArray(router.query["id"])
-    ? router.query["id"][0]
-    : router.query["id"];
+  const id = Array.isArray(router.query['id'])
+    ? router.query['id'][0]
+    : router.query['id'];
 
   const { data: orderStatus = [], isLoading: loadingOrderStatus } = useQuery(
-    ["order-status"],
-    () => _axios.get("/statuses").then((res) => res.data?.statuses)
+    ['order-status'],
+    () => _axios.get('/statuses').then(res => res.data?.statuses)
   );
 
   const { data: orderDetail, isLoading: loadingGetOrderDetail } = useQuery(
-    ["order-details", id],
+    ['order-details', id],
     () =>
       _axios
         .get(`order-details/${id}`, {
           headers: {
-            Authorization: `Bearer ${getCookie(auth.TOKEN)}`,
-          },
+            Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+          }
         })
-        .then((res) => res.data?.data)
+        .then(res => res.data?.data)
   );
 
   return (
@@ -46,7 +46,7 @@ export default function Index() {
       <Container
         fluid
         md
-        css={{ px: "1rem" }}
+        css={{ px: '1rem' }}
         direction="row"
         alignItems="center"
         wrap="nowrap"
@@ -65,17 +65,17 @@ export default function Index() {
 
       <Spacer y={1} />
 
-      <Container fluid md css={{ px: "1rem" }}>
+      <Container fluid md css={{ px: '1rem' }}>
         {!loadingGetOrderDetail && <OrderDetail data={orderDetail} />}
       </Container>
     </>
   );
 }
 
-// export async function getServerSideProps(ctx) {
-//   return useAuthMiddleware(ctx, () => {
-//     return {
-//       props: {},
-//     };
-//   });
-// }
+export async function getServerSideProps(ctx) {
+  return useAuthMiddleware(ctx, () => {
+    return {
+      props: {}
+    };
+  });
+}

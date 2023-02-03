@@ -1,9 +1,5 @@
-import { css } from "@emotion/css";
-import color from "constants/color";
+import { css } from '@emotion/css';
 
 export const styOrderFilter = css({
-  ":hover": {
-    cursor: "pointer",
-  },
-  marginRight: ".5rem",
+  marginRight: '.5rem'
 });

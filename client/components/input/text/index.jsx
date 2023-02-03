@@ -1,13 +1,13 @@
-import cn from "classnames";
-import { Field } from "react-final-form";
+import cn from 'classnames';
+import { Field } from 'react-final-form';
 
 export default function InputField({
-  type = "text",
-  placeholder = "",
+  type = 'text',
+  placeholder = '',
   name,
   label = null,
   helpText = null,
-  disabled = false,
+  disabled = false
 }) {
   return (
     <Field type={type} name={name}>
@@ -16,12 +16,11 @@ export default function InputField({
           {label && <label htmlFor={name}>{label}</label>}
           <input
             type={type}
-            className={cn("form-control", {
-              "is-invalid": meta.error && meta.touched,
+            className={cn('form-control', {
+              'is-invalid': meta.error && meta.touched
             })}
             placeholder={placeholder}
             disabled={disabled}
-            {...input}
           />
           {helpText && (
             <small id={name} className="form-text text-muted">

@@ -1,9 +1,11 @@
-import { Badge } from "@nextui-org/react";
-import color from "constants/color";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { styOrderFilter } from "./style";
-import { OrderFilterProps } from "./type";
+import { cx } from '@emotion/css';
+import { Badge } from '@nextui-org/react';
+import color from 'constants/color';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { hover } from 'styles/globals';
+import { styOrderFilter } from './style';
+import { OrderFilterProps } from './type';
 
 /**
  * @param {{filters : OrderFilterProps[]} } props
@@ -25,10 +27,10 @@ export default function OrderFilter(props) {
             backgroundColor: activeTab === key ? color.primary : color.white,
             color: activeTab === key ? color.white : color.primary,
             borderColor: color.primary,
-            borderWidth: "1px",
+            borderWidth: '1px'
           }}
           size="lg"
-          className={styOrderFilter}
+          className={cx(styOrderFilter, hover)}
         >
           {filter.status}
         </Badge>
