@@ -14,9 +14,9 @@ export default function Payment({ data = [] }) {
       </style>
       <table className="table mt-3 table-borderless">
         <thead>
-          <th>{"BANK_NAME"}</th>
-          <th>{"BANK_NUMBER"}</th>
-          <th>{"Name"}</th>
+          <th>Bank Name</th>
+          <th>Bank Number</th>
+          <th>Name</th>
         </thead>
         <tbody>
           {data?.map(

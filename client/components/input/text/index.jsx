@@ -1,3 +1,4 @@
+import { css } from '@emotion/css';
 import cn from 'classnames';
 import { Field } from 'react-final-form';
 
@@ -11,10 +12,11 @@ export default function InputField({
 }) {
   return (
     <Field type={type} name={name}>
-      {({ input, meta }) => (
-        <div className="form-group">
+      {({ meta }) => (
+        <div className={css({ display: 'flex', flexDirection: 'column' })}>
           {label && <label htmlFor={name}>{label}</label>}
           <input
+            id={name}
             type={type}
             className={cn('form-control', {
               'is-invalid': meta.error && meta.touched

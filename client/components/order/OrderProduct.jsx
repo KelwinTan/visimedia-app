@@ -1,7 +1,7 @@
-import first from "lodash-es/first";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@nextui-org/react";
+import first from 'lodash-es/first';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@nextui-org/react';
 
 export default function ListOrderProduct({ data, canReview = false }) {
   return (
@@ -23,7 +23,7 @@ export default function ListOrderProduct({ data, canReview = false }) {
         <div className="col-10">
           <Link
             href={{
-              pathname: "/",
+              pathname: '/'
             }}
           >
             <a data-dismiss="modal">
@@ -31,18 +31,18 @@ export default function ListOrderProduct({ data, canReview = false }) {
             </a>
           </Link>
           <p className="text-secondary mb-0">
-            {data?.quantity} Product ({data?.product?.shipping_weight}) x Rp.{" "}
+            {data?.quantity} Product ({data?.product?.shipping_weight}) x Rp.{' '}
             {toIDR(data?.product?.price)}
           </p>
         </div>
       </div>
       <div className="col-sm-12 col-md-3">
-        <p className="font-semi-bold nbmm">{t("PRICE")}</p>
-        <p className="mb-0">Rp. {toIDR(data?.price)}</p>
+        <p className="font-semi-bold nbmm">{PRICE}</p>
+        <p className="mb-0">Rp. {toIDR(Number(data?.price))}</p>
       </div>
       {canReview && (
         <div className="col-sm-12 col-md-3">
-          <Button color="secondary" text={t("REVIEW")} />
+          <Button color="secondary" text={t('REVIEW')} />
         </div>
       )}
     </div>

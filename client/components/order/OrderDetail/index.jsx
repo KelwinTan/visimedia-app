@@ -1,14 +1,11 @@
-import {
-  Button,
-  Card,
-  Container,
-  Grid,
-  Image,
-  Spacer,
-  Text,
-} from "@nextui-org/react";
-import { format } from "date-fns";
-import { OrderDetailProps } from "./type";
+import { css, cx } from '@emotion/css';
+import { Card, Container, Grid, Image, Spacer, Text } from '@nextui-org/react';
+import Button from 'components/Button';
+import { format } from 'date-fns';
+import Link from 'next/link';
+import toIDR from 'shared/currency/toIDR';
+import { dFlex, hover } from 'styles/globals';
+import { OrderDetailProps } from './type';
 
 /**
  * @param {{data : OrderDetailProps}} props
@@ -29,12 +26,12 @@ export default function OrderDetail(props) {
             <Text>
               {format(
                 new Date(props.data.order_details.created_at),
-                "dd MMMM yyyy"
+                'dd MMMM yyyy'
               )}
             </Text>
             <div>
               <Text weight="bold">Total</Text>
-              <Text>{payment.amount}</Text>
+              <Text>{toIDR(Number(payment.amount))}</Text>
             </div>
           </Container>
         </Card.Header>
@@ -44,26 +41,29 @@ export default function OrderDetail(props) {
             <>
               <Grid.Container display="flex" direction="row" key={key}>
                 <Grid xs={1}>
-                  <Image
-                    width={64}
-                    height={64}
-                    src={process.env.IMAGE_URL + order.public_image_url}
-                  />
+                  <Image width={64} height={64} src={order.public_image_url} />
                 </Grid>
                 <Grid direction="column" xs={3}>
                   <Text>{order.product_name}</Text>
                   <Text>
-                    {order.quantity} x {order.price}
+                    {order.quantity} x {toIDR(Number(order.price))}
                   </Text>
                 </Grid>
                 <Grid direction="column" xs={3}>
                   <Text weight="bold">Price</Text>
-                  <Text>{order.price}</Text>
+                  <Text>{toIDR(Number(order.price))}</Text>
                 </Grid>
               </Grid.Container>
               {key < arr.length - 1 && <Spacer y={1} />}
             </>
           ))}
+          <div className={cx(dFlex, css({ justifyContent: 'flex-end' }))}>
+            <Link href={`/payment/${props.data.order_details.id}`}>
+              <Button primary classnames={cx(hover, css({ width: 200 }))}>
+                Bayar
+              </Button>
+            </Link>
+          </div>
         </Card.Body>
       </Card>
     </>

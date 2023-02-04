@@ -1,34 +1,38 @@
-import { Field } from "react-final-form";
-import cn from "classnames";
+import { Field } from 'react-final-form';
+import cn from 'classnames';
+import { css } from '@emotion/css';
 
 export default function InputFile({
-  type = "file",
+  type = 'file',
   name,
-  accept = "*/*",
+  accept = '*/*',
   label = null,
-  helpText = null,
+  helpText = null
 }) {
   return (
     <Field type={type} name={name}>
-      {({ input : {onChange , ...input}, meta }) => {
+      {({ input: { onChange, ...input }, meta }) => {
         return (
-          <div className="form-group">
+          <div className={css({ display: 'flex', flexDirection: 'column' })}>
             {label && <label htmlFor={name}>{label}</label>}
             <input
-              type={"file"}
-              className={cn("form-control-file", {
-                "is-invalid": meta.error && meta.touched,
+              id={name}
+              type="file"
+              className={cn('form-control-file', {
+                'is-invalid': meta.error && meta.touched
               })}
               accept={accept}
               {...input}
-              onChange={({target: {files}}) => onChange(files)}
+              onChange={({ target: { files } }) => onChange(files)}
             />
             {helpText && (
               <small id={name} className="form-text text-muted">
                 {helpText}
               </small>
             )}
-            {meta.error && meta.touched && <div className="invalid-feedback">{meta.error}</div>}
+            {meta.error && meta.touched && (
+              <div className="invalid-feedback">{meta.error}</div>
+            )}
           </div>
         );
       }}
