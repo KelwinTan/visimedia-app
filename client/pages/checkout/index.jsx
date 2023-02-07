@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { dFlex, hover } from 'styles/globals';
 import generalConst from 'constants/general';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import AddressList from 'components/settings/Address/List';
 import auth from 'constants/auth';
 import _axios from 'shared/axios';
@@ -91,7 +91,7 @@ export default function Checkout() {
             <Text weight="bold" h3>
               Checkout
             </Text>
-            <Text>Alamat</Text>
+            <Text h5>Alamat</Text>
             {selectedAddress && <AddressList address={selectedAddress} />}
             <div>
               <Button

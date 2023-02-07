@@ -23,7 +23,7 @@ export default function Index() {
     () => _axios.get('/statuses').then(res => res.data?.statuses)
   );
 
-  const { data: orderDetail, isLoading: loadingGetOrderDetail } = useQuery(
+  const { data: orderDetail = [], isLoading: loadingGetOrderDetail } = useQuery(
     ['order-details', id],
     () =>
       _axios
@@ -32,8 +32,9 @@ export default function Index() {
             Authorization: `Bearer ${getCookie(auth.TOKEN)}`
           }
         })
-        .then(res => res.data?.data)
+        .then(res => res.data?.data?.order_details)
   );
+  console.log({ orderDetail });
 
   return (
     <>
@@ -66,7 +67,10 @@ export default function Index() {
       <Spacer y={1} />
 
       <Container fluid md css={{ px: '1rem' }}>
-        {!loadingGetOrderDetail && <OrderDetail data={orderDetail} />}
+        {!loadingGetOrderDetail &&
+          orderDetail.map((order, idx) => (
+            <OrderDetail key={idx} data={order} />
+          ))}
       </Container>
     </>
   );

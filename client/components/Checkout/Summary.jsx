@@ -1,12 +1,41 @@
 import { css, cx } from '@emotion/css';
 import { Card, Grid, Spacer, Text } from '@nextui-org/react';
+import { useMutation } from '@tanstack/react-query';
 import Button from 'components/Button';
+import auth from 'constants/auth';
+import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
+import { useCallback } from 'react';
+import _axios from 'shared/axios';
 import { hover } from 'styles/globals';
 import { stySummary } from './style';
 
 export default function Summary() {
   const router = useRouter();
+  const { mutateAsync: checkoutAPI } = useMutation(vars =>
+    _axios.post('order-details', vars, {
+      headers: {
+        Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+      }
+    })
+  );
+
+  const checkout = useCallback(() => {
+    checkoutAPI({
+      orders: [
+        {
+          product_id: 19,
+          quantity: 1
+        },
+        {
+          product_id: 5,
+          quantity: 2
+        }
+      ]
+    }).then(() => {
+      router.push('/thankyou');
+    });
+  }, [checkoutAPI]);
 
   return (
     <Card className={stySummary}>
@@ -45,7 +74,7 @@ export default function Summary() {
       <Button
         primary
         classnames={cx(hover, css({ marginTop: 7 }))}
-        onClick={() => router.push('/thankyou')}
+        onClick={checkout}
       >
         Checkout
       </Button>

@@ -11,7 +11,6 @@ import { OrderDetailProps } from './type';
  * @param {{data : OrderDetailProps}} props
  */
 export default function OrderDetail(props) {
-  console.log({ data: props.data });
   const [payment] = props.data.payment_details;
   /**
    *  order created
@@ -20,7 +19,7 @@ export default function OrderDetail(props) {
    */
   return (
     <>
-      <Card>
+      <Card className={css({ marginBottom: '1rem' })}>
         <Card.Header>
           <Container display="flex" direction="row" justify="space-between">
             <Text>
@@ -59,9 +58,11 @@ export default function OrderDetail(props) {
           ))}
           <div className={cx(dFlex, css({ justifyContent: 'flex-end' }))}>
             <Link href={`/payment/${props.data.order_details.id}`}>
-              <Button primary classnames={cx(hover, css({ width: 200 }))}>
-                Bayar
-              </Button>
+              <a>
+                <Button primary classnames={cx(hover, css({ width: 200 }))}>
+                  Bayar
+                </Button>
+              </a>
             </Link>
           </div>
         </Card.Body>

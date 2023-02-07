@@ -18,7 +18,7 @@ export default function Thankyou() {
       <Text h2>Thank you for the purchase!</Text>
       <Text>Your package will be delivered soon for you!</Text>
       <Spacer y={2} />
-      <Link href="/order/21">
+      <Link href="/order">
         <Button primary classnames={hover}>
           Go to order page
         </Button>

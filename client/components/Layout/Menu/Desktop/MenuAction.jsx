@@ -32,6 +32,19 @@ export default function MenuAction() {
             />
           </Dropdown.Trigger>
           <Dropdown.Menu color="primary" aria-label="User Actions">
+            <Dropdown.Item key="carts">
+              <Link href={'/cart'}>
+                <a>
+                  <Text
+                    weight="bold"
+                    css={{ marginLeft: 8, color: color.gray }}
+                    className={hover}
+                  >
+                    Keranjang
+                  </Text>
+                </a>
+              </Link>
+            </Dropdown.Item>
             <Dropdown.Item key="profile">
               <Link href={'/settings'}>
                 <a>

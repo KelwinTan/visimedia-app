@@ -1,10 +1,22 @@
 import useAuthMiddleware from 'middleware/auth.middleware';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import generalConst from 'constants/general';
-import { Card, Container, Grid, Image, Text } from '@nextui-org/react';
+import {
+  Card,
+  Container,
+  Divider,
+  Grid,
+  Image,
+  Spacer,
+  Text
+} from '@nextui-org/react';
 import canUseDOM from 'shared/utils/canUseDom';
 import { css, cx } from '@emotion/css';
-import { dFlex } from 'styles/globals';
+import { dFlex, hover } from 'styles/globals';
+import CartItem from 'components/Cart/CartItem';
+import Button from 'components/Button';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 class CartValue {
   product_name = '';
@@ -14,54 +26,68 @@ class CartValue {
 }
 
 export default function Cart() {
-  /**
-   * @type {Array<CartValue>}
-   */
-  const itemsCart = useMemo(() => {
-    if (!canUseDOM()) {
-      return {};
-    }
-    const json = localStorage.getItem(generalConst.CART);
-    if (!json) {
-      return {};
-    }
+  const router = useRouter();
+  const [carts, setCarts] = useState({});
 
-    return JSON.parse(json);
+  useEffect(() => {
+    setCarts(() => {
+      const json = localStorage.getItem(generalConst.CART);
+      if (!json) {
+        return {};
+      }
+
+      return JSON.parse(json);
+    });
   }, []);
-
-  console.log({ itemsCart });
 
   return (
     <>
+      <Spacer y={2} />
       <Container fluid md css={{ px: '1rem' }}>
         <Grid.Container>
           <Grid xs={12} sm={8}>
-            <div className={cx(dFlex, css({ flexDirection: 'column' }))}>
-              {Object.values(itemsCart)
+            <div style={{ width: '100%' }}>
+              {Object.values(carts)
                 .flat()
-                .map(cart => {
-                  return (
-                    <>
-                      <Card variant="flat">
-                        <Card.Body>
-                          <Image
-                            width={64}
-                            height={64}
-                            src={process.env.IMAGE_URL + cart.product_image}
-                          />
-                          <div>
-                            <Text>{cart.product_name}</Text>
-                            <Text>{cart.product_price}</Text>
-                          </div>
-                        </Card.Body>
-                      </Card>
-                    </>
-                  );
+                .map((cart, idx) => {
+                  return <CartItem key={idx} cart={cart} />;
                 })}
             </div>
           </Grid>
           <Grid xs={12} sm={4}>
-            lkocak
+            <Card className={css({ alignSelf: 'start', marginLeft: '1rem' })}>
+              <Card.Body>
+                <Text weight="bold" h3>
+                  Rangkuman
+                </Text>
+                <Grid.Container>
+                  <Grid xs={6}>
+                    <Text>Subharga</Text>
+                  </Grid>
+                  <Grid xs={6}>
+                    <Text>Rp99.000</Text>
+                  </Grid>
+                </Grid.Container>
+
+                <Divider css={{ margin: '1rem 0' }} />
+                <Grid.Container>
+                  <Grid xs={6}>
+                    <Text>Total Harga</Text>
+                  </Grid>
+                  <Grid xs={6}>
+                    <Text>Rp99.000</Text>
+                  </Grid>
+                </Grid.Container>
+
+                <Button
+                  primary
+                  classnames={cx(hover, css({ marginTop: 7 }))}
+                  onClick={() => router.push('/checkout')}
+                >
+                  Beli
+                </Button>
+              </Card.Body>
+            </Card>
           </Grid>
         </Grid.Container>
       </Container>
