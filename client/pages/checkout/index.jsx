@@ -119,7 +119,7 @@ export default function Checkout() {
             </div>
           </Grid>
           <Grid xs={12} sm={4} css={{ paddingLeft: '1rem' }}>
-            <Summary />
+            <Summary selectedAddress={selectedAddress} />
           </Grid>
         </Grid.Container>
       </Container>

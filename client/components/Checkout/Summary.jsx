@@ -10,7 +10,7 @@ import _axios from 'shared/axios';
 import { hover } from 'styles/globals';
 import { stySummary } from './style';
 
-export default function Summary() {
+export default function Summary({ selectedAddress }) {
   const router = useRouter();
   const { mutateAsync: checkoutAPI } = useMutation(vars =>
     _axios.post('order-details', vars, {
@@ -31,7 +31,8 @@ export default function Summary() {
           product_id: 5,
           quantity: 2
         }
-      ]
+      ],
+      address_id: selectedAddress.id
     }).then(() => {
       router.push('/thankyou');
     });
