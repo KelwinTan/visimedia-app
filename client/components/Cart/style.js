@@ -32,5 +32,8 @@ export const styCartIncreDecre = css({
   },
   ':last-child': {
     marginLeft: 10
+  },
+  ':hover': {
+    cursor: 'pointer'
   }
 });

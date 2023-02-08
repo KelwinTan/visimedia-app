@@ -20,7 +20,9 @@ export default function OrderFilter(props) {
         <Badge
           onClick={() => {
             setActiveTab(key);
-            router.replace({ query: { ...router.query, status: filter.id } });
+            router.replace({
+              query: { ...router.query, status: filter.status }
+            });
           }}
           key={key}
           css={{

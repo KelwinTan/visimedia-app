@@ -7,10 +7,11 @@ import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import _axios from 'shared/axios';
+import toIDR from 'shared/currency/toIDR';
 import { hover } from 'styles/globals';
 import { stySummary } from './style';
 
-export default function Summary({ selectedAddress }) {
+export default function Summary({ selectedAddress, subHarga }) {
   const router = useRouter();
   const { mutateAsync: checkoutAPI } = useMutation(vars =>
     _axios.post('order-details', vars, {
@@ -36,7 +37,7 @@ export default function Summary({ selectedAddress }) {
     }).then(() => {
       router.push('/thankyou');
     });
-  }, [checkoutAPI]);
+  }, [checkoutAPI, selectedAddress]);
 
   return (
     <Card className={stySummary}>
@@ -48,16 +49,7 @@ export default function Summary({ selectedAddress }) {
           <Text>Subtotal</Text>
         </Grid>
         <Grid xs={4}>
-          <Text>Rp 90.000</Text>
-        </Grid>
-      </Grid.Container>
-
-      <Grid.Container>
-        <Grid xs={4}>
-          <Text>Total Diskon</Text>
-        </Grid>
-        <Grid xs={4}>
-          <Text>Rp 90.000</Text>
+          <Text>Rp.{toIDR(subHarga)}</Text>
         </Grid>
       </Grid.Container>
 
@@ -68,7 +60,7 @@ export default function Summary({ selectedAddress }) {
           <Text>Total Harga</Text>
         </Grid>
         <Grid xs={4}>
-          <Text>Rp 90.000</Text>
+          <Text>Rp.{toIDR(subHarga)}</Text>
         </Grid>
       </Grid.Container>
 

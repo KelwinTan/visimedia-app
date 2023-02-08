@@ -7,6 +7,7 @@ import {
   Divider,
   Grid,
   Image,
+  Loading,
   Spacer,
   Text
 } from '@nextui-org/react';
@@ -17,6 +18,11 @@ import CartItem from 'components/Cart/CartItem';
 import Button from 'components/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useQuery } from '@tanstack/react-query';
+import _axios from 'shared/axios';
+import { getCookie } from 'cookies-next';
+import auth from 'constants/auth';
+import toIDR from 'shared/currency/toIDR';
 
 class CartValue {
   product_name = '';
@@ -27,19 +33,27 @@ class CartValue {
 
 export default function Cart() {
   const router = useRouter();
-  const [carts, setCarts] = useState({});
+  const { data: carts = [], isLoading } = useQuery(['carts'], () =>
+    _axios
+      .get('cart-items', {
+        headers: {
+          Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+        }
+      })
+      .then(res => res.data.cartItems)
+  );
 
-  useEffect(() => {
-    setCarts(() => {
-      const json = localStorage.getItem(generalConst.CART);
-      if (!json) {
-        return {};
-      }
+  const subHarga = useMemo(() => {
+    return carts.reduce(
+      (curr, data) =>
+        curr + data.cart_item.quantity * +data.product_detail.price,
+      0
+    );
+  }, [carts]);
 
-      return JSON.parse(json);
-    });
-  }, []);
-
+  if (isLoading) {
+    return <Loading size="md" />;
+  }
   return (
     <>
       <Spacer y={2} />
@@ -47,11 +61,9 @@ export default function Cart() {
         <Grid.Container>
           <Grid xs={12} sm={8}>
             <div style={{ width: '100%' }}>
-              {Object.values(carts)
-                .flat()
-                .map((cart, idx) => {
-                  return <CartItem key={idx} cart={cart} />;
-                })}
+              {carts.map((cart, idx) => {
+                return <CartItem key={idx} cart={cart} />;
+              })}
             </div>
           </Grid>
           <Grid xs={12} sm={4}>
@@ -65,7 +77,7 @@ export default function Cart() {
                     <Text>Subharga</Text>
                   </Grid>
                   <Grid xs={6}>
-                    <Text>Rp99.000</Text>
+                    <Text>Rp.{toIDR(subHarga)}</Text>
                   </Grid>
                 </Grid.Container>
 
@@ -75,7 +87,7 @@ export default function Cart() {
                     <Text>Total Harga</Text>
                   </Grid>
                   <Grid xs={6}>
-                    <Text>Rp99.000</Text>
+                    <Text>Rp.{toIDR(subHarga)}</Text>
                   </Grid>
                 </Grid.Container>
 

@@ -12,6 +12,7 @@ import generalConst from 'constants/general';
 
 export default function CheckoutList(props) {
   const { data: cart } = props;
+  const { cart_item, product_detail } = cart || {};
 
   const isBetweenSMAndMD = useMediaQueryBetween({ min: 320, max: 425 });
 
@@ -21,14 +22,12 @@ export default function CheckoutList(props) {
         <Image
           width={64}
           height={64}
-          src={process.env.IMAGE_URL + cart.product_image}
+          src={process.env.IMAGE_URL + product_detail.public_image_url}
           className={css({ margin: '0' })}
         />
         <div className={css({ marginLeft: isBetweenSMAndMD ? 0 : 10 })}>
-          <Text weight="bold">{cart.product_name}</Text>
-          <Text>
-            {cart.sizeVariant} {toIDR(Number(cart.product_price))}
-          </Text>
+          <Text weight="bold">{product_detail.name}</Text>
+          <Text>Rp.{toIDR(Number(product_detail.price))}</Text>
         </div>
       </div>
     </div>

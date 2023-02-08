@@ -14,9 +14,9 @@ import auth from 'constants/auth';
 export default function Index() {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
-  const id = Array.isArray(router.query['id'])
-    ? router.query['id'][0]
-    : router.query['id'];
+  const status = Array.isArray(router.query['status'])
+    ? router.query['status'][0]
+    : router.query['status'];
 
   const { data: orderStatus = [], isLoading: loadingOrderStatus } = useQuery(
     ['order-status'],
@@ -24,17 +24,21 @@ export default function Index() {
   );
 
   const { data: orderDetail = [], isLoading: loadingGetOrderDetail } = useQuery(
-    ['order-details', id],
+    ['order-details', status],
     () =>
       _axios
-        .get(`order-details/all/own`, {
-          headers: {
-            Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+        .get(
+          status
+            ? `order-details/all/own/filter?filter=${status}`
+            : `order-details/all/own`,
+          {
+            headers: {
+              Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+            }
           }
-        })
+        )
         .then(res => res.data?.data?.order_details)
   );
-  console.log({ orderDetail });
 
   return (
     <>

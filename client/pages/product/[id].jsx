@@ -17,11 +17,22 @@ import ProductVariant from 'components/ProductVariant';
 import { useRouter } from 'next/router';
 import { useCallback, useRef, useState } from 'react';
 import generalConst from 'constants/general';
+import { useMutation } from '@tanstack/react-query';
+import { getCookie } from 'cookies-next';
+import auth from 'constants/auth';
 
 export default function ProductDetail({ product }) {
   const { isMobile, isDesktop } = useUA();
   const router = useRouter();
   const productVariantRef = useRef();
+
+  const { mutateAsync } = useMutation(vars =>
+    _axios.post('cart-items', vars, {
+      headers: {
+        Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+      }
+    })
+  );
 
   const goCheckout = useCallback(() => {
     const selectedVariant = productVariantRef.current.getSelectedVariant();
@@ -33,20 +44,14 @@ export default function ProductDetail({ product }) {
       product_price: product.price,
       ...selectedVariant
     };
+    console.log({ cartItem });
 
-    const key = `${product.id}:${selectedVariant.id}`;
-    const prevCart = JSON.parse(
-      localStorage.getItem(generalConst.CART) || '{}'
-    );
-    const cartMap = {
-      ...prevCart,
-      [key]: Array.isArray(prevCart[key])
-        ? prevCart[key].concat(cartItem)
-        : [cartItem]
-    };
-
-    localStorage.setItem(generalConst.CART, JSON.stringify(cartMap));
-    router.push('/cart');
+    mutateAsync({
+      product_id: product.id,
+      quantity: 1
+    }).then(() => {
+      router.push('/cart');
+    });
   }, [router]);
 
   return (

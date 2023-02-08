@@ -5,7 +5,7 @@ import Summary from 'components/Checkout/Summary';
 import { useMediaQueryBetween } from 'hooks/useMediaQuery';
 import useAuthMiddleware from 'middleware/auth.middleware';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { dFlex, hover } from 'styles/globals';
 import generalConst from 'constants/general';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -17,10 +17,19 @@ import Button from 'components/Button';
 import AddressChoosen from 'components/Checkout/AddressChoosen';
 
 export default function Checkout() {
-  const [itemsCart, setItemsCart] = useState({});
   const isBetweenSMAndMD = useMediaQueryBetween({ min: 320, max: 425 });
   const [openAllAddress, setOpenAllAddress] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
+
+  const { data: carts = [], isLoading } = useQuery(['carts'], () =>
+    _axios
+      .get('cart-items', {
+        headers: {
+          Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+        }
+      })
+      .then(res => res.data.cartItems)
+  );
 
   const { data: address = [] } = useQuery(
     ['address-user-list'],
@@ -40,15 +49,13 @@ export default function Checkout() {
     }
   );
 
-  useEffect(() => {
-    setItemsCart(() => {
-      const json = localStorage.getItem(generalConst.CART);
-      if (!json) {
-        return {};
-      }
-      return JSON.parse(json);
-    });
-  }, []);
+  const subHarga = useMemo(() => {
+    return carts.reduce(
+      (curr, data) =>
+        curr + data.cart_item.quantity * +data.product_detail.price,
+      0
+    );
+  }, [carts]);
 
   return (
     <>
@@ -111,15 +118,13 @@ export default function Checkout() {
                 })
               )}
             >
-              {Object.values(itemsCart)
-                .flat()
-                .map((cart, idx) => {
-                  return <CheckoutList key={idx} data={cart} />;
-                })}
+              {carts.map((cart, idx) => {
+                return <CheckoutList key={idx} data={cart} />;
+              })}
             </div>
           </Grid>
           <Grid xs={12} sm={4} css={{ paddingLeft: '1rem' }}>
-            <Summary selectedAddress={selectedAddress} />
+            <Summary selectedAddress={selectedAddress} subHarga={subHarga} />
           </Grid>
         </Grid.Container>
       </Container>
