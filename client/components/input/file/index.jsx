@@ -3,27 +3,28 @@ import cn from 'classnames';
 import { css } from '@emotion/css';
 
 export default function InputFile({
-  type = 'file',
   name,
   accept = '*/*',
   label = null,
   helpText = null
 }) {
   return (
-    <Field type={type} name={name}>
-      {({ input: { onChange, ...input }, meta }) => {
+    <Field name={name}>
+      {({ input: { onChange, value, ...input }, meta }) => {
         return (
           <div className={css({ display: 'flex', flexDirection: 'column' })}>
             {label && <label htmlFor={name}>{label}</label>}
             <input
+              {...input}
               id={name}
               type="file"
+              accept={accept}
               className={cn('form-control-file', {
                 'is-invalid': meta.error && meta.touched
               })}
-              accept={accept}
-              {...input}
-              onChange={({ target: { files } }) => onChange(files)}
+              onChange={({ target }) => {
+                onChange(target.files);
+              }}
             />
             {helpText && (
               <small id={name} className="form-text text-muted">

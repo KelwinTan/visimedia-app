@@ -1,6 +1,6 @@
 import { css, cx } from '@emotion/css';
 import { Card, Grid, Spacer, Text } from '@nextui-org/react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from 'components/Button';
 import auth from 'constants/auth';
 import { getCookie } from 'cookies-next';
@@ -13,8 +13,18 @@ import { stySummary } from './style';
 
 export default function Summary({ selectedAddress, subHarga }) {
   const router = useRouter();
+  const client = useQueryClient();
+
   const { mutateAsync: checkoutAPI } = useMutation(vars =>
     _axios.post('order-details', vars, {
+      headers: {
+        Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+      }
+    })
+  );
+
+  const { mutateAsync: removeCart } = useMutation(vars =>
+    _axios.delete(`cart-items/${vars.cartId}`, {
       headers: {
         Authorization: `Bearer ${getCookie(auth.TOKEN)}`
       }
@@ -35,7 +45,13 @@ export default function Summary({ selectedAddress, subHarga }) {
       ],
       address_id: selectedAddress.id
     }).then(() => {
-      router.push('/thankyou');
+      const cartItems = client.getQueryData(['carts']);
+      Promise.all(
+        cartItems.map(item => removeCart({ cartId: item.cart_item.id }))
+      ).then(() => {
+        client.removeQueries(['carts']);
+        router.push('/thankyou');
+      });
     });
   }, [checkoutAPI, selectedAddress]);
 

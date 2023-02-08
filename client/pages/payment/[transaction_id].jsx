@@ -1,48 +1,59 @@
 import InputFile from 'components/input/file';
-import InputField from 'components/input/text';
 import Payment from 'components/payment';
 import { Form } from 'react-final-form';
 import { useRouter } from 'next/router';
 import Button from 'components/Button';
-import { Container, Spacer } from '@nextui-org/react';
+import { Spacer } from '@nextui-org/react';
 import { css, cx } from '@emotion/css';
 import { hover } from 'styles/globals';
-import FormInput from 'components/Form/Input';
-
-const FILE_SIZE = 8 * 1024 * 1024;
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+import { useMutation } from '@tanstack/react-query';
+import _axios from 'shared/axios';
+import { getCookie } from 'cookies-next';
+import auth from 'constants/auth';
+import Head from 'next/head';
 
 export default function Index() {
   const {
     query: { transaction_id },
-    push
+    push: pushRouter
   } = useRouter();
+
+  const { mutateAsync: upload } = useMutation(vars =>
+    _axios.post(`payment-details/update/${transaction_id}`, vars, {
+      headers: {
+        Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+      }
+    })
+  );
 
   return (
     <>
+      <Head>
+        <title>Payment</title>
+      </Head>
       <Spacer y={2} />
       <div className={css({ maxWidth: 500, margin: 'auto' })}>
         <Form
-          onSubmit={({ payment_image, ...values }) =>
-            mutateUploadImage({ ...values, payment_image: payment_image[0] })
-          }
-          className="mb-4"
-          validate={values => {
-            /** all validation should occur here */
-            return {};
+          onSubmit={({ payment_image }) => {
+            if (!payment_image) {
+              return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', payment_image[0]);
+            upload(formData).then(() => pushRouter('/'));
           }}
           render={({ handleSubmit }) => {
             return (
               <form onSubmit={handleSubmit}>
                 <InputFile
-                  accept={'image/*'}
-                  type="file"
+                  accept="image/*"
                   name="payment_image"
                   label="Image"
                 />
-                <FormInput name="payment_notes" label="Notes" fullWidth />
                 <Button
                   primary
+                  type="submit"
                   classnames={cx(
                     hover,
                     css({ width: '100%', margin: '1rem 0' })
