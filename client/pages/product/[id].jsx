@@ -36,7 +36,6 @@ export default function ProductDetail({ product }) {
 
   const goCheckout = useCallback(() => {
     const selectedVariant = productVariantRef.current.getSelectedVariant();
-
     const cartItem = {
       product_image: product.image,
       product_id: product.id,
@@ -48,7 +47,8 @@ export default function ProductDetail({ product }) {
 
     mutateAsync({
       product_id: product.id,
-      quantity: 1
+      quantity: 1,
+      product_variant_id: selectedVariant.id
     }).then(() => {
       router.push('/cart');
     });

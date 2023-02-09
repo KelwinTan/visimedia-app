@@ -38,7 +38,6 @@ const ProductVariant = forwardRef(({ product }, ref) => {
               const key = `${sizeVariant} - ${detail.variant?.variant} - ${detail.value}`;
               return key === selectedVariant;
             });
-            console.log({ sizeVariant, variant, variantFind, selectedVariant });
 
             if (variantFind)
               return {
