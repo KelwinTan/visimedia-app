@@ -55,18 +55,11 @@ const ProductVariant = forwardRef(({ product }, ref) => {
               title={titleVariant}
               subtitle={'Rp.' + toIDR(variant.price)}
             >
-              {
-                // [
-                //   ...variantValues.slice(0, productSizeIndex),
-                //   ...variantValues.slice(productSizeIndex + 1)
-                // ]
-                variantValues?.map((detail, idx) => {
-                  const key = `${variant.id}|${detail.id}`;
-                  console.log({ key });
-
-                  return (
+              {variantValues?.map((detail, idx) => {
+                const key = `${variant.id}|${detail.id}`;
+                return (
+                  <div key={idx}>
                     <Checkbox
-                      key={idx}
                       isSelected={selectedVariant === key}
                       onChange={checked => {
                         if (checked) {
@@ -79,9 +72,9 @@ const ProductVariant = forwardRef(({ product }, ref) => {
                     >
                       {detail.variant?.variant} - {detail.value}
                     </Checkbox>
-                  );
-                })
-              }
+                  </div>
+                );
+              })}
             </Collapse>
           );
         })}

@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { Input, Text } from '@nextui-org/react';
+import { Container, Input, Text } from '@nextui-org/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import TrashIcon from 'components/Icon/TrashIcon';
 import auth from 'constants/auth';
@@ -73,7 +73,7 @@ export default function CartItem({ cart }) {
   }, [cart_item, product_variant]);
 
   return (
-    <div className={styCart}>
+    <Container lg fluid className={styCart}>
       <img
         width={64}
         height={64}
@@ -120,6 +120,6 @@ export default function CartItem({ cart }) {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

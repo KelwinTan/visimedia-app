@@ -63,7 +63,7 @@ export default function Checkout() {
         aria-labelledby="modal-title"
         open={openAllAddress}
         onClose={() => setOpenAllAddress(false)}
-        width="50%"
+        width={isBetweenSMAndMD ? '90%' : '50%'}
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>

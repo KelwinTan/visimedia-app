@@ -39,10 +39,10 @@ export default function OrderDetail(props) {
           {props.data.order_items.map((order, key, arr) => (
             <>
               <Grid.Container display="flex" direction="row" key={key}>
-                <Grid xs={1}>
+                <Grid xs={3} md={1}>
                   <Image width={64} height={64} src={order.public_image_url} />
                 </Grid>
-                <Grid direction="column" xs={3}>
+                <Grid direction="column" xs={5} md={3}>
                   <Text weight="bold" h5>
                     {order.product_name}
                   </Text>
@@ -51,7 +51,7 @@ export default function OrderDetail(props) {
                     {order.quantity} x Rp.{toIDR(Number(order.price))}
                   </Text>
                 </Grid>
-                <Grid direction="column" xs={3}>
+                <Grid direction="column" xs={4} md={3}>
                   <Text weight="bold">Price</Text>
                   <Text>Rp.{toIDR(Number(order.price))}</Text>
                 </Grid>

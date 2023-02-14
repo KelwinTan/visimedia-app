@@ -67,7 +67,7 @@ export default function ProductDetail({ product }) {
             {isMobile && (
               <>
                 <Spacer y={1} />
-                <ProductVariant product={product} />
+                <ProductVariant ref={productVariantRef} product={product} />
               </>
             )}
           </Col>
