@@ -12,7 +12,7 @@ import generalConst from 'constants/general';
 
 export default function CheckoutList(props) {
   const { data: cart } = props;
-  const { cart_item, product_detail } = cart || {};
+  const { product_detail, product_variant } = cart || {};
 
   const isBetweenSMAndMD = useMediaQueryBetween({ min: 320, max: 425 });
 
@@ -26,7 +26,10 @@ export default function CheckoutList(props) {
           className={css({ margin: '0' })}
         />
         <div className={css({ marginLeft: isBetweenSMAndMD ? 0 : 10 })}>
-          <Text weight="bold">{product_detail.name}</Text>
+          <Text weight="bold" h6>
+            {product_detail.name}
+          </Text>
+          <Text>{product_variant?.product_variant_name}</Text>
           <Text>Rp.{toIDR(Number(product_detail.price))}</Text>
         </div>
       </div>

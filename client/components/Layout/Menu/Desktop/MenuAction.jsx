@@ -45,6 +45,19 @@ export default function MenuAction() {
                 </a>
               </Link>
             </Dropdown.Item>
+            <Dropdown.Item key="order">
+              <Link href={'/order'}>
+                <a>
+                  <Text
+                    weight="bold"
+                    css={{ marginLeft: 8, color: color.gray }}
+                    className={hover}
+                  >
+                    Order
+                  </Text>
+                </a>
+              </Link>
+            </Dropdown.Item>
             <Dropdown.Item key="profile">
               <Link href={'/settings'}>
                 <a>

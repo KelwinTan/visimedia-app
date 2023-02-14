@@ -21,8 +21,8 @@ export default function OrderDetail(props) {
     <>
       <Card className={css({ marginBottom: '1rem' })}>
         <Card.Header>
-          <Container display="flex" direction="row" justify="space-between">
-            <Text>
+          <Container lg display="flex" direction="row" justify="space-between">
+            <Text weight="bold" h4>
               {format(
                 new Date(props.data.order_details.created_at),
                 'dd MMMM yyyy'
@@ -30,7 +30,7 @@ export default function OrderDetail(props) {
             </Text>
             <div>
               <Text weight="bold">Total</Text>
-              <Text>{toIDR(Number(payment.amount))}</Text>
+              <Text h4>Rp.{toIDR(Number(payment?.amount || 0))}</Text>
             </div>
           </Container>
         </Card.Header>
@@ -43,14 +43,17 @@ export default function OrderDetail(props) {
                   <Image width={64} height={64} src={order.public_image_url} />
                 </Grid>
                 <Grid direction="column" xs={3}>
-                  <Text>{order.product_name}</Text>
+                  <Text weight="bold" h5>
+                    {order.product_name}
+                  </Text>
+                  <Text>{order?.variant?.product_variant_name}</Text>
                   <Text>
-                    {order.quantity} x {toIDR(Number(order.price))}
+                    {order.quantity} x Rp.{toIDR(Number(order.price))}
                   </Text>
                 </Grid>
                 <Grid direction="column" xs={3}>
                   <Text weight="bold">Price</Text>
-                  <Text>{toIDR(Number(order.price))}</Text>
+                  <Text>Rp.{toIDR(Number(order.price))}</Text>
                 </Grid>
               </Grid.Container>
               {key < arr.length - 1 && <Spacer y={1} />}
