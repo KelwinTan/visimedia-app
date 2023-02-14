@@ -5,10 +5,9 @@ import Summary from 'components/Checkout/Summary';
 import { useMediaQueryBetween } from 'hooks/useMediaQuery';
 import useAuthMiddleware from 'middleware/auth.middleware';
 import Head from 'next/head';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { dFlex, hover } from 'styles/globals';
-import generalConst from 'constants/general';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import AddressList from 'components/settings/Address/List';
 import auth from 'constants/auth';
 import _axios from 'shared/axios';
@@ -21,7 +20,7 @@ export default function Checkout() {
   const [openAllAddress, setOpenAllAddress] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
-  const { data: carts = [], isLoading } = useQuery(['carts'], () =>
+  const { data: carts = [] } = useQuery(['carts'], () =>
     _axios
       .get('cart-items', {
         headers: {

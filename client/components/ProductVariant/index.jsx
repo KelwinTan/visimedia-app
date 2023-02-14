@@ -1,17 +1,8 @@
-import { Card, Checkbox, Collapse, Text } from '@nextui-org/react';
+import { Checkbox, Collapse, Text } from '@nextui-org/react';
 import _axios from 'shared/axios';
 import toIDR from 'shared/currency/toIDR';
-import Button from 'components/Button';
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useState
-} from 'react';
-import { useRouter } from 'next/router';
-import { useUA } from 'providers/user-agent';
-import { bool, func, object } from 'prop-types';
+import { forwardRef, useImperativeHandle, useState } from 'react';
+import { object } from 'prop-types';
 
 const ProductVariant = forwardRef(({ product }, ref) => {
   const [selectedVariant, setSelectedVariant] = useState('');
@@ -22,28 +13,10 @@ const ProductVariant = forwardRef(({ product }, ref) => {
       return {
         getSelectedVariant() {
           for (const variant of product.productVariantsData) {
-            const variantValues = variant.variantValues?.flat();
-            if (variantValues.length === 0) {
-              return null;
+            const [selectedVariantID] = selectedVariant.split('|');
+            if (variant.id === +selectedVariantID) {
+              return variant;
             }
-            const productSizeIndex = variantValues.findIndex(
-              v => v.variant.variant === 'SIZE (meter)'
-            );
-            const sizeVariant = variantValues[productSizeIndex].value;
-
-            const variantFind = [
-              ...variantValues.slice(0, productSizeIndex),
-              ...variantValues.slice(productSizeIndex + 1)
-            ].find(detail => {
-              const key = `${sizeVariant} - ${detail.variant?.variant} - ${detail.value}`;
-              return key === selectedVariant;
-            });
-
-            if (variantFind)
-              return {
-                ...variantFind,
-                sizeVariant
-              };
           }
           return;
         }
@@ -70,37 +43,45 @@ const ProductVariant = forwardRef(({ product }, ref) => {
           const productSizeIndex = variantValues.findIndex(
             v => v.variant.variant === 'SIZE (meter)'
           );
-          const sizeVariant = variantValues[productSizeIndex].value;
+
+          const titleVariant =
+            productSizeIndex > 0
+              ? variantValues[productSizeIndex].value
+              : variant.product_variant_name;
 
           return (
             <Collapse
               key={idx}
-              title={sizeVariant}
+              title={titleVariant}
               subtitle={'Rp.' + toIDR(variant.price)}
             >
-              {[
-                ...variantValues.slice(0, productSizeIndex),
-                ...variantValues.slice(productSizeIndex + 1)
-              ]?.map((detail, idx) => {
-                const key = `${sizeVariant} - ${detail.variant?.variant} - ${detail.value}`;
+              {
+                // [
+                //   ...variantValues.slice(0, productSizeIndex),
+                //   ...variantValues.slice(productSizeIndex + 1)
+                // ]
+                variantValues?.map((detail, idx) => {
+                  const key = `${variant.id}|${detail.id}`;
+                  console.log({ key });
 
-                return (
-                  <Checkbox
-                    key={idx}
-                    isSelected={selectedVariant === key}
-                    onChange={checked => {
-                      if (checked) {
-                        setSelectedVariant(key);
-                      } else {
-                        setSelectedVariant('');
-                      }
-                    }}
-                    size="md"
-                  >
-                    {detail.variant?.variant} - {detail.value}
-                  </Checkbox>
-                );
-              })}
+                  return (
+                    <Checkbox
+                      key={idx}
+                      isSelected={selectedVariant === key}
+                      onChange={checked => {
+                        if (checked) {
+                          setSelectedVariant(key);
+                        } else {
+                          setSelectedVariant('');
+                        }
+                      }}
+                      size="md"
+                    >
+                      {detail.variant?.variant} - {detail.value}
+                    </Checkbox>
+                  );
+                })
+              }
             </Collapse>
           );
         })}

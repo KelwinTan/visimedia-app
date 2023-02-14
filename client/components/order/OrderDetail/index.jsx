@@ -11,7 +11,7 @@ import { OrderDetailProps } from './type';
  * @param {{data : OrderDetailProps}} props
  */
 export default function OrderDetail(props) {
-  const [payment] = props.data.payment_details;
+  const payment = props.data.payment_details;
   /**
    *  order created
    *  product name - category - qty - price - image

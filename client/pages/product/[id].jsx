@@ -15,8 +15,7 @@ import toIDR from 'shared/currency/toIDR';
 import Button from 'components/Button';
 import ProductVariant from 'components/ProductVariant';
 import { useRouter } from 'next/router';
-import { useCallback, useRef, useState } from 'react';
-import generalConst from 'constants/general';
+import { useCallback, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { getCookie } from 'cookies-next';
 import auth from 'constants/auth';
@@ -36,15 +35,6 @@ export default function ProductDetail({ product }) {
 
   const goCheckout = useCallback(() => {
     const selectedVariant = productVariantRef.current.getSelectedVariant();
-    const cartItem = {
-      product_image: product.image,
-      product_id: product.id,
-      product_name: product.name,
-      product_price: product.price,
-      ...selectedVariant
-    };
-    console.log({ cartItem });
-
     mutateAsync({
       product_id: product.id,
       quantity: 1,

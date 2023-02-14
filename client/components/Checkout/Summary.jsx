@@ -16,7 +16,7 @@ export default function Summary({ selectedAddress, subHarga }) {
   const client = useQueryClient();
 
   const { mutateAsync: checkoutAPI } = useMutation(vars =>
-    _axios.post('order-details', vars, {
+    _axios.post('cart-items/checkout/order', vars, {
       headers: {
         Authorization: `Bearer ${getCookie(auth.TOKEN)}`
       }
@@ -33,16 +33,6 @@ export default function Summary({ selectedAddress, subHarga }) {
 
   const checkout = useCallback(() => {
     checkoutAPI({
-      orders: [
-        {
-          product_id: 19,
-          quantity: 1
-        },
-        {
-          product_id: 5,
-          quantity: 2
-        }
-      ],
       address_id: selectedAddress.id
     }).then(() => {
       const cartItems = client.getQueryData(['carts']);
