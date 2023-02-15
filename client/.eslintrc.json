@@ -2,7 +2,8 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:prettier/recommended",
-     "plugin:react/jsx-runtime"
+    "plugin:react/jsx-runtime",
+    "next/babel"
   ],
   "plugins": [
     "prettier",
@@ -11,7 +12,7 @@
   "root": true,
   "rules": {
     "prettier/prettier": [
-      "error"
+      "warn"
     ],
     "react/display-name": "off",
     "react/jsx-uses-react": "error",
