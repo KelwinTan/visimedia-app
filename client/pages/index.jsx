@@ -1,27 +1,27 @@
-import { css } from "@emotion/css";
-import { Col, Container, Grid, Row, Spacer, Text } from "@nextui-org/react";
-import Marketplace from "components/Cards/Marketplace";
-import Carousel from "components/Carousel";
-import ProductCard from "components/ProductCard";
-import color from "constants/color";
-import Head from "next/head";
-import Image from "next/image";
-import _axios from "shared/axios";
-import { height, hover, radius, styTextCenter } from "styles/globals";
-import Link from "next/link";
-import FacebookIcon from "components/Icon/FacebookIcon";
-import InstagramIcon from "components/Icon/InstagramIcon";
-import TwitterIcon from "components/Icon/TwitterIcon";
-import ShopeeIcon from "components/Icon/ShopeeIcon";
-import TokopediaIcon from "components/Icon/TokopediaIcon";
-import BukalapakIcon from "components/Icon/BukalapakIcon";
-import YoutubeIcon from "components/Icon/YoutubeIcon";
-import TiktokIcon from "components/Icon/TiktokIcon";
-import useCategories from "hooks/useCategories";
-import { useUA } from "providers/user-agent";
-import useBestProduct from "hooks/useBestProduct";
-import useProducts from "hooks/useProducts";
-import PrinterIcon from "components/Icon/PrinterIcon";
+import { css } from '@emotion/css';
+import { Container, Grid, Row, Spacer, Text } from '@nextui-org/react';
+import Marketplace from 'components/Cards/Marketplace';
+import Carousel from 'components/Carousel';
+import ProductCard from 'components/ProductCard';
+import color from 'constants/color';
+import Head from 'next/head';
+import Image from 'next/image';
+import _axios from 'shared/axios';
+import { hover, styTextCenter } from 'styles/globals';
+import Link from 'next/link';
+import FacebookIcon from 'components/Icon/FacebookIcon';
+import InstagramIcon from 'components/Icon/InstagramIcon';
+import TwitterIcon from 'components/Icon/TwitterIcon';
+import ShopeeIcon from 'components/Icon/ShopeeIcon';
+import TokopediaIcon from 'components/Icon/TokopediaIcon';
+import BukalapakIcon from 'components/Icon/BukalapakIcon';
+import YoutubeIcon from 'components/Icon/YoutubeIcon';
+import TiktokIcon from 'components/Icon/TiktokIcon';
+import useCategories from 'hooks/useCategories';
+import { useUA } from 'providers/user-agent';
+import useBestProduct from 'hooks/useBestProduct';
+import useProducts from 'hooks/useProducts';
+import PrinterIcon from 'components/Icon/PrinterIcon';
 
 export default function Home({ banners, categories }) {
   const { data: _categories } = useCategories();
@@ -51,12 +51,12 @@ export default function Home({ banners, categories }) {
               className={css`
                 width: 100%;
                 position: relative;
-                height: ${isMobile ? "132px" : "490px"};
+                height: ${isMobile ? '132px' : '490px'};
               `}
             >
               <Image
                 src={`${process.env.IMAGE_URL}${banner.public_image_path}`}
-                layout={"fill"}
+                layout={'fill'}
                 objectFit="cover"
                 alt="banner"
                 priority={idx === 0}
@@ -68,15 +68,15 @@ export default function Home({ banners, categories }) {
 
       <Spacer y={3} />
 
-      <Container fluid md css={{ px: "1rem" }}>
-        <Marketplace title={"List Kategori"}>
+      <Container fluid md css={{ px: '1rem' }}>
+        <Marketplace title={'List Kategori'}>
           <Grid.Container gap={2}>
             {categories?.map((data, idx) => (
               <Grid justify="center" key={idx} xs={4} md={2}>
                 <Link
                   href={{
-                    pathname: "/category/[id]",
-                    query: { id: data.id },
+                    pathname: '/category/[id]',
+                    query: { id: data.id }
                   }}
                 >
                   <a className={styTextCenter}>
@@ -88,7 +88,7 @@ export default function Home({ banners, categories }) {
                     />
                     <Text
                       className={styTextCenter}
-                      css={{ fontWeight: "bolder" }}
+                      css={{ fontWeight: 'bolder' }}
                     >
                       {data.name}
                     </Text>
@@ -105,10 +105,10 @@ export default function Home({ banners, categories }) {
 
       <Spacer y={2} />
 
-      <Container fluid md css={{ px: "0.75rem" }}>
+      <Container fluid md css={{ px: '0.75rem' }}>
         <Grid.Container gap={isMobile ? 1 : 2} justify="center">
           <Grid xs={12} md={6}>
-            <Marketplace title={"Social Media"}>
+            <Marketplace title={'Social Media'}>
               <Grid.Container gap={2} justify="flex-start">
                 <Grid justify="center" xs={4} md={4}>
                   <Link href="https://www.facebook.com/visimediasupply">
@@ -159,7 +159,7 @@ export default function Home({ banners, categories }) {
             </Marketplace>
           </Grid>
           <Grid xs={12} md={6}>
-            <Marketplace title={"Marketplace"}>
+            <Marketplace title={'Marketplace'}>
               <Grid.Container gap={3} justify="flex-start">
                 <Grid justify="center" xs={12} md={6}>
                   <Link href="https://www.tokopedia.com/visimediasupply">
@@ -196,7 +196,7 @@ export default function Home({ banners, categories }) {
             Produk Terbaik
           </Text>
           <Link passHref href="/category/3">
-            <Text css={{ ml: "$8", color: color.primary }} b className={hover}>
+            <Text css={{ ml: '$8', color: color.primary }} b className={hover}>
               Lihat semua
             </Text>
           </Link>
@@ -218,7 +218,7 @@ export default function Home({ banners, categories }) {
             Produk pilihan untukmu
           </Text>
           <Link passHref href="/category/3">
-            <Text css={{ ml: "$8", color: color.primary }} b className={hover}>
+            <Text css={{ ml: '$8', color: color.primary }} b className={hover}>
               Lihat semua
             </Text>
           </Link>
@@ -237,11 +237,11 @@ export default function Home({ banners, categories }) {
 
 export async function getServerSideProps() {
   const [banners, categories] = await Promise.all([
-    _axios.get("/banners").then((res) => res.data?.banners || []),
-    _axios.get("/categories").then((res) => res.data?.categories || []),
+    _axios.get('/banners').then(res => res.data?.banners || []),
+    _axios.get('/categories').then(res => res.data?.categories || [])
   ]);
 
   return {
-    props: { banners, categories }, // will be passed to the page component as props
+    props: { banners, categories } // will be passed to the page component as props
   };
 }

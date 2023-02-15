@@ -9,7 +9,6 @@ import Layout from 'components/Layout';
 import { styGlobal as globalCss } from 'styles/globals';
 import ContextProvider from 'providers/ContextProvider';
 import authConstant from 'constants/auth';
-import { node, object } from 'prop-types';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';

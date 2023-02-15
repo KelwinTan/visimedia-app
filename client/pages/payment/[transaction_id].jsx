@@ -11,6 +11,7 @@ import _axios from 'shared/axios';
 import { getCookie } from 'cookies-next';
 import auth from 'constants/auth';
 import Head from 'next/head';
+import useAuthMiddleware from 'middleware/auth.middleware';
 
 export default function Index() {
   const {
@@ -78,4 +79,12 @@ export default function Index() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  return useAuthMiddleware(ctx, () => {
+    return {
+      props: {}
+    };
+  });
 }
