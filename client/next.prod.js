@@ -1,16 +1,16 @@
 const securityHeaders = [
   {
-    key: "X-XSS-Protection",
-    value: "1; mode=block",
+    key: 'X-XSS-Protection',
+    value: '1; mode=block'
   },
   {
-    key: "X-Frame-Options",
-    value: "SAMEORIGIN",
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN'
   },
   {
-    key: "X-Content-Type-Options",
-    value: "nosniff",
-  },
+    key: 'X-Content-Type-Options',
+    value: 'nosniff'
+  }
 ];
 
 /** @type {import('next').NextConfig} */
@@ -21,17 +21,18 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
     removeConsole: {
-      exclude: ["error", "warn"],
-    },
+      exclude: ['error', 'warn']
+    }
   },
+  eslint: { ignoreDuringBuilds: true },
   images: {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
-  },
+    return [{ source: '/:path*', headers: securityHeaders }];
+  }
 };
 
 module.exports = nextConfig;

@@ -1,12 +1,12 @@
-import { cx } from "@emotion/css";
-import { bool, node, string } from "prop-types";
-import { w100 } from "styles/globals";
+import { cx } from '@emotion/css';
+import { bool, func, node, string } from 'prop-types';
+import { w100 } from 'styles/globals';
 import {
   styButton,
   styButtonGhost,
   styButtonPrimary,
-  styButtonSecondary,
-} from "./styles";
+  styButtonSecondary
+} from './styles';
 
 export default function Button({
   primary,
@@ -15,6 +15,8 @@ export default function Button({
   ghost,
   children,
   fullWidth,
+  type,
+  onClick
 }) {
   const _classnames = [styButton, classnames];
   if (primary) {
@@ -29,7 +31,11 @@ export default function Button({
   if (fullWidth) {
     _classnames.push(w100);
   }
-  return <button className={cx(_classnames)}>{children}</button>;
+  return (
+    <button type={type} onClick={onClick} className={cx(_classnames)}>
+      {children}
+    </button>
+  );
 }
 
 Button.propTypes = {
@@ -38,6 +44,8 @@ Button.propTypes = {
   ghost: bool,
   children: node,
   classnames: string,
+  type: string,
+  onClick: func
 };
 
 Button.defaultProps = {
@@ -45,5 +53,7 @@ Button.defaultProps = {
   secondary: false,
   ghost: false,
   children: <></>,
-  classnames: "",
+  classnames: '',
+  type: 'button',
+  onClick: () => {}
 };

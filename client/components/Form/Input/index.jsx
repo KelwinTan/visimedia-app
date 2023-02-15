@@ -1,9 +1,10 @@
-import { Input, Text } from "@nextui-org/react";
-import { func, string } from "prop-types";
-import { Field } from "react-final-form";
-import noop from "shared/noop";
+import { Input, Text } from '@nextui-org/react';
+import { func, string } from 'prop-types';
+import { forwardRef } from 'react';
+import { Field } from 'react-final-form';
+import noop from 'shared/noop';
 
-export default function FormInput(props) {
+const FormInput = forwardRef((props, ref) => {
   const { name, validate, ...config } = props;
 
   return (
@@ -14,7 +15,7 @@ export default function FormInput(props) {
         const { submitError, error } = meta;
         const errorText = error || submitError;
         const hasError = meta.touched && errorText;
-        const colorStatus = hasError ? "error" : "default";
+        const colorStatus = hasError ? 'error' : 'default';
 
         return (
           <>
@@ -23,6 +24,7 @@ export default function FormInput(props) {
               {...config}
               shadow={false}
               clearable
+              ref={ref}
               color={colorStatus}
               helperColor={colorStatus}
               status={colorStatus}
@@ -37,15 +39,17 @@ export default function FormInput(props) {
       }}
     />
   );
-}
+});
+
+export default FormInput;
 
 FormInput.propTypes = {
   name: string.isRequired,
   validate: func,
-  placeholder: string,
+  placeholder: string
 };
 
 FormInput.defaultProps = {
   validate: noop,
-  placeholder: "",
+  placeholder: ''
 };

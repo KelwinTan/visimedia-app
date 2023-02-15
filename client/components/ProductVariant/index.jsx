@@ -1,15 +1,29 @@
-import { Card, Checkbox, Collapse, Text } from "@nextui-org/react";
-import _axios from "shared/axios";
-import toIDR from "shared/currency/toIDR";
-import Button from "components/Button";
-import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useUA } from "providers/user-agent";
-import { bool, func, object } from "prop-types";
+import { Checkbox, Collapse, Text } from '@nextui-org/react';
+import _axios from 'shared/axios';
+import toIDR from 'shared/currency/toIDR';
+import { forwardRef, useImperativeHandle, useState } from 'react';
+import { object } from 'prop-types';
 
-export default function ProductVariant({ product }) {
-  const { isMobile } = useUA();
-  const [selectedVariant, setSelectedVariant] = useState("");
+const ProductVariant = forwardRef(({ product }, ref) => {
+  const [selectedVariant, setSelectedVariant] = useState('');
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        getSelectedVariant() {
+          for (const variant of product.productVariantsData) {
+            const [selectedVariantID] = selectedVariant.split('|');
+            if (variant.id === +selectedVariantID) {
+              return variant;
+            }
+          }
+          return;
+        }
+      };
+    },
+    [selectedVariant]
+  );
 
   if (!product.productVariantsData?.length) {
     return null;
@@ -27,37 +41,38 @@ export default function ProductVariant({ product }) {
             return null;
           }
           const productSizeIndex = variantValues.findIndex(
-            (v) => v.variant.variant === "SIZE (meter)"
+            v => v.variant.variant === 'SIZE (meter)'
           );
-          const sizeVariant = variantValues[productSizeIndex].value;
+
+          const titleVariant =
+            productSizeIndex > 0
+              ? variantValues[productSizeIndex].value
+              : variant.product_variant_name;
 
           return (
             <Collapse
               key={idx}
-              title={sizeVariant}
-              subtitle={"Rp." + toIDR(variant.price)}
+              title={titleVariant}
+              subtitle={'Rp.' + toIDR(variant.price)}
             >
-              {[
-                ...variantValues.slice(0, productSizeIndex),
-                ...variantValues.slice(productSizeIndex + 1),
-              ]?.map((detail, idx) => {
-                const key = `${sizeVariant} - ${detail.variant?.variant} - ${detail.value}`;
-
+              {variantValues?.map((detail, idx) => {
+                const key = `${variant.id}|${detail.id}`;
                 return (
-                  <Checkbox
-                    key={idx}
-                    isSelected={selectedVariant === key}
-                    onChange={(checked) => {
-                      if (checked) {
-                        setSelectedVariant(key);
-                      } else {
-                        setSelectedVariant("");
-                      }
-                    }}
-                    size="md"
-                  >
-                    {detail.variant?.variant} - {detail.value}
-                  </Checkbox>
+                  <div key={idx}>
+                    <Checkbox
+                      isSelected={selectedVariant === key}
+                      onChange={checked => {
+                        if (checked) {
+                          setSelectedVariant(key);
+                        } else {
+                          setSelectedVariant('');
+                        }
+                      }}
+                      size="md"
+                    >
+                      {detail.variant?.variant} - {detail.value}
+                    </Checkbox>
+                  </div>
                 );
               })}
             </Collapse>
@@ -66,8 +81,10 @@ export default function ProductVariant({ product }) {
       </Collapse.Group>
     </>
   );
-}
+});
+
+export default ProductVariant;
 
 ProductVariant.propTypes = {
-  product: object.isRequired,
+  product: object.isRequired
 };

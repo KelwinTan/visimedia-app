@@ -1,20 +1,20 @@
-import { Container, Text } from "@nextui-org/react";
-import CloseIcon from "components/Icon/CloseIcon";
-import Portal from "components/Portal";
-import color from "constants/color";
-import Link from "next/link";
-import { useCategory } from "providers/categories";
-import { useAside } from "providers/aside";
-import { useEffect, useState } from "react";
-import { styAside, styAsideItem, styHeader } from "../style";
+import { Container, Text } from '@nextui-org/react';
+import CloseIcon from 'components/Icon/CloseIcon';
+import Portal from 'components/Portal';
+import color from 'constants/color';
+import Link from 'next/link';
+import { useCategory } from 'providers/categories';
+import { useAside } from 'providers/aside';
+import { useEffect, useState } from 'react';
+import { styAside, styAsideItem, styHeader } from '../style';
 
-export default function AsideMenu() {
+export default function AsideMenuCategory() {
   const { toggleVisible, visible } = useAside();
   const { getAll } = useCategory();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getAll().then((data) => setCategories(data));
+    getAll().then(data => setCategories(data));
   }, [getAll]);
 
   return (
@@ -24,13 +24,13 @@ export default function AsideMenu() {
           <Container
             fluid
             display="flex"
-            justify={"space-between"}
-            css={{ margin: "unset" }}
+            justify={'space-between'}
+            css={{ margin: 'unset' }}
           >
             <Text weight="bold" h5 color={color.white}>
               KATEGORI BELANJA
             </Text>
-            <div onClick={() => toggleVisible("menu")}>
+            <div onClick={() => toggleVisible('menu')}>
               <CloseIcon color={color.white} />
             </div>
           </Container>
@@ -40,10 +40,10 @@ export default function AsideMenu() {
           <div key={idx} className={styAsideItem}>
             <Container fluid>
               <Link
-                href={{ pathname: "/category/[id]", query: { id: data.id } }}
+                href={{ pathname: '/category/[id]', query: { id: data.id } }}
               >
-                <a onClick={() => toggleVisible("menu")}>
-                  <Text weight={"semibold"}>{data.name}</Text>
+                <a onClick={() => toggleVisible('menu')}>
+                  <Text weight={'semibold'}>{data.name}</Text>
                 </a>
               </Link>
             </Container>
