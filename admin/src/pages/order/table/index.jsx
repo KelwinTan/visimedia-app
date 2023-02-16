@@ -1,28 +1,40 @@
-import { Button, Popconfirm, Space, Table, Divider, message } from "antd";
+import {
+  Button,
+  Popconfirm,
+  Space,
+  Table,
+  Divider,
+  message,
+  Select,
+} from "antd";
 import { useEffect, useMemo } from "react";
 import useOrder from "../../../hooks/api/useOrder";
 import toIDR from "src/shared/currency/toIDR";
 import { Fragment } from "react";
 import { useCallback } from "react";
+import useOrderStatus from "../../../hooks/api/useOrderStatus";
 
 export default function VariantTable() {
   const { getAll, order, verify } = useOrder();
+  const { getAll: getAllStatus, orderStatus } = useOrderStatus();
 
   const onVerify = useCallback(
     async (id) => {
       try {
         await verify(id);
         message.success({ content: "success verify", key: "verify-notif" });
+        getAll("Verifikasi Pembayaran");
       } catch (error) {
         message.error({ content: "faiked to verify", key: "verify-notif" });
       }
     },
-    [verify]
+    [getAll, verify]
   );
 
   useEffect(() => {
-    getAll();
-  }, [getAll]);
+    getAll("Verifikasi Pembayaran");
+    getAllStatus();
+  }, [getAll, getAllStatus]);
 
   const columns = useMemo(
     () => [
@@ -122,6 +134,17 @@ export default function VariantTable() {
 
   return (
     <>
+      <Select
+        onChange={(val) => {
+          getAll(val);
+        }}
+        placeholder="Order Status"
+        style={{ marginBottom: 10, minWidth: 200 }}
+      >
+        {orderStatus.map((status) => (
+          <option key={status.status}>{status.status}</option>
+        ))}
+      </Select>
       <Table
         dataSource={order.map((data, idx) => ({ ...data, key: idx }))}
         columns={columns}

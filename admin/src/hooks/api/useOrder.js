@@ -15,19 +15,25 @@ export default function useOrder() {
     [token]
   );
 
-  const getAll = useCallback(async () => {
-    setLoading(true);
-    try {
-      const { data } = await _axios.get("/order-details", {
-        headers: baseHeader,
-      });
-      setOrder(data.data.order_details || []);
-    } catch (error) {
-      return [];
-    } finally {
-      setLoading(false);
-    }
-  }, [baseHeader]);
+  const getAll = useCallback(
+    async (filter) => {
+      setLoading(true);
+      try {
+        const { data } = await _axios.get(
+          `order-details/all/filter?filter=${filter}`,
+          {
+            headers: baseHeader,
+          }
+        );
+        setOrder(data.data.order_details || []);
+      } catch (error) {
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
 
   const verify = useCallback(
     async (id) => {
