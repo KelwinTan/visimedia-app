@@ -29,9 +29,63 @@ export default function useOrderStatus() {
     }
   }, [baseHeader]);
 
+  const create = useCallback(
+    async (payload) => {
+      setLoading(true);
+      try {
+        const { data } = await _axios.post("statuses", payload, {
+          headers: baseHeader,
+        });
+        setOrderStatus(data.status || []);
+      } catch (error) {
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
+  const update = useCallback(
+    async (id, payload) => {
+      setLoading(true);
+      try {
+        const { data } = await _axios.post(`statuses/${id}/update`, payload, {
+          headers: baseHeader,
+        });
+        setOrderStatus(data.status || []);
+      } catch (error) {
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
+  const remove = useCallback(
+    async (id) => {
+      setLoading(true);
+      try {
+        const { data } = await _axios.delete(`statuses/${id}`, {
+          headers: baseHeader,
+        });
+        setOrderStatus(data.status || []);
+      } catch (error) {
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
   return {
     loading,
     getAll,
     orderStatus,
+    create,
+    remove,
+    update,
   };
 }

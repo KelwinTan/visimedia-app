@@ -39,6 +39,11 @@ const navItems = [
     label: "Order",
     icon: OrderedListOutlined,
   },
+
+  {
+    label: "Order Status",
+    icon: OrderedListOutlined,
+  },
 ];
 
 export default navItems;
@@ -51,4 +56,5 @@ export const navItemsPath = [
   "/best-product",
   "/variant",
   "/order",
+  "/order-status",
 ];

@@ -9,6 +9,7 @@ import Variant from "./pages/variant/lazy";
 import NotFound from "./pages/not-found/lazy";
 import Role from "./pages/role/lazy";
 import Order from "./pages/order/lazy";
+import OrderStatus from "./pages/order-status/lazy";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/product" component={Product} />
         <Route exact path="/best-product" component={BestProduct} />
         <Route exact path="/order" component={Order} />
+        <Route exact path="/order-status" component={OrderStatus} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Layout>

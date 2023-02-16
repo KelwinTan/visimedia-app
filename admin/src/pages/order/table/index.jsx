@@ -142,7 +142,9 @@ export default function VariantTable() {
         style={{ marginBottom: 10, minWidth: 200 }}
       >
         {orderStatus.map((status) => (
-          <option key={status.status}>{status.status}</option>
+          <Select.Option key={status.status} value={status.status}>
+            {status.status}
+          </Select.Option>
         ))}
       </Select>
       <Table
