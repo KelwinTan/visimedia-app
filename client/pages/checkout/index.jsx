@@ -1,21 +1,16 @@
-import { css, cx } from '@emotion/css';
-import { Container, Grid, Modal, Spacer, Text } from '@nextui-org/react';
-import CheckoutList from 'components/Checkout/List';
-import Summary from 'components/Checkout/Summary';
+import { Container, Modal, Spacer, Text } from '@nextui-org/react';
 import { useMediaQueryBetween } from 'hooks/useMediaQuery';
 import useAuthMiddleware from 'middleware/auth.middleware';
 import Head from 'next/head';
-import { useMemo, useState } from 'react';
-import { dFlex, hover } from 'styles/globals';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import AddressList from 'components/settings/Address/List';
 import auth from 'constants/auth';
 import _axios from 'shared/axios';
 import { getCookie } from 'cookies-next';
-import Button from 'components/Button';
 import AddressChoosen from 'components/Checkout/AddressChoosen';
+import Checkout from 'components/Checkout';
 
-export default function Checkout() {
+export default function Checkout_() {
   const isBetweenSMAndMD = useMediaQueryBetween({ min: 320, max: 425 });
   const [openAllAddress, setOpenAllAddress] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -47,14 +42,6 @@ export default function Checkout() {
       }
     }
   );
-
-  const subHarga = useMemo(() => {
-    return carts.reduce(
-      (curr, data) =>
-        curr + data.cart_item.quantity * +data.product_detail.price,
-      0
-    );
-  }, [carts]);
 
   return (
     <>
@@ -88,44 +75,11 @@ export default function Checkout() {
       </Head>
       <Spacer y={isBetweenSMAndMD ? 1 : 2} />
       <Container fluid md css={{ px: '1rem' }}>
-        <Grid.Container>
-          <Grid
-            xs={12}
-            sm={8}
-            css={{ display: 'flex', flexDirection: 'column' }}
-          >
-            <Text weight="bold" h3>
-              Checkout
-            </Text>
-            <Text h5>Alamat</Text>
-            {selectedAddress && <AddressList address={selectedAddress} />}
-            <div>
-              <Button
-                secondary
-                onClick={() => setOpenAllAddress(true)}
-                classnames={cx(hover, css({ border: 'none' }))}
-              >
-                Pilih alamat lain
-              </Button>
-            </div>
-            <div
-              className={cx(
-                dFlex,
-                css({
-                  flexDirection: 'column',
-                  width: '100%'
-                })
-              )}
-            >
-              {carts.map((cart, idx) => {
-                return <CheckoutList key={idx} data={cart} />;
-              })}
-            </div>
-          </Grid>
-          <Grid xs={12} sm={4} css={{ paddingLeft: '1rem' }}>
-            <Summary selectedAddress={selectedAddress} subHarga={subHarga} />
-          </Grid>
-        </Grid.Container>
+        <Checkout
+          selectedAddress={selectedAddress}
+          carts={carts}
+          setOpenAllAddress={setOpenAllAddress}
+        />
       </Container>
     </>
   );

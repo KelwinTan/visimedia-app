@@ -1,14 +1,9 @@
 import { css } from '@emotion/css';
-import { Card, Image, Input, Text } from '@nextui-org/react';
-import Button from 'components/Button';
-import TrashIcon from 'components/Icon/TrashIcon';
-import color from 'constants/color';
-import { useMediaQuery, useMediaQueryBetween } from 'hooks/useMediaQuery';
-import { useCallback } from 'react';
+import { Image, Text } from '@nextui-org/react';
+import { useMediaQueryBetween } from 'hooks/useMediaQuery';
 import toIDR from 'shared/currency/toIDR';
 import { dFlex } from 'styles/globals';
 import { styCheckout } from './style';
-import generalConst from 'constants/general';
 
 export default function CheckoutList(props) {
   const { data: cart } = props;
@@ -25,7 +20,7 @@ export default function CheckoutList(props) {
           src={process.env.IMAGE_URL + product_detail.public_image_url}
           className={css({ margin: '0' })}
         />
-        <div className={css({ marginLeft: isBetweenSMAndMD ? 0 : 10 })}>
+        <div className={css({ marginLeft: isBetweenSMAndMD ? 5 : 10 })}>
           <Text weight="bold" h6>
             {product_detail.name}
           </Text>

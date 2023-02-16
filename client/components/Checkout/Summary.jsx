@@ -6,6 +6,7 @@ import auth from 'constants/auth';
 import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
+import { toast } from 'react-hot-toast';
 import _axios from 'shared/axios';
 import toIDR from 'shared/currency/toIDR';
 import { hover } from 'styles/globals';
@@ -15,12 +16,18 @@ export default function Summary({ selectedAddress, subHarga }) {
   const router = useRouter();
   const client = useQueryClient();
 
-  const { mutateAsync: checkoutAPI } = useMutation(vars =>
-    _axios.post('cart-items/checkout/order', vars, {
-      headers: {
-        Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+  const { mutateAsync: checkoutAPI } = useMutation(
+    vars =>
+      _axios.post('cart-items/checkout/order', vars, {
+        headers: {
+          Authorization: `Bearer ${getCookie(auth.TOKEN)}`
+        }
+      }),
+    {
+      onError() {
+        toast.error('Maaf Sistem sedang bermasalah');
       }
-    })
+    }
   );
 
   const { mutateAsync: removeCart } = useMutation(vars =>
