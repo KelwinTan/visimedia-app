@@ -60,13 +60,15 @@ export default function OrderDetail(props) {
             </>
           ))}
           <div className={cx(dFlex, css({ justifyContent: 'flex-end' }))}>
-            <Link href={`/payment/${props.data.order_details.payment_id}`}>
-              <a>
-                <Button primary classnames={cx(hover, css({ width: 200 }))}>
-                  Bayar
-                </Button>
-              </a>
-            </Link>
+            {Boolean(props.data.order_details.order_verified) && (
+              <Link href={`/payment/${props.data.order_details.payment_id}`}>
+                <a>
+                  <Button primary classnames={cx(hover, css({ width: 200 }))}>
+                    Bayar
+                  </Button>
+                </a>
+              </Link>
+            )}
           </div>
         </Card.Body>
       </Card>
