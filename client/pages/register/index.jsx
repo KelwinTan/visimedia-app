@@ -27,14 +27,11 @@ const styles = {
 };
 
 const schema = object().shape({
-  name: string().required('The name field is required.'),
-  email: string()
-    .email('Invalid Email')
-    .required('The email field is required.'),
-  password: string().required('The password field is required.'),
-  password_confirmation: string().required(
-    'The password confirmation field is required.'
-  )
+  name: string().required('nama harus diisi.'),
+  phone_number: string().required('nomor telepon harus diisi.'),
+  email: string().email('Email Tidak Valid').required('email harus diisi.'),
+  password: string().required('password harus diisi.'),
+  password_confirmation: string().required('password confirmation harus diisi.')
 });
 
 export default function Register() {
@@ -72,10 +69,18 @@ export default function Register() {
                   <Text css={{ marginBottom: 24, fontWeight: 'bold' }}>
                     Buat akun Visimedia
                   </Text>
+
                   <Input
                     name="name"
                     placeholder="Name"
                     validate={getValidatorFromSchema('name', schema)}
+                  />
+                  <Spacer y={1} />
+
+                  <Input
+                    name="phone_number"
+                    placeholder="Nomor Telephone"
+                    validate={getValidatorFromSchema('phone_number', schema)}
                   />
                   <Spacer y={1} />
 
@@ -110,7 +115,7 @@ export default function Register() {
                   className={styles.submit}
                 >
                   {loading && <Loading color="currentColor" size="sm" />}
-                  Register
+                  Daftar
                 </Button>
               </Card>
             </form>

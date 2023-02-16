@@ -4,12 +4,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import TrashIcon from 'components/Icon/TrashIcon';
 import auth from 'constants/auth';
 import { getCookie } from 'cookies-next';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import _axios from 'shared/axios';
 import toIDR from 'shared/currency/toIDR';
 import { styCart, styCartDescription, styCartIncreDecre } from './style';
 import debounce from 'lodash/debounce';
-import { useDebounceValue } from 'hooks/useDebouceValue';
 
 export default function CartItem({ cart }) {
   const { cart_item, product_detail, product_variant = {} } = cart;

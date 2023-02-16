@@ -111,7 +111,7 @@ export default function Login() {
                   className={styles.submit}
                 >
                   {loading && <Loading color="currentColor" size="sm" />}
-                  Login
+                  Masuk
                 </Button>
               </Card>
             </form>
