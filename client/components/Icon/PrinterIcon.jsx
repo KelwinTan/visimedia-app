@@ -1,5 +1,5 @@
 import { PRINTER } from "assets/image";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { bool, number, string } from "prop-types";
 
 const PrinterIcon = ({ width, height, className, priority }) => {

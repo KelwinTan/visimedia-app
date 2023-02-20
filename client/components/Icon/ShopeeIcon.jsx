@@ -1,5 +1,5 @@
 import { SHOPEE, SHOPEE_ECOM, SHOPEE_MARKETPLACE } from "assets/image";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { bool, number } from "prop-types";
 
 const ShopeeIcon = ({ marketPlace, ecommerce, width, height }) => {

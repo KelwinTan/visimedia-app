@@ -32,7 +32,12 @@ export default function Cart({ carts = [] }) {
         </div>
       </Grid>
       <Grid xs={12} sm={4}>
-        <Card className={css({ alignSelf: 'start', marginLeft: '1rem' })}>
+        <Card
+          className={css({
+            alignSelf: 'start',
+            marginLeft: '1rem'
+          })}
+        >
           <Card.Body>
             <Text weight="bold" h3>
               Rangkuman

@@ -1,5 +1,5 @@
 import { css, cx } from '@emotion/css';
-import { Card, Grid, Spacer, Text } from '@nextui-org/react';
+import { Card, Divider, Grid, Spacer, Text } from '@nextui-org/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from 'components/Button';
 import auth from 'constants/auth';
@@ -66,7 +66,7 @@ export default function Summary({ selectedAddress, subHarga }) {
         </Grid>
       </Grid.Container>
 
-      <Spacer y={1} />
+      <Divider css={{ margin: '1rem 0' }} />
 
       <Grid.Container>
         <Grid xs={4}>

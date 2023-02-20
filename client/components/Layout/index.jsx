@@ -1,7 +1,7 @@
 import { node } from 'prop-types';
 import { inputNav, styMain, styNav } from './style';
 import { LOGO } from 'assets/image';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import Head from 'next/head';
 import { Input, Container } from '@nextui-org/react';
 import SearchIcon from 'components/Icon/SearchIcon';

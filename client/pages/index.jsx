@@ -5,7 +5,7 @@ import Carousel from 'components/Carousel';
 import ProductCard from 'components/ProductCard';
 import color from 'constants/color';
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import _axios from 'shared/axios';
 import { hover, styTextCenter } from 'styles/globals';
 import Link from 'next/link';

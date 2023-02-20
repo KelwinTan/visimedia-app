@@ -1,5 +1,5 @@
 import { LAZADA_ECOM, TOKOPEDIA, TOKOPEDIA_ECOM } from "assets/image";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { number } from "prop-types";
 
 const LazadaIcon = ({ width, height }) => {
