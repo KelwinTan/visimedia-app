@@ -31,6 +31,7 @@ export default function Index() {
     <>
       <Head>
         <title>Payment</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <Spacer y={2} />
       <div className={css({ maxWidth: 500, margin: 'auto' })}>

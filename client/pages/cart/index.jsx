@@ -25,6 +25,7 @@ export default function Cart_() {
     <>
       <Head>
         <title>Keranjang</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <Spacer y={2} />
       <Container fluid md css={{ px: '1rem' }}>

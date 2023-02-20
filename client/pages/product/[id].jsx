@@ -49,6 +49,7 @@ export default function ProductDetail({ product }) {
       <Head>
         <title>{product.name}</title>
         <meta name="description" content={product.description} />
+        <meta name="robots" content="index, follow" />
       </Head>
       <Breadcrumb links={['home', 'detail', product.name]} />
       <Container md css={{ mt: '$10' }} fluid>

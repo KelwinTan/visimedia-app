@@ -37,6 +37,12 @@ export default function Home({ banners, categories }) {
           name="description"
           content="Visimedia Supplies – Digital Printing Supplies"
         />
+        <meta
+          name="keywords"
+          content="digital printing services, high-quality digital printing, on-demand digital printing, custom digital printing, digital print solutions, digital printing company, digital printing technology, affordable digital printing, professional digital printing, full-color digital printing, digital printing for business, digital printing press, digital printing products, digital printing shop, fast digital printing, large format digital printing."
+        />
+
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <Carousel

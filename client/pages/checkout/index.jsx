@@ -45,6 +45,10 @@ export default function Checkout_() {
 
   return (
     <>
+      <Head>
+        <title>Checkout</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <Modal
         closeButton
         aria-labelledby="modal-title"
