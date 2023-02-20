@@ -15,7 +15,6 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
   poweredByHeader: false,
   trailingSlash: true,
   compiler: {
