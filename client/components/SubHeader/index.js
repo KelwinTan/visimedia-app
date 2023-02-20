@@ -18,7 +18,7 @@ export default function SubHeader() {
           - 14.00)
         </Text>
         <div className={uMarginLeftAuto}>
-          <Link href={"/faq/how-to-buy"}>
+          <Link href={"/faq/how-to-buy"} legacyBehavior>
             <Text className={hover} color={color.white}>
               Cara berbelanja
             </Text>

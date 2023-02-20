@@ -48,57 +48,55 @@ const MenuActionDesktop = dynamic(
 const Layout = ({ children }) => {
   const { isMobile, isDesktop } = useUA();
 
-  return (
-    <>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  return <>
+    <Head>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
 
-      <SubHeader />
-      <nav className={styNav}>
-        <Container
-          md
-          display="flex"
-          wrap="nowrap"
-          alignItems="center"
-          css={{ padding: 10 }}
-        >
-          {isDesktop && <MenuDesktop />}
-          <Link href="/">
-            <a>
-              <Image
-                src={LOGO}
-                alt="visimedia-logo"
-                width={200}
-                height={50}
-                className={cx(hover, noneSelected)}
-                objectFit="cover"
-                priority
-              />
-            </a>
-          </Link>
-          <div className={inputNav}>
-            <SearchInput />
-          </div>
-          {isDesktop && <MenuActionDesktop />}
-        </Container>
-      </nav>
+    <SubHeader />
+    <nav className={styNav}>
+      <Container
+        md
+        display="flex"
+        wrap="nowrap"
+        alignItems="center"
+        css={{ padding: 10 }}
+      >
+        {isDesktop && <MenuDesktop />}
+        <Link href="/">
 
-      <main className={styMain({ isMobile })}>
-        <section>{children}</section>
-        <Footer />
-      </main>
+          <Image
+            src={LOGO}
+            alt="visimedia-logo"
+            width={200}
+            height={50}
+            className={cx(hover, noneSelected)}
+            objectFit="cover"
+            priority
+          />
 
-      {isMobile && (
-        <>
-          <AsideMobileCategory />
-          <FilterMobile />
-          <AsideMenuMobile />
-          <NavBottom />
-        </>
-      )}
-    </>
-  );
+        </Link>
+        <div className={inputNav}>
+          <SearchInput />
+        </div>
+        {isDesktop && <MenuActionDesktop />}
+      </Container>
+    </nav>
+
+    <main className={styMain({ isMobile })}>
+      <section>{children}</section>
+      <Footer />
+    </main>
+
+    {isMobile && (
+      <>
+        <AsideMobileCategory />
+        <FilterMobile />
+        <AsideMenuMobile />
+        <NavBottom />
+      </>
+    )}
+  </>;
 };
 
 Layout.propTypes = {

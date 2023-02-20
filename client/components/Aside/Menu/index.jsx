@@ -29,15 +29,15 @@ export default function AsideMenu() {
         </div>
 
         <Container fluid>
-          <Link href={{ pathname: '/cart' }}>
-            <a onClick={() => toggleVisible('user_menu')}>
-              <Text weight={'semibold'}>Keranjang</Text>
-            </a>
+          <Link href={{ pathname: '/cart' }} onClick={() => toggleVisible('user_menu')}>
+
+            <Text weight={'semibold'}>Keranjang</Text>
+
           </Link>
-          <Link href={{ pathname: '/order' }}>
-            <a onClick={() => toggleVisible('user_menu')}>
-              <Text weight={'semibold'}>Order</Text>
-            </a>
+          <Link href={{ pathname: '/order' }} onClick={() => toggleVisible('user_menu')}>
+
+            <Text weight={'semibold'}>Order</Text>
+
           </Link>
         </Container>
       </aside>

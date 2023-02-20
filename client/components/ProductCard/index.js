@@ -32,10 +32,10 @@ const ProductCard = forwardRef((props, ref) => {
           <Link
             passHref
             href={{ pathname: "/product/[id]", query: { id: item.id } }}
-          >
-            <a rel="noreferrer">
-              <Text css={{ fontWeight: "$medium" }}>{item.name}</Text>
-            </a>
+            rel="noreferrer">
+
+            <Text css={{ fontWeight: "$medium" }}>{item.name}</Text>
+
           </Link>
           <Text
             css={{

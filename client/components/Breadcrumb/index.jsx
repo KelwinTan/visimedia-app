@@ -11,8 +11,8 @@ export default function Breadcrumb({ links }) {
         <Row align="center">
           {links.map((data, idx, arr) => (
             <React.Fragment key={idx}>
-              <Link href="/">
-                <a style={{ whiteSpace: 'nowrap' }}>{upperFirst(data)}</a>
+              <Link href="/" style={{ whiteSpace: 'nowrap' }}>
+                {upperFirst(data)}
               </Link>
               {idx < arr.length - 1 && <Text css={{ mx: 9 }}>/</Text>}
             </React.Fragment>

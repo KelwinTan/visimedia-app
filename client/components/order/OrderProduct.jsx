@@ -25,10 +25,10 @@ export default function ListOrderProduct({ data, canReview = false }) {
             href={{
               pathname: '/'
             }}
-          >
-            <a data-dismiss="modal">
-              <p>{data?.product?.name}</p>
-            </a>
+            data-dismiss="modal">
+
+            <p>{data?.product?.name}</p>
+
           </Link>
           <p className="text-secondary mb-0">
             {data?.quantity} Product ({data?.product?.shipping_weight}) x Rp.{' '}
