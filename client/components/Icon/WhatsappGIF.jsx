@@ -3,7 +3,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import color from "constants/color";
 import { hover } from "styles/globals";
 import { number, string } from "prop-types";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { WHATSAPP_GIF } from "assets/image";
 import { cx } from "@emotion/css";
 

@@ -16,9 +16,8 @@ export default function Index() {
     ? router.query['status'][0]
     : router.query['status'];
 
-  const { data: orderStatus = [], isLoading: loadingOrderStatus } = useQuery(
-    ['order-status'],
-    () => _axios.get('/statuses').then(res => res.data?.statuses)
+  const { data: orderStatus = [] } = useQuery(['order-status'], () =>
+    _axios.get('/statuses').then(res => res.data?.statuses)
   );
 
   const { data: orderDetail = [], isLoading: loadingGetOrderDetail } = useQuery(
@@ -84,8 +83,6 @@ export default function Index() {
 
 export async function getServerSideProps(ctx) {
   return useAuthMiddleware(ctx, () => {
-    return {
-      props: {}
-    };
+    return { props: {} };
   });
 }

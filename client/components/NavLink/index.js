@@ -8,14 +8,14 @@ function NavLink({ href, exact, children, activeClassName, ...props }) {
   const isActive = exact ? pathname === href : pathname.startsWith(href);
 
   return (
-    <Link href={href}>
-      <a
-        {...props}
-        className={cx(props.className || "", isActive ? activeClassName : "")}
-      >
-        {children}
-      </a>
-    </Link>
+    (<Link
+      href={href}
+      {...props}
+      className={cx(props.className || "", isActive ? activeClassName : "")}>
+
+      {children}
+
+    </Link>)
   );
 }
 

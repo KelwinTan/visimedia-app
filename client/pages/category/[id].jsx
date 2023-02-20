@@ -25,80 +25,78 @@ export default function CategoryDetail({ category }) {
   const { isDesktop, isMobile } = useUA();
   const { toggleVisible } = useAside();
 
-  return (
-    <>
-      <Head>
-        <title>Kategori: {category.name} – Digital Printing Supplies</title>
-        <meta
-          name="description"
-          content="Visimedia Supplies – Digital Printing Supplies"
-        />
-      </Head>
+  return <>
+    <Head>
+      <title>Kategori: {category.name} – Digital Printing Supplies</title>
+      <meta
+        name="description"
+        content="Visimedia Supplies – Digital Printing Supplies"
+      />
+    </Head>
 
-      <Breadcrumb links={["home", "kategori", category.name]} />
-      <Spacer y={1} />
-      <Container fluid md>
-        <Row>
-          {isDesktop && (
-            <Col span={3}>
-              <Card>
-                <Card.Body>
-                  <Text h3>Filter</Text>
-                  <Collapse.Group divider={false}>
-                    <Collapse title={<Text h5>Kategori</Text>}>
-                      {categories.map((data, idx) => (
-                        <Link
-                          key={idx}
-                          href={{
-                            pathname: "/category/[id]",
-                            query: { id: data.id },
-                          }}
-                        >
-                          <a>
-                            <Text>{data.name}</Text>
-                          </a>
-                        </Link>
-                      ))}
-                    </Collapse>
-                  </Collapse.Group>
-                </Card.Body>
-              </Card>
-            </Col>
-          )}
-          <Col span={isDesktop ? 9 : 12} css={{ px: isMobile ? 0 : 18 }}>
-            <Row>
-              <Col span={10}>
-                <Text h3>Kategori: {category.name}</Text>
-              </Col>
-              {isMobile && (
-                <Col span={2}>
-                  <button
-                    onClick={() => toggleVisible("filter")}
-                    className={styPlainButton}
-                  >
-                    <FilterIcon />
-                  </button>
-                </Col>
-              )}
-            </Row>
-            <Spacer y={1} />
-            <Grid.Container gap={2} justify="flex-start">
-              {category?.products.map((item, index) => (
-                <Grid xs={6} sm={4} css={{ pt: 0, pb: "$10" }} key={index}>
-                  <Link
-                    passHref
-                    href={{ pathname: "/product/[id]", query: { id: item.id } }}
-                  >
-                    <ProductCard item={item} />
-                  </Link>
-                </Grid>
-              ))}
-            </Grid.Container>
+    <Breadcrumb links={["home", "kategori", category.name]} />
+    <Spacer y={1} />
+    <Container fluid md>
+      <Row>
+        {isDesktop && (
+          <Col span={3}>
+            <Card>
+              <Card.Body>
+                <Text h3>Filter</Text>
+                <Collapse.Group divider={false}>
+                  <Collapse title={<Text h5>Kategori</Text>}>
+                    {categories.map((data, idx) => (
+                      (<Link
+                        key={idx}
+                        href={{
+                          pathname: "/category/[id]",
+                          query: { id: data.id },
+                        }}
+                      >
+
+                        <Text>{data.name}</Text>
+
+                      </Link>)
+                    ))}
+                  </Collapse>
+                </Collapse.Group>
+              </Card.Body>
+            </Card>
           </Col>
-        </Row>
-      </Container>
-    </>
-  );
+        )}
+        <Col span={isDesktop ? 9 : 12} css={{ px: isMobile ? 0 : 18 }}>
+          <Row>
+            <Col span={10}>
+              <Text h3>Kategori: {category.name}</Text>
+            </Col>
+            {isMobile && (
+              <Col span={2}>
+                <button
+                  onClick={() => toggleVisible("filter")}
+                  className={styPlainButton}
+                >
+                  <FilterIcon />
+                </button>
+              </Col>
+            )}
+          </Row>
+          <Spacer y={1} />
+          <Grid.Container gap={2} justify="flex-start">
+            {category?.products.map((item, index) => (
+              <Grid xs={6} sm={4} css={{ pt: 0, pb: "$10" }} key={index}>
+                <Link
+                  passHref
+                  href={{ pathname: "/product/[id]", query: { id: item.id } }}
+                  legacyBehavior>
+                  <ProductCard item={item} />
+                </Link>
+              </Grid>
+            ))}
+          </Grid.Container>
+        </Col>
+      </Row>
+    </Container>
+  </>;
 }
 
 export async function getServerSideProps(context) {

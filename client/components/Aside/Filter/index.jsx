@@ -38,10 +38,10 @@ export default function FilterMobile() {
                   pathname: "/category/[id]",
                   query: { id: data.id },
                 }}
-              >
-                <a onClick={() => toggleVisible("filter")}>
-                  <Text weight={"semibold"}>{data.name}</Text>
-                </a>
+                onClick={() => toggleVisible("filter")}>
+
+                <Text weight={"semibold"}>{data.name}</Text>
+
               </Link>
             </Container>
           </div>

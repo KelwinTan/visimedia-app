@@ -12,26 +12,24 @@ export default function MenuDesktop() {
     getAll().then(data => setCategories(data));
   }, [getAll]);
 
-  return (
-    <>
-      <Dropdown>
-        <Dropdown.Button light size="sm">
-          <HamburgerIcon />
-        </Dropdown.Button>
-        <Dropdown.Menu>
-          {categories.map((data, idx) => (
-            <Dropdown.Item key={idx}>
-              <Link
-                href={{ pathname: '/category/[id]', query: { id: data.id } }}
-              >
-                <a>
-                  <Text weight={'semibold'}>{data.name}</Text>
-                </a>
-              </Link>
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-    </>
-  );
+  return <>
+    <Dropdown>
+      <Dropdown.Button light size="sm">
+        <HamburgerIcon />
+      </Dropdown.Button>
+      <Dropdown.Menu>
+        {categories.map((data, idx) => (
+          <Dropdown.Item key={idx}>
+            <Link
+              href={{ pathname: '/category/[id]', query: { id: data.id } }}
+            >
+
+              <Text weight={'semibold'}>{data.name}</Text>
+
+            </Link>
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
+  </>;
 }

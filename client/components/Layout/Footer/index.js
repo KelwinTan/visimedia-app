@@ -35,35 +35,35 @@ const Footer = () => {
               </Text>
 
               <Link href={route.faq["how-to-buy"]}>
-                <a>
-                  <Text className={"link"} size={14}>
-                    Cara berbelanja
-                  </Text>
-                </a>
+
+                <Text className={"link"} size={14}>
+                  Cara berbelanja
+                </Text>
+
               </Link>
 
               <Link href={route.faq.delivery}>
-                <a>
-                  <Text className={"link"} size={14}>
-                    Pengiriman
-                  </Text>
-                </a>
+
+                <Text className={"link"} size={14}>
+                  Pengiriman
+                </Text>
+
               </Link>
 
               <Link href={route.faq.terms}>
-                <a>
-                  <Text className={"link"} size={14}>
-                    Syarat dan Kententuan
-                  </Text>
-                </a>
+
+                <Text className={"link"} size={14}>
+                  Syarat dan Kententuan
+                </Text>
+
               </Link>
 
               <Link href={route.faq["call-us"]}>
-                <a>
-                  <Text className={"link"} size={14}>
-                    Hubungi Kami
-                  </Text>
-                </a>
+
+                <Text className={"link"} size={14}>
+                  Hubungi Kami
+                </Text>
+
               </Link>
             </div>
           </Grid>
@@ -111,14 +111,14 @@ const Footer = () => {
               </Text>
 
               <Link href={route.faq["call-us"]}>
-                <a>
-                  <Text>Tentang Kami</Text>
-                </a>
+
+                <Text>Tentang Kami</Text>
+
               </Link>
               <Link href={route.faq.marketplace}>
-                <a>
-                  <Text>Marketplace Kami</Text>
-                </a>
+
+                <Text>Marketplace Kami</Text>
+
               </Link>
             </div>
           </Grid>
@@ -165,30 +165,32 @@ const Footer = () => {
               </Text>
 
               <div className={styFooterGrid}>
-                <Link href="https://www.facebook.com/people/Visimedia-SupplierPrinting/100013772404133/">
-                  <a target="_blank">
-                    <FacebookIcon color={color.blue} />
-                  </a>
+                <Link
+                  href="https://www.facebook.com/people/Visimedia-SupplierPrinting/100013772404133/"
+                  target="_blank">
+
+                  <FacebookIcon color={color.blue} />
+
                 </Link>
-                <Link href="https://www.instagram.com/visimediasupply/">
-                  <a target="_blank">
-                    <InstagramIcon color={color.ig} />
-                  </a>
+                <Link href="https://www.instagram.com/visimediasupply/" target="_blank">
+
+                  <InstagramIcon color={color.ig} />
+
                 </Link>
-                <Link href="https://twitter.com/visimediasupply">
-                  <a target="_blank">
-                    <TwitterIcon color={color.twitter} />
-                  </a>
+                <Link href="https://twitter.com/visimediasupply" target="_blank">
+
+                  <TwitterIcon color={color.twitter} />
+
                 </Link>
-                <Link href="https://www.youtube.com/@visimediasupply">
-                  <a target={"_blank"}>
-                    <YoutubeIcon color={color.youtube} />
-                  </a>
+                <Link href="https://www.youtube.com/@visimediasupply" target={"_blank"}>
+
+                  <YoutubeIcon color={color.youtube} />
+
                 </Link>
-                <Link href="https://www.tiktok.com/@visimediaofficial">
-                  <a target={"_blank"}>
-                    <TiktokIcon color={color.tiktok} />
-                  </a>
+                <Link href="https://www.tiktok.com/@visimediaofficial" target={"_blank"}>
+
+                  <TiktokIcon color={color.tiktok} />
+
                 </Link>
               </div>
             </div>

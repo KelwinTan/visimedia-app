@@ -34,41 +34,41 @@ export default function MenuAction() {
           <Dropdown.Menu color="primary" aria-label="User Actions">
             <Dropdown.Item key="carts">
               <Link href={'/cart'}>
-                <a>
-                  <Text
-                    weight="bold"
-                    css={{ marginLeft: 8, color: color.gray }}
-                    className={hover}
-                  >
-                    Keranjang
-                  </Text>
-                </a>
+
+                <Text
+                  weight="bold"
+                  css={{ marginLeft: 8, color: color.gray }}
+                  className={hover}
+                >
+                  Keranjang
+                </Text>
+
               </Link>
             </Dropdown.Item>
             <Dropdown.Item key="order">
               <Link href={'/order'}>
-                <a>
-                  <Text
-                    weight="bold"
-                    css={{ marginLeft: 8, color: color.gray }}
-                    className={hover}
-                  >
-                    Order
-                  </Text>
-                </a>
+
+                <Text
+                  weight="bold"
+                  css={{ marginLeft: 8, color: color.gray }}
+                  className={hover}
+                >
+                  Order
+                </Text>
+
               </Link>
             </Dropdown.Item>
             <Dropdown.Item key="profile">
               <Link href={'/settings'}>
-                <a>
-                  <Text
-                    weight="bold"
-                    css={{ marginLeft: 8, color: color.gray }}
-                    className={hover}
-                  >
-                    Pengaturan
-                  </Text>
-                </a>
+
+                <Text
+                  weight="bold"
+                  css={{ marginLeft: 8, color: color.gray }}
+                  className={hover}
+                >
+                  Pengaturan
+                </Text>
+
               </Link>
             </Dropdown.Item>
           </Dropdown.Menu>
@@ -78,28 +78,28 @@ export default function MenuAction() {
           <UserIcon />
           <div className={userContainer}>
             <Link href={'/login'}>
-              <a>
-                <Text
-                  weight="bold"
-                  css={{ marginLeft: 8, color: color.gray }}
-                  size={14}
-                  className={hover}
-                >
-                  Masuk
-                </Text>
-              </a>
+
+              <Text
+                weight="bold"
+                css={{ marginLeft: 8, color: color.gray }}
+                size={14}
+                className={hover}
+              >
+                Masuk
+              </Text>
+
             </Link>
             <Link href={'/register'}>
-              <a>
-                <Text
-                  weight="bold"
-                  css={{ marginLeft: 8, color: color.gray }}
-                  size={14}
-                  className={hover}
-                >
-                  Daftar
-                </Text>
-              </a>
+
+              <Text
+                weight="bold"
+                css={{ marginLeft: 8, color: color.gray }}
+                size={14}
+                className={hover}
+              >
+                Daftar
+              </Text>
+
             </Link>
           </div>
         </>

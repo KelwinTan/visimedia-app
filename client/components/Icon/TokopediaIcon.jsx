@@ -1,5 +1,5 @@
 import { TOKOPEDIA, TOKOPEDIA_ECOM } from "assets/image";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { bool, number } from "prop-types";
 
 const TokopediaIcon = ({ ecommerce, width, height }) => {

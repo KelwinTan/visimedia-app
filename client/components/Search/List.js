@@ -31,7 +31,7 @@ export default function ListSearch({ data = [], show = false, onSelected }) {
     <Card className={styles.container}>
       {data.map((d, idx, arr) => (
         <>
-          <Link href={{ pathname: "/product/[id]", query: { id: d.id } }}>
+          <Link href={{ pathname: "/product/[id]", query: { id: d.id } }} legacyBehavior>
             <Text onClick={onSelected} className={hover}>
               {d.name}
             </Text>

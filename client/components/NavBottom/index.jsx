@@ -24,24 +24,24 @@ const NavBottom = () => {
     <div className={styNavBottom}>
       <Container display="flex" justify="space-between">
         <Link exact href="/">
-          <a>
-            <div
-              className={styNavBottomItem}
-              onClick={() => {
-                setActive(0);
-                setVisible('menu', false);
-              }}
-            >
-              <HomeIcon
-                width={20}
-                height={20}
-                color={active === 0 ? colorItem.active : colorItem.default}
-              />
-              <Text color={active === 0 ? colorItem.active : colorItem.default}>
-                Home
-              </Text>
-            </div>
-          </a>
+
+          <div
+            className={styNavBottomItem}
+            onClick={() => {
+              setActive(0);
+              setVisible('menu', false);
+            }}
+          >
+            <HomeIcon
+              width={20}
+              height={20}
+              color={active === 0 ? colorItem.active : colorItem.default}
+            />
+            <Text color={active === 0 ? colorItem.active : colorItem.default}>
+              Home
+            </Text>
+          </div>
+
         </Link>
         <div
           className={styNavBottomItem}
@@ -60,28 +60,28 @@ const NavBottom = () => {
           </Text>
         </div>
         {!isAuth ? (
-          <Link exact href="/login">
-            <a>
-              <div
-                className={styNavBottomItem}
-                onClick={() => {
-                  setActive(2);
-                  setVisible('menu', false);
-                }}
+          (<Link exact href="/login">
+
+            <div
+              className={styNavBottomItem}
+              onClick={() => {
+                setActive(2);
+                setVisible('menu', false);
+              }}
+            >
+              <SignInIcon
+                width={20}
+                height={20}
+                color={active === 2 ? colorItem.active : colorItem.default}
+              />
+              <Text
+                color={active === 2 ? colorItem.active : colorItem.default}
               >
-                <SignInIcon
-                  width={20}
-                  height={20}
-                  color={active === 2 ? colorItem.active : colorItem.default}
-                />
-                <Text
-                  color={active === 2 ? colorItem.active : colorItem.default}
-                >
-                  Masuk
-                </Text>
-              </div>
-            </a>
-          </Link>
+                Masuk
+              </Text>
+            </div>
+
+          </Link>)
         ) : (
           <div
             className={styNavBottomItem}

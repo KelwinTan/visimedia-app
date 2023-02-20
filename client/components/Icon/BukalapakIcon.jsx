@@ -1,5 +1,5 @@
 import { BUKALAPAK, BUKALAPAK_ECOM } from "assets/image";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { bool, number } from "prop-types";
 
 const BukalapakIcon = ({ ecommerce, width, height }) => {
