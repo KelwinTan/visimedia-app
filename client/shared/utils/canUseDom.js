@@ -1,3 +1,7 @@
-export default function canUseDom() {
-  return typeof window !== "undefined";
-}
+const canUseDom = !!(
+  typeof window !== 'undefined' &&
+  window.document &&
+  window.document.createElement
+);
+
+export default canUseDom;

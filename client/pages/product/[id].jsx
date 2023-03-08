@@ -19,6 +19,7 @@ import { useCallback, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { getCookie } from 'cookies-next';
 import auth from 'constants/auth';
+import DOMPurify from 'isomorphic-dompurify';
 
 export default function ProductDetail({ product }) {
   const { isMobile, isDesktop } = useUA();
@@ -64,7 +65,13 @@ export default function ProductDetail({ product }) {
           <Col span={isMobile ? 12 : 4} css={{ pl: isDesktop ? '$10' : '$0' }}>
             <Text h4>{product.name}</Text>
             <Text>Harga Rp.{toIDR(product.price)}</Text>
-            <Text css={{ mt: '$8' }}>{product.description}</Text>
+            <Text css={{ mt: '$8' }}>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(product.description)
+                }}
+              ></span>
+            </Text>
             {isMobile && (
               <>
                 <Spacer y={1} />

@@ -1,5 +1,5 @@
-import { Card, Divider, Text } from "@nextui-org/react";
-import { css } from "@emotion/css";
+import { Card, Divider, Text } from '@nextui-org/react';
+import { css } from '@emotion/css';
 import {
   array,
   arrayOf,
@@ -7,11 +7,11 @@ import {
   func,
   number,
   objectOf,
-  string,
-} from "prop-types";
-import Link from "next/link";
-import { hover } from "styles/globals";
-import noop from "utils/noop";
+  string
+} from 'prop-types';
+import Link from 'next/link';
+import { hover } from 'styles/globals';
+import noop from 'shared/utils/noop';
 
 const styles = {
   container: css`
@@ -20,7 +20,7 @@ const styles = {
     width: 100%;
     border-radius: 8px;
     padding: 4px;
-  `,
+  `
 };
 
 export default function ListSearch({ data = [], show = false, onSelected }) {
@@ -31,7 +31,10 @@ export default function ListSearch({ data = [], show = false, onSelected }) {
     <Card className={styles.container}>
       {data.map((d, idx, arr) => (
         <>
-          <Link href={{ pathname: "/product/[id]", query: { id: d.id } }} legacyBehavior>
+          <Link
+            href={{ pathname: '/product/[id]', query: { id: d.id } }}
+            legacyBehavior
+          >
             <Text onClick={onSelected} className={hover}>
               {d.name}
             </Text>
@@ -46,11 +49,11 @@ export default function ListSearch({ data = [], show = false, onSelected }) {
 ListSearch.propTypes = {
   data: arrayOf(objectOf({ id: number, name: string })),
   show: bool,
-  onSelected: func,
+  onSelected: func
 };
 
 ListSearch.defaultProps = {
   data: [],
   show: false,
-  onSelected: noop,
+  onSelected: noop
 };
