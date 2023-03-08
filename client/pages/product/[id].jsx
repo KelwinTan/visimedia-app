@@ -15,11 +15,12 @@ import toIDR from 'shared/currency/toIDR';
 import Button from 'components/Button';
 import ProductVariant from 'components/ProductVariant';
 import { useRouter } from 'next/router';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { getCookie } from 'cookies-next';
 import auth from 'constants/auth';
 import DOMPurify from 'isomorphic-dompurify';
+import striptags from 'striptags';
 
 export default function ProductDetail({ product }) {
   const { isMobile, isDesktop } = useUA();
@@ -49,7 +50,7 @@ export default function ProductDetail({ product }) {
     <>
       <Head>
         <title>{product.name}</title>
-        <meta name="description" content={product.description} />
+        <meta name="description" content={striptags(product.description)} />
         <meta name="robots" content="index, follow" />
       </Head>
       <Breadcrumb links={['home', 'detail', product.name]} />
@@ -65,13 +66,13 @@ export default function ProductDetail({ product }) {
           <Col span={isMobile ? 12 : 4} css={{ pl: isDesktop ? '$10' : '$0' }}>
             <Text h4>{product.name}</Text>
             <Text>Harga Rp.{toIDR(product.price)}</Text>
-            <Text css={{ mt: '$8' }}>
+            <div>
               <span
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(product.description)
                 }}
-              ></span>
-            </Text>
+              />
+            </div>
             {isMobile && (
               <>
                 <Spacer y={1} />
