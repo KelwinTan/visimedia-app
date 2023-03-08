@@ -26,10 +26,10 @@ export default function OrderFilter(props) {
           }}
           key={key}
           css={{
-            backgroundColor: activeTab === key ? color.primary : color.white,
+            backgroundColor: activeTab === key ? '' : color.white,
             color: activeTab === key ? color.white : color.primary,
-            borderColor: color.primary,
-            borderWidth: '1px'
+            // borderColor: color.primary,
+            border: activeTab !== key ? `1px solid ${color.primary}` : 'none'
           }}
           size="lg"
           className={cx(styOrderFilter, hover)}
