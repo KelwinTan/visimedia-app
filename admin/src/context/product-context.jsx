@@ -23,6 +23,27 @@ export default function ProductProvider({ children }) {
     [token]
   );
 
+  const search = useCallback(
+    async (query) => {
+      setLoading(true);
+      try {
+        const { data } = await _axios.post(
+          "/products/search-product",
+          {
+            search: query,
+          },
+          { headers: baseHeader }
+        );
+        setProducts(data.products);
+      } catch (error) {
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    },
+    [baseHeader]
+  );
+
   const getAll = useCallback(async () => {
     setLoading(true);
     try {
@@ -191,6 +212,7 @@ export default function ProductProvider({ children }) {
         remove,
         getDetail,
         update,
+        search,
       }}
     >
       {children}

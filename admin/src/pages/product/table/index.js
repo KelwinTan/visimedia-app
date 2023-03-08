@@ -1,22 +1,34 @@
-import { Button, Image, message, Popconfirm, Space, Table } from "antd";
+import { Button, Image, Input, message, Popconfirm, Space, Table } from "antd";
+import DOMPurify from "dompurify";
+import { useCallback, useState } from "react";
 import { useEffect, useMemo } from "react";
+import useDebounce from "src/shared/hooks/useDebounce";
 import { useProduct } from "../../../context/product-context";
 
 export default function ProductTable({ onUpdate }) {
-  const { getAll, products, remove } = useProduct();
+  const { getAll, products, remove, search } = useProduct();
+  const [valueQuery, setValueQuery] = useState("");
 
+  const debounceQuery = useDebounce(valueQuery, 100);
   useEffect(() => {
-    getAll();
-  }, [getAll]);
-
-  const onDelete = async (id) => {
-    try {
-      await remove(id);
-      message.success("Success delete product");
-    } catch (error) {
-      message.error(error);
+    if (debounceQuery) {
+      search(debounceQuery);
+    } else {
+      getAll();
     }
-  };
+  }, [debounceQuery, getAll, search]);
+
+  const onDelete = useCallback(
+    async (id) => {
+      try {
+        await remove(id);
+        message.success("Success delete product");
+      } catch (error) {
+        message.error(error);
+      }
+    },
+    [remove]
+  );
 
   const columns = useMemo(
     () => [
@@ -29,6 +41,9 @@ export default function ProductTable({ onUpdate }) {
         title: "Description",
         dataIndex: "description",
         key: "description",
+        render: (val) => (
+          <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(val) }} />
+        ),
       },
       {
         title: "Price",
@@ -73,11 +88,15 @@ export default function ProductTable({ onUpdate }) {
         ),
       },
     ],
-    []
+    [onDelete, onUpdate]
   );
 
   return (
     <>
+      <Input
+        placeholder="Cari Product"
+        onChange={(e) => setValueQuery(e.target.value)}
+      />
       <Table
         dataSource={products.map((data, idx) => ({ ...data, key: idx }))}
         columns={columns}
