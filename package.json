@@ -4,6 +4,12 @@
     "postinstall": "husky install"
   },
   "dependencies": {
-    "husky": "^8.0.3"
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "husky": "^8.0.3",
+    "react-draft-wysiwyg": "^1.15.0"
+  },
+  "devDependencies": {
+    "@types/react-draft-wysiwyg": "^1.13.4"
   }
 }

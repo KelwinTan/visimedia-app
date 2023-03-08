@@ -8,10 +8,19 @@ import useSearchParams from "../../../hooks/useSearchParams";
 import uniqueKey from "../../../shared/uniqueKey";
 import { DeleteOutlined } from "@ant-design/icons";
 import transformError from "../../../shared/transformError";
+import { EditorState, ContentState, convertFromHTML } from "draft-js";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Editor } from "react-draft-wysiwyg";
+import "./detail.css";
+import { convertToRaw } from "draft-js";
+import draftjsToHtml from "draftjs-to-html";
 
 export default function ProductForm() {
   const { id } = useSearchParams();
   const history = useHistory();
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
 
   const { loading, create, getDetail, update } = useProduct();
   const { categories, getAll } = useCategory();
@@ -60,6 +69,13 @@ export default function ProductForm() {
           });
         });
 
+        setEditorState(() => {
+          return EditorState.createWithContent(
+            ContentState.createFromBlockArray(
+              convertFromHTML(payloadWithoutImage.description)
+            )
+          );
+        });
         setDetail({
           ...data,
           public_image_url:
@@ -124,9 +140,6 @@ export default function ProductForm() {
       return variantData;
     });
 
-    // console.log({ variant_values });
-    // return;
-
     const payload = {
       ...productField,
       variant_values,
@@ -180,8 +193,23 @@ export default function ProductForm() {
           label="Description"
           name="description"
           rules={[{ required: true, message: "Please input description" }]}
+          getValueFromEvent={(value) => {
+            const rawContentState = convertToRaw(
+              editorState.getCurrentContent()
+            );
+
+            const markup = draftjsToHtml(rawContentState);
+            return markup;
+          }}
         >
-          <Input.TextArea showCount maxLength={1000} rows={4} />
+          {/* <Input.TextArea showCount maxLength={1000} rows={4} /> */}
+          <Editor
+            editorState={editorState}
+            onEditorStateChange={setEditorState}
+            wrapperClassName={"wrapper-class"}
+            editorClassName={"editor-classs"}
+            toolbarClassName={"toolbar-classs"}
+          />
         </Form.Item>
         <Form.Item
           label="Category"
