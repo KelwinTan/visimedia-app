@@ -6,6 +6,7 @@ import {
   Divider,
   message,
   Select,
+  Dropdown,
 } from "antd";
 import { useEffect, useMemo } from "react";
 import useOrder from "../../../hooks/api/useOrder";
@@ -13,10 +14,12 @@ import toIDR from "src/shared/currency/toIDR";
 import { Fragment } from "react";
 import { useCallback } from "react";
 import useOrderStatus from "../../../hooks/api/useOrderStatus";
+import usePayment from "src/hooks/api/usePayment";
 
 export default function VariantTable() {
   const { getAll, order, verify } = useOrder();
   const { getAll: getAllStatus, orderStatus } = useOrderStatus();
+  const { updateStatus } = usePayment();
 
   const onVerify = useCallback(
     async (id) => {
@@ -125,11 +128,28 @@ export default function VariantTable() {
                 </Button>
               </a>
             </Popconfirm>
+
+            <Dropdown
+              menu={{
+                items: orderStatus.map((status, idx) => ({
+                  key: String(idx),
+                  label: status.status,
+                  onClick: async () => {
+                    if (record.order_details?.payment_id) {
+                      updateStatus(record.order_details?.payment_id, status.id);
+                    }
+                  },
+                })),
+              }}
+              trigger={["click"]}
+            >
+              <Button onClick={(e) => e.preventDefault()}>Change Status</Button>
+            </Dropdown>
           </Space>
         ),
       },
     ],
-    [onVerify]
+    [onVerify, orderStatus, updateStatus]
   );
 
   return (
