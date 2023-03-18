@@ -14,6 +14,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { SSRProvider } from 'react-aria';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ s0.parentNode.insertBefore(s1,s0);
                 }}
               />
               <Component {...pageProps} />
+              <Analytics />
               <Toaster toastOptions={{ duration: 2000 }} position="top-right" />
             </Layout>
           </ContextProvider>
